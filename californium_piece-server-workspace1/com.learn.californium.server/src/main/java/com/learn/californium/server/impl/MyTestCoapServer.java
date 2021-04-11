@@ -12,7 +12,7 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.IMyCoapServer;
 
-public class MyCoapServer implements IMyCoapServer {
+public class MyTestCoapServer implements IMyCoapServer {
 
 	CoapServer server1 =null ;
 	
@@ -20,11 +20,11 @@ public class MyCoapServer implements IMyCoapServer {
 	
 	
 	
-	public MyCoapServer() {
+	public MyTestCoapServer() {
 
 	}
 
-	public MyCoapServer(final int... ports) {
+	public MyTestCoapServer(final int... ports) {
 		this.server1 = new CoapServer(ports);
 
 	}

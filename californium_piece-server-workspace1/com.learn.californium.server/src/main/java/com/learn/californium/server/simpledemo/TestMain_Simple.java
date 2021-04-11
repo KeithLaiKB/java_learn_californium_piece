@@ -1,6 +1,8 @@
-package com.learn.californium.server;
+package com.learn.californium.server.simpledemo;
 
 import org.eclipse.californium.core.CoapServer;
+
+import com.learn.californium.server.MyResource;
 
 public class TestMain_Simple {
 
