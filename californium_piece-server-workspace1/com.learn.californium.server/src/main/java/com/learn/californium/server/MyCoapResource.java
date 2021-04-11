@@ -1,5 +1,6 @@
 package com.learn.californium.server;
 
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
@@ -91,29 +92,25 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	/** The logger. */
 	protected final static Logger LOGGER = LoggerFactory.getLogger(MyCoapResource.class);
 
-	/* The attributes of this resource. */
-	//private final ResourceAttributes attributes;
-
-
-
-	/* The resource name. */
-	private String name;
-
-	/* The resource path. */
-	private String path;
-
-
-
 
 
 	/* The list of observers (not CoAP observer). */
-	private List<ResourceObserver> observers;
+	//private List<ResourceObserver> observers;
 
 	/* The the list of CoAP observe relations. */
-	private ObserveRelationContainer observeRelations;
+	//private ObserveRelationContainer observeRelations;
 
-	/* The notification orderer. */
-	private ObserveNotificationOrderer notificationOrderer;
+	
+	
+	
+	/* 自己的 The list of observers (not CoAP observer). */
+	private List<String> observers_ip;
+
+	/* 自己的 The the list of CoAP observe relations. */
+	//private List<String> observeRelations_ip;
+	/** The set of observe relations */
+	// 参考于 ObserveRelationContainer
+	private ConcurrentHashMap<String, InetSocketAddress> observeRelations_ip = new ConcurrentHashMap<String, InetSocketAddress>();
 
 	/**
 	 * Constructs a new resource with the specified name.
@@ -157,12 +154,13 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	/* (non-Javadoc)
 	 * @see org.eclipse.californium.core.server.resources.Resource#add(org.eclipse.californium.core.server.resources.Resource)
 	 
-	 * 更改过
+	 
+	 * 没有更改过
+	 * 感觉不需要更改
 	 */
+	/*
 	@Override
 	public synchronized void add(Resource child) {
-		super.add(child);
-		/*
 		if (child.getName() == null) {
 			throw new NullPointerException("Child must have a name");
 		}
@@ -174,9 +172,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		for (ResourceObserver obs : observers) {
 			obs.addedChild(child);
 		}
-		*/
 	}
-
+	*/
 
 
 
@@ -240,18 +237,26 @@ public class MyCoapResource extends CoapResource  implements Resource {
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.californium.core.server.resources.Resource#addObserver(org.eclipse.californium.core.server.resources.ResourceObserver)
+	 
+	 *
+	 * 等待更改
 	 */
 	@Override
 	public synchronized void addObserver(ResourceObserver observer) {
-		observers.add(observer);
+		super.addObserver(observer);
+		//observers.add(observer);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.californium.core.server.resources.Resource#removeObserver(org.eclipse.californium.core.server.resources.ResourceObserver)
+	 
+	 * 
+	 * 等待更改
 	 */
 	@Override
 	public synchronized void removeObserver(ResourceObserver observer) {
-		observers.remove(observer);
+		super.removeObserver(observer);
+		//observers.remove(observer);
 	}
 
 
@@ -264,7 +269,11 @@ public class MyCoapResource extends CoapResource  implements Resource {
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.californium.core.server.resources.Resource#setPath(java.lang.String)
+	 *
+	 * 没有更改过
+	 * 感觉不需要更改
 	 */
+	/*@Override
 	public synchronized void setPath(String path) {
 		final String old = this.path;
 		this.path = path;
@@ -273,6 +282,11 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		}
 		adjustChildrenPath();
 	}
+	*/
+	
+	
+	
+	
 
 	// If the parent already has a child with that name, the behavior is undefined
 	/* (non-Javadoc)
@@ -280,7 +294,9 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * 
 	 * 
 	 * 没有更改过
+	 * 感觉不需要更改
 	 */
+	/*
 	@Override
 	public synchronized void setName(String name) {
 		if (name == null) {
@@ -305,24 +321,25 @@ public class MyCoapResource extends CoapResource  implements Resource {
 			obs.changedName(old);
 		}
 	}
-
+	
 	/**
 	 * Adjust the path of all children. This method is invoked when the URI of
 	 * this resource has changed, e.g., if its name or the name of an ancestor
 	 * has changed.
 	 * 
 	 * 
-	 * 更改过 由于
+	 * 更改过 由于, 但现在暂时不用更改
 	 */
-	private void adjustChildrenPath() {
+	//@Override
+	//private void adjustChildrenPath() {
 		//String childpath = path + name + /* since 23.7.2013 */ "/";
 		// 更改
-		String childpath = super.getPath() + super.getName() + /* since 23.7.2013 */ "/";
+	//	String childpath = super.getPath() + super.getName() + /* since 23.7.2013 */ "/";
 		//for (Resource child : children.values()) {
-		for (Resource child : super.getChildren()) {
-			child.setPath(childpath);
-		}
-	}
+	//	for (Resource child : super.getChildren()) {
+	//		child.setPath(childpath);
+	//	}
+	//}
 
 
 
@@ -337,6 +354,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 */
 	@Override
 	public void addObserveRelation(ObserveRelation relation) {
+		/*
 		ObserveRelation previous = observeRelations.addAndGetPrevious(relation);
 		if (previous != null) {
 			LOGGER.info("replacing observe relation between {} and resource {} (new {}, size {})", relation.getKey(),
@@ -351,6 +369,16 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		for (ResourceObserver obs:observers) {
 			obs.addedObserveRelation(relation);
 		}
+		*/
+		super.addObserveRelation(relation);
+		
+		//
+		//自己写的
+		System.out.println("heyheyhey:"+relation.getSource());
+		System.out.println("heyheyhey:"+relation.getKey());
+		//observeRelations_ip.add(relation.)
+		observeRelations_ip.put(relation.getKey(), relation.getSource());
+		
 	}
 
 	/* (non-Javadoc)
@@ -358,13 +386,21 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 */
 	@Override
 	public void removeObserveRelation(ObserveRelation relation) {
+		/*
 		if (observeRelations.remove(relation)) {
 			LOGGER.info("remove observe relation between {} and resource {} ({}, size {})", relation.getKey(), getURI(),
 					relation.getExchange(), observeRelations.getSize());
 			for (ResourceObserver obs : observers) {
 				obs.removedObserveRelation(relation);
 			}
-		}
+			//
+			//
+			
+			
+		}*/
+		super.removeObserveRelation(relation);
+		//自己写的
+		observeRelations_ip.remove(relation.getKey(), relation.getSource());
 	}
 
 	/**
@@ -374,12 +410,16 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @return the observer count
 	 * 
 	 * 
+	 
 	 * 没有更改过
+	 * 感觉不需要更改
 	 */
+	/*
 	@Override
 	public int getObserverCount() {
 		return observeRelations.getSize();
 	}
+	*/
 
 
 
@@ -391,8 +431,11 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @param filter filter to select set of relations. 
 	 *               <code>null</code>, if all clients should be notified.
 	 *               
+	 
 	 * 没有更改过
+	 * 感觉不需要更改
 	 */
+	/*
 	@Override
 	protected void notifyObserverRelations(final ObserveRelationFilter filter) {
 		notificationOrderer.getNextObserveNumber();
@@ -402,6 +445,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 			}
 		}
 	}
+	*/
 
 
 

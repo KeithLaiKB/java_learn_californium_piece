@@ -1,5 +1,7 @@
 package com.learn.californium.server.mytest;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class MyTestMain {
 
 	public static void main(String[] args) {
@@ -14,6 +16,14 @@ public class MyTestMain {
 		System.out.println(myStudent1.getCls_attribute());
 		
 		System.out.println(myStudent1.outputMoneyAmount());
+		
+		
+		
+		ConcurrentHashMap<String,String> chm1=new ConcurrentHashMap<String,String>();
+		String chm_puttmp1 = chm1.put("chm1_element1", "no.1");
+		System.out.println(chm_puttmp1);
+		chm_puttmp1 = chm1.put("chm1_element1", "no.2");
+		System.out.println(chm_puttmp1);
 	}
 
 }
