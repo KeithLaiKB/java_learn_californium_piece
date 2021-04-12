@@ -1,4 +1,4 @@
-package com.learn.californium.server.myresc;
+package com.learn.californium.server.observerdemo;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,12 +9,12 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-public class MyObserverResource_Simple  extends CoapResource {
+public class TestObserverResource_Simple  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
 	
-		public MyObserverResource_Simple(String name) {
+		public TestObserverResource_Simple(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			setObserveType(Type.CON); // configure the notification type to CONs
@@ -70,7 +70,7 @@ public class MyObserverResource_Simple  extends CoapResource {
 		
 		public static void main(String[] args) {
 			CoapServer server = new CoapServer(5656);
-			server.add(new MyObserverResource_Simple("hello_observer"));
+			server.add(new TestObserverResource_Simple("hello_observer"));
 			server.start();
 			
 		}

@@ -1,9 +1,9 @@
-package com.learn.californium.server;
+package com.learn.californium.server.observerdemo;
 
 import org.eclipse.californium.core.CoapServer;
 
 import com.learn.californium.server.IMyCoapServer;
-import com.learn.californium.server.myresc.MyObserverResource;
+import com.learn.californium.server.observerdemo.myresc.MyObserverResource;
 
 public class TestServerMain  {
 

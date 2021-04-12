@@ -1,4 +1,4 @@
-package com.learn.californium.server;
+package com.learn.californium.server.myresc;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;

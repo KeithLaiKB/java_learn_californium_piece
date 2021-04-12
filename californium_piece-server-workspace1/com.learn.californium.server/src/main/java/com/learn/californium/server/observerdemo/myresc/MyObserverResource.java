@@ -1,4 +1,4 @@
-package com.learn.californium.server.myresc;
+package com.learn.californium.server.observerdemo.myresc;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,18 +17,19 @@ import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.IMyCoapServer;
-import com.learn.californium.server.MyCoapResource;
 
-public class MyObserverResourceTest1  extends MyCoapResource {
+public class MyObserverResource  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
 		private IMyCoapServer myCoapServer1=null;
 	
+		/* The list of observers (not CoAP observer). */
+		//private List<ResourceObserver> observers;
 		
 		
 
-		public MyObserverResourceTest1(String name) {
+		public MyObserverResource(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			setObserveType(Type.CON); // configure the notification type to CONs
