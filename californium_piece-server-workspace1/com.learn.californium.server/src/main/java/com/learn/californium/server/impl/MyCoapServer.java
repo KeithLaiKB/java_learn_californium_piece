@@ -1,4 +1,4 @@
-package com.learn.californium.server;
+package com.learn.californium.server.impl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -8,7 +8,10 @@ import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapObserveRelation;
 import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.coap.CoAP.Code;
+import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 public class TestMain_RequestObserverOne {
@@ -21,6 +24,10 @@ public class TestMain_RequestObserverOne {
         try {
 			
 			//response = client.get();
+	        //Request rq1=new Request(Code.POST);
+	        //rq1.setType(Type.CON);
+	        //
+	        
 			CoapHandler handler = new CoapHandler() {
 
 	            @Override
@@ -35,7 +42,9 @@ public class TestMain_RequestObserverOne {
 	            public void onError() {
 	            }
 	        };
-			response = client.observe(handler);
+
+			//response = client.observe(rq1,handler);
+	        response = client.observe(handler);
 			//response = client.observeAndWait(handler);
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
 			

@@ -14,7 +14,7 @@ public class TestMain_Simple {
 		// 注意 这里的 hello 大小写是敏感的
 		// 因为 client那边 是根据 coap://localhost:5656/hello 来发送请求的
 		server.add(new MyResource("hello"));
-
+		//
 		server.start(); // does all the magic
 
 	}

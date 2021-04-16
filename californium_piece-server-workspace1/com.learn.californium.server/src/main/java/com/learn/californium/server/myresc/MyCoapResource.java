@@ -1,4 +1,4 @@
-package com.learn.californium.server;
+package com.learn.californium.server.myresc;
 
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -372,7 +372,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		*/
 		super.addObserveRelation(relation);
 		
-		//
+		//--------------------------------
 		//自己写的
 		System.out.println("heyheyhey:"+relation.getSource());
 		System.out.println("heyheyhey:"+relation.getKey());
@@ -447,6 +447,13 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	}
 	*/
 
-
+	//自己添加
+	public ConcurrentHashMap<String, InetSocketAddress> getObserveRelations_ip() {
+		return observeRelations_ip;
+	}
+	//自己添加
+	public void setObserveRelations_ip(ConcurrentHashMap<String, InetSocketAddress> observeRelations_ip) {
+		this.observeRelations_ip = observeRelations_ip;
+	}
 
 }

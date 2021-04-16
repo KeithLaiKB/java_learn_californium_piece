@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.network.Endpoint;
@@ -17,7 +18,7 @@ import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.IMyCoapServer;
-import com.learn.californium.server.MyCoapResource;
+import com.learn.californium.server.myresc.MyCoapResource;
 
 public class MyObserverResourceTest1  extends MyCoapResource {
 
@@ -31,7 +32,9 @@ public class MyObserverResourceTest1  extends MyCoapResource {
 		public MyObserverResourceTest1(String name) {
 			super(name);
 			setObservable(true); // enable observing
-			setObserveType(Type.CON); // configure the notification type to CONs
+			// Exchange.class 
+			// public void setCurrentResponse(Response newCurrentResponse)
+			//setObserveType(Type.CON); // configure the notification type to CONs
 			getAttributes().setObservable(); // mark observable in the Link-Format
 			
 			// schedule a periodic update task, otherwise let events call changed()
@@ -61,20 +64,36 @@ public class MyObserverResourceTest1  extends MyCoapResource {
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
+			//
+			//
+			//exchange.get
+			//
+			//
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
 				exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num);
 			}
 			else {
 				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
-				System.out.println("rsc_attr: "+it_tmp.next().toString());
+				System.out.println("rsc_attr_key_set: "+it_tmp.next().toString());
 				ResourceAttributes rscAtr_tmp = this.getAttributes();
 				System.out.println("rsc_attr: "+rscAtr_tmp);
-				System.out.println("rsc_attr: "+this.getAttributes().getAttributeValues("obs"));
+				System.out.println("rsc_attr_valus_of_var_obs: "+this.getAttributes().getAttributeValues("obs"));
+				
+				//
+				//
+				//
+				// 获取 当前请求的 ip 和 端口 和 具体信息, 例如 127.0.0.1:49599#71D02AE4EEAECC79
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
+				// 获取 当前请求的 ip 和 端口  
 				System.out.println(exchange.getSourceSocketAddress());
+				// 
+				//
+				// 
 				exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				//
+				
 			}
 			
 			

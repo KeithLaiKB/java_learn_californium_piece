@@ -31,9 +31,9 @@ public class MyObserverResource  extends CoapResource {
 
 		public MyObserverResource(String name) {
 			super(name);
-			setObservable(true); // enable observing
-			setObserveType(Type.CON); // configure the notification type to CONs
-			getAttributes().setObservable(); // mark observable in the Link-Format
+			this.setObservable(true); // enable observing
+			this.setObserveType(Type.CON); // configure the notification type to CONs
+			this.getAttributes().setObservable(); // mark observable in the Link-Format
 			
 			// schedule a periodic update task, otherwise let events call changed()
 			Timer timer = new Timer();

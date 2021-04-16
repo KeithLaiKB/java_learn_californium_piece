@@ -8,6 +8,8 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 
+
+
 public class MyResource extends CoapResource {
 	public MyResource(String name) {
 		super(name);
@@ -24,6 +26,12 @@ public class MyResource extends CoapResource {
 		System.out.println("handleGET" +"//TOKEN:"+ exchange.advanced().getRequest().getTokenString());
 		//
 		//System.out.println(new String(exchange.getRequestPayload()));
+		System.out.println("handleGET" +"//getSourceSocketAddress:"+ exchange.getSourceSocketAddress());
+		System.out.println("handleGET" +"//getRequestText:"+ exchange.getRequestText());
+		System.out.println("handleGET" +"//getRequestPayload:"+ exchange.getRequestPayload());
+		System.out.println("handleGET" +"//getRequestPayload:"+ exchange.getQueryParameter("my_var1"));
+		//
+		
 		exchange.respond("hello world"); // reply with 2.05 payload (text/plain)
 		//exchange.respond(ResponseCode.CREATED);
 	}

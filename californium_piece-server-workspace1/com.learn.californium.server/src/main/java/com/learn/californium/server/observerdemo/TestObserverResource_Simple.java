@@ -45,6 +45,9 @@ public class TestObserverResource_Simple  extends CoapResource {
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
+			//
+			//
+			//
 			exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num+"//"+this.getEndpoints().size());
 			
 		}
