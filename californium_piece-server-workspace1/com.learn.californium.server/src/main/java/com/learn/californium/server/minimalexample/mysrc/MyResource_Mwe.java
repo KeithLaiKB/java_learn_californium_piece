@@ -1,4 +1,4 @@
-package com.learn.californium.server.myresc;
+package com.learn.californium.server.minimalexample.mysrc;
 
 
 
@@ -9,13 +9,20 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 
 
-
-public class MyResource extends CoapResource {
-	public MyResource(String name) {
+/**
+ * 
+ * MWE means minimal working example
+ * 也就是最简化 的例子
+ * 
+ * @author laipl
+ *
+ */
+public class MyResource_Mwe extends CoapResource {
+	public MyResource_Mwe(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
-	public MyResource(String name, boolean visible) {
+	public MyResource_Mwe(String name, boolean visible) {
 		super(name, visible);
 	}
 	
@@ -24,17 +31,7 @@ public class MyResource extends CoapResource {
 	public void handleGET(CoapExchange exchange) {
 		//
 		System.out.println("handleGET" +"//TOKEN:"+ exchange.advanced().getRequest().getTokenString());
-		//
-		//System.out.println(new String(exchange.getRequestPayload()));
-		System.out.println("handleGET" +"//getSourceAddress:"+ exchange.getSourceAddress());
-		System.out.println("handleGET" +"//getSourcePort:"+ exchange.getSourcePort());
-		System.out.println("handleGET" +"//getSourceSocketAddress:"+ exchange.getSourceSocketAddress());
-		System.out.println("handleGET" +"//getRequestText:"+ exchange.getRequestText());
-		System.out.println("handleGET" +"//getRequestPayload:"+ exchange.getRequestPayload());
-		System.out.println("handleGET" +"//getQueryParameter_myvar1:"+ exchange.getQueryParameter("my_var1"));
-		System.out.println("handleGET" +"//getRequestOptions:"+ exchange.getRequestOptions());
-		//
-		
+		// https://datatracker.ietf.org/meeting/interim-2016-t2trg-03/materials/slides-interim-2016-t2trg-03-sessa-californium-coap-00
 		exchange.respond("hello world"); // reply with 2.05 payload (text/plain)
 		//exchange.respond(ResponseCode.CREATED);
 	}
@@ -54,7 +51,7 @@ public class MyResource extends CoapResource {
 		//storeData(exchange.getRequestPayload(), exchange.getRequestOptions().getContentFormat());
 		//
 		// complete the request
-		exchange.respond(ResponseCode.CHANGED);
+		exchange.respond(ResponseCode.CHANGED);		// reply with response code only (shortcut)
 	}
 	
 	

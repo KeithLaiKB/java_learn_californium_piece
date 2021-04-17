@@ -15,7 +15,7 @@ public class TestMain_Asynchronous {
 
 	
 	public static void main(String[] args) {
-		String port1 = "coap://localhost:5656/hello?my_var1=3";
+		String port1 = "coap://localhost:5656/hello?my_var1=i_am_var";
 		String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
 																// 我把它的192.168.50.178:5656 映射成160.32.219.56:5656
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
