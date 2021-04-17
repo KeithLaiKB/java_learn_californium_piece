@@ -17,6 +17,9 @@ import org.eclipse.californium.core.network.stack.ExchangeCleanupLayer;
 import org.eclipse.californium.core.network.stack.ReliabilityLayer;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learn.californium.client.datadto.DtoFruit;
+
 
 
 public class TestMain_Synchronous {
@@ -36,7 +39,20 @@ public class TestMain_Synchronous {
 		try {
 			// http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats
 			//resp = client2.put("payload", MediaTypeRegistry.TEXT_PLAIN);
-			resp = client2.put("payload", MediaTypeRegistry.TEXT_PLAIN);
+			//
+			//resp = client2.post("i am payload", MediaTypeRegistry.TEXT_PLAIN);
+			//
+			DtoFruit dtoFruit1=new DtoFruit();
+			dtoFruit1.setName("i am apple");
+			dtoFruit1.setWeight(23.666);
+			//
+			ObjectMapper objectMapper = new ObjectMapper();
+			String dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
+			//
+			resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
+			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
+			//
+			//
 			System.out.println( resp.isSuccess() );
 			System.out.println( resp.getOptions() );
 			System.out.println( resp.getResponseText() );

@@ -46,6 +46,7 @@ public class MyResource_Mwe extends CoapResource {
 			exchange.respond(ResponseCode.BAD_REQUEST, "Content-Format not set");
 			return;
 		}
+		System.out.println("handlePUT:"+ exchange.getRequestOptions().toString());
 		//
 		// store payload
 		//storeData(exchange.getRequestPayload(), exchange.getRequestOptions().getContentFormat());
@@ -62,9 +63,8 @@ public class MyResource_Mwe extends CoapResource {
 		//
 		if (exchange.getRequestOptions() != null) {
 			// do something specific to the request options
-			System.out.println("handlePOST1");
+			System.out.println("handlePOST:"+ exchange.getRequestOptions().toString());
 		}
-		System.out.println("handlePOST2");
 		exchange.respond(ResponseCode.CREATED); // reply with response code only (shortcut)
 	}
 }
