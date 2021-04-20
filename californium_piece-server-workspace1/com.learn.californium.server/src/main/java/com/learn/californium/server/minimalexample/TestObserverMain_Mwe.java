@@ -21,9 +21,9 @@ public class TestObserverMain_Mwe  {
 		//MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
 		MyObserverResourceTest1 myobResc1 = new MyObserverResourceTest1("hello_observer");
 		myobResc1.setMyCoapServer(server);
-		
+		//
 		server.add(myobResc1);
-
+		//
 		server.start(); // does all the magic
 		
 	}
