@@ -17,7 +17,7 @@ public class TestMain_Simple_Mwe {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		//
 		// define port to be 5656 
 		CoapServer server = new CoapServer(5656);
 		// name "hello" is letter sensitive
