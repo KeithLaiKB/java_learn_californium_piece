@@ -17,13 +17,12 @@ public class TestMain_Simple_Mwe {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// 如果不填参数，则默认端口是5683
-		// 这里我尝试自己定义一个端口5656
+		
+		// define port to be 5656 
 		CoapServer server = new CoapServer(5656);
-		// 注意 这里的 hello 大小写是敏感的
-		// 因为 client那边 是根据 coap://localhost:5656/hello 来发送请求的
+		// name "hello" is letter sensitive
 		server.add(new MyResource_Mwe("hello"));
-		//
+		// start
 		server.start(); // does all the magic
 
 	}

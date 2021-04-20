@@ -61,6 +61,15 @@ public class MyResource extends CoapResource {
 	@Override
 	public void handlePOST(CoapExchange exchange) {
 		//
+		// 原来
+		// 53144	-> 	5656 	CON		POST ....
+		// 5656		->	53144	ACK
+		//
+		// 如果多了 这句话 相比于 没有这句话 多出ACK
+		// 53144	-> 	5656 	CON		POST ....
+		// 5656		->	53144	ACK
+		// 5656		->	53144	CON		hello_nihao
+		// 53144	->	5656	ACK
 		exchange.accept(); // make it a separate response
 		//
 		if (exchange.getRequestOptions() != null) {

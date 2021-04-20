@@ -49,9 +49,10 @@ public class TestMain_Synchronous {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
 			//
-			resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
+			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
 			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
 			//
+			resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 			//
 			System.out.println( resp.isSuccess() );
 			System.out.println( resp.getOptions() );

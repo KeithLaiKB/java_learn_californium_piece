@@ -1,4 +1,4 @@
-package com.learn.californium.client.learn_observer;
+package com.learn.californium.client.learn_observer.minimalexample;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,50 +44,14 @@ public class TestMain_RequestObserverOne {
 	        };
 
 			//response = client.observe(rq1,handler);
-	        //
-	        //
-	        //
-			// 原来
-			// 53144	-> 	5656 	CON		GET ....
-			// 5656		->	53144	ACK		1st_num
-	        // 5656		->	53144	NON		2nd_num
-	        // 5656		->	53144	NON		3rd_num
-	        // 5656		->	53144	NON		4th_num
-	        response = client.observe(handler);
+	        //response = client.observe(handler);
+	        response = client.observeAndWait(handler);
 			//response = client.observeAndWait(handler);
-	        //
-	        // 如果用observe的时候
-	        // 区别在于,
-	        // 假设先启动client, 没启动server, 
-	        // 那么此时他	会	显示wow_hello,
-	        //
-	        // 如果用observeAndWait的时候
-	        // 假设先启动client, 没启动server, 
-	        // 那么此时他	不会	显示wow_hello,
-	        //
-	        // 所以就像是一个线程阻塞了的感觉
-	        System.out.println("wow_hello");
-	        
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
 			
 	        
 			//response.reactiveCancel();
 			
-	        if (response!=null) {
-	        
-	        	System.out.println( "response getCode:");
-	        	System.out.println( "response getOptions:");
-	        	//System.out.println( "response text:" + response.toString() );
-	        	//System.out.println( "payload:" + response.getCurrent().getResponseText() );
-	        	//response.getCurrentResponse();
-	        	//System.out.println( "payload:" + new String(response.getCurrent().getPayload()) );
-	        	
-	        	//System.out.println(xml);
-	        } else {
-	        	
-	        	System.out.println("Request failed");
-	        	
-	        }	
 	        
 	        System.out.println("enter to exit!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

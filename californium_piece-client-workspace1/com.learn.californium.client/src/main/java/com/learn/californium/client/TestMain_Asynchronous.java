@@ -11,6 +11,10 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learn.californium.client.datadto.DtoFruit;
+
 public class TestMain_Asynchronous {
 
 	
@@ -29,6 +33,8 @@ public class TestMain_Asynchronous {
 		//req1.setToken(token);
 		
 		//client2.advanced(request)
+		
+		/*
 		client2.get(new CoapHandler() { // e.g., anonymous inner class
 	
 			@Override public void onLoad(CoapResponse response) { // also error resp.
@@ -40,8 +46,43 @@ public class TestMain_Asynchronous {
 				System.err.println("Failed");
 			}
 		});
-
+		*/
 		
+		
+		CoapHandler myCoapHandler1 = new CoapHandler() { // e.g., anonymous inner class
+			
+			@Override public void onLoad(CoapResponse response) { // also error resp.
+				System.out.println( "hi:" + response.getResponseText() );
+				System.out.println( "hi:" + response.advanced().getTokenString());
+			}
+			 
+			@Override public void onError() { // I/O errors and timeouts
+				System.err.println("Failed");
+			}
+		};
+		
+		
+		
+		DtoFruit dtoFruit1=new DtoFruit();
+		dtoFruit1.setName("i am apple");
+		dtoFruit1.setWeight(23.666);
+		//
+		ObjectMapper objectMapper = new ObjectMapper();
+		String dtoFruit1AsString = new String("");
+		try {
+			dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
+			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//
+		//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
+		//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
+		//
+		
+		//client2.get(myCoapHandler1);
+		client2.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		
 		//---------------------------------------------
 		// 因为 异步，是要等待回传的，等待是需要时间的，
