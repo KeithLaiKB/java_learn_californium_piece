@@ -22,6 +22,8 @@ public class MyObserverResource  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
+		private int int_mytask_used=0;
+		
 		private IMyCoapServer myCoapServer1=null;
 	
 		/* The list of observers (not CoAP observer). */
@@ -37,21 +39,30 @@ public class MyObserverResource  extends CoapResource {
 			
 			// schedule a periodic update task, otherwise let events call changed()
 			Timer timer = new Timer();
+			// 每10000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
 		
 
 
+		/**
+		 * 这里面 每一次changed 代表, 要去通知所有的client
+		 * 则会调用handelGet
+		 * 
+		 * @author laipl
+		 *
+		 */
 		private class UpdateTask extends TimerTask {
 			@Override
 			public void run() {
-				System.out.println("UpdateTask");
+				System.out.println("UpdateTask-------");
 				//
+				int_mytask_used = int_mytask_used+1;
 				// .. periodic update of the resource
-
 				changed(); // notify all observers
 			}
 		}
+		
 		
 		@Override
 		public void handleGET(CoapExchange exchange) {
@@ -59,12 +70,13 @@ public class MyObserverResource  extends CoapResource {
 			//
 			int_connect_get_num = int_connect_get_num +1;
 			System.out.println("connect num: "+int_connect_get_num);
+			System.out.println("task used num: "+int_mytask_used);
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
-				exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num);
+				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			else {
 				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
@@ -75,7 +87,7 @@ public class MyObserverResource  extends CoapResource {
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
 				System.out.println(exchange.getSourceSocketAddress());
-				exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			
 			
