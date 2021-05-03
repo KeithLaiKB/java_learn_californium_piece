@@ -17,6 +17,7 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 public class TestMain_RequestObserverOne {
     public static void main(String[] args) {
 
+        //CoapClient client = new CoapClient("coap://localhost:5683/hello_observer");
         CoapClient client = new CoapClient("coap://localhost:5656/hello_observer");
         //
         CoapObserveRelation response;
