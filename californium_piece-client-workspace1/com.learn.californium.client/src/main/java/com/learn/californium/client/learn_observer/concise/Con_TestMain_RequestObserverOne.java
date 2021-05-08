@@ -1,4 +1,4 @@
-package com.learn.californium.client.learn_observer.minimalexample;
+package com.learn.californium.client.learn_observer.concise;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
-public class TestMain_RequestObserverOne {
+public class Con_TestMain_RequestObserverOne {
     public static void main(String[] args) {
 
         //CoapClient client = new CoapClient("coap://localhost:5656/hello_observer");

@@ -1,4 +1,4 @@
-package com.learn.californium.server.mydemo;
+package com.learn.californium.server;
 
 import java.util.List;
 

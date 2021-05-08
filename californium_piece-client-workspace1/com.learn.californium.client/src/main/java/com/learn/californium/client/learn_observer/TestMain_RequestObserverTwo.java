@@ -1,5 +1,13 @@
 package com.learn.californium.client.learn_observer;
 
+/**
+ * 
+ * 这个是指 你可以用另外一个workspace启动, 把这个项目复制进去
+ * 然后 一个 workspace启动 ObseverOne, 另外一个workspace启动ObserverTwo
+ * 
+ * 然后来看看, 两个Observer 一起去观察 同一个server 的效果
+ * 
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

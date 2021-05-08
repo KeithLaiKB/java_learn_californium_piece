@@ -17,10 +17,18 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.mydemo.IMyCoapServer;
+import com.learn.californium.server.IMyCoapServer;
 import com.learn.californium.server.mydemo.myresc.MyCoapResource;
 
-public class MyObserverResourceTest1  extends MyCoapResource {
+/**
+ * 
+ * @author laipl
+ *
+ * 继承 MyCoapResource, 这个类  稍微重写了点 CoapResource 中的一些方法内容 
+ *
+ *
+ */
+public class MyObserverResource_Modified  extends MyCoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -48,7 +56,7 @@ public class MyObserverResourceTest1  extends MyCoapResource {
         // 5656		->	53144	NON		2nd_num
         // 5656		->	53144	NON		3rd_num
         // 5656		->	53144	NON		4th_num
-		public MyObserverResourceTest1(String name) {
+		public MyObserverResource_Modified(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			// Exchange.class 

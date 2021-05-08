@@ -10,7 +10,7 @@ import org.eclipse.californium.core.server.ServerMessageDeliverer;
 import org.eclipse.californium.core.server.resources.Resource;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.mydemo.IMyCoapServer;
+import com.learn.californium.server.IMyCoapServer;
 
 public class MyTestCoapServer implements IMyCoapServer {
 

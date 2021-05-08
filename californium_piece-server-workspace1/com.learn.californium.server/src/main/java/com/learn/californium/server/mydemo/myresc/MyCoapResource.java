@@ -102,7 +102,10 @@ public class MyCoapResource extends CoapResource  implements Resource {
 
 	
 	
-	
+	//
+	//
+	//-------------------------------
+	//
 	/* 自己的 The list of observers (not CoAP observer). */
 	private List<String> observers_ip;
 
@@ -111,7 +114,12 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	/** The set of observe relations */
 	// 参考于 ObserveRelationContainer
 	private ConcurrentHashMap<String, InetSocketAddress> observeRelations_ip = new ConcurrentHashMap<String, InetSocketAddress>();
-
+	//
+	//
+	//-------------------------------
+	//
+	//
+	//
 	/**
 	 * Constructs a new resource with the specified name.
 	 *
@@ -371,14 +379,21 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		}
 		*/
 		super.addObserveRelation(relation);
-		
+		//
+		//
+		//
+		//
+		//
 		//--------------------------------
 		//自己写的
 		System.out.println("heyheyhey:"+relation.getSource());
 		System.out.println("heyheyhey:"+relation.getKey());
 		//observeRelations_ip.add(relation.)
 		observeRelations_ip.put(relation.getKey(), relation.getSource());
-		
+		//--------------------------------
+		//
+		//
+		//
 	}
 
 	/* (non-Javadoc)
@@ -398,9 +413,20 @@ public class MyCoapResource extends CoapResource  implements Resource {
 			
 			
 		}*/
+		//
 		super.removeObserveRelation(relation);
+		//
+		//
+		//
+		//
+		//
+		//--------------------------------
 		//自己写的
 		observeRelations_ip.remove(relation.getKey(), relation.getSource());
+		//--------------------------------
+		//
+		//
+		//
 	}
 
 	/**
@@ -447,6 +473,9 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	}
 	*/
 
+	
+	//--------------------------------自己添加的方法--------------------------------
+	
 	//自己添加
 	public ConcurrentHashMap<String, InetSocketAddress> getObserveRelations_ip() {
 		return observeRelations_ip;

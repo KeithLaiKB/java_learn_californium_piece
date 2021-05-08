@@ -1,4 +1,4 @@
-package com.learn.californium.server.minimalexample.myresc;
+package com.learn.californium.server.minimalexample.myresc.concise;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.IMyCoapServer;
 
-public class MyObserverResource_Mwe  extends CoapResource {
+public class Con_MyObserverResource_Mwe  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -31,7 +31,7 @@ public class MyObserverResource_Mwe  extends CoapResource {
 		
 		
 
-		public MyObserverResource_Mwe(String name) {
+		public Con_MyObserverResource_Mwe(String name) {
 			super(name);
 			this.setObservable(true); // enable observing
 			this.setObserveType(Type.CON); // configure the notification type to CONs

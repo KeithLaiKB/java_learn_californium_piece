@@ -9,12 +9,12 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-public class TestObserverResource_Simple  extends CoapResource {
+public class TestObserver_Simple  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
 	
-		public TestObserverResource_Simple(String name) {
+		public TestObserver_Simple(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			setObserveType(Type.CON); // configure the notification type to CONs
@@ -73,7 +73,7 @@ public class TestObserverResource_Simple  extends CoapResource {
 		
 		public static void main(String[] args) {
 			CoapServer server = new CoapServer(5656);
-			server.add(new TestObserverResource_Simple("hello_observer"));
+			server.add(new TestObserver_Simple("hello_observer"));
 			server.start();
 			
 		}
