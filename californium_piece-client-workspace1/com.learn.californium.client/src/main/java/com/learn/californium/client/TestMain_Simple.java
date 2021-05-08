@@ -7,7 +7,7 @@ import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
-public class TestMain {
+public class TestMain_Simple {
     public static void main(String[] args) {
 
         CoapClient client = new CoapClient("coap://localhost:5656/hello");

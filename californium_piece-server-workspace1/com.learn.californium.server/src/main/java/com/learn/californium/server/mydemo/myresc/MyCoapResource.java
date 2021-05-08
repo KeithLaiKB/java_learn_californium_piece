@@ -1,4 +1,4 @@
-package com.learn.californium.server.myresc;
+package com.learn.californium.server.mydemo.myresc;
 
 import java.net.InetSocketAddress;
 import java.net.URI;

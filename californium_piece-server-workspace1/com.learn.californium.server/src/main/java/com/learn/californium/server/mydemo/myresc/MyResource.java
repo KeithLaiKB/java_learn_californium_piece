@@ -1,4 +1,4 @@
-package com.learn.californium.server.myresc;
+package com.learn.californium.server.mydemo.myresc;
 
 
 

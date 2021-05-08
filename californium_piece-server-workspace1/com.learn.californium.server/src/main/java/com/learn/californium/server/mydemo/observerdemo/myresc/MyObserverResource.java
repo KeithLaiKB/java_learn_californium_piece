@@ -1,4 +1,4 @@
-package com.learn.californium.server.minimalexample.mysrc;
+package com.learn.californium.server.mydemo.observerdemo.myresc;
 
 import java.util.Iterator;
 import java.util.List;
@@ -16,9 +16,9 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 
-public class MyObserverResource_Mwe  extends CoapResource {
+public class MyObserverResource  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -31,7 +31,7 @@ public class MyObserverResource_Mwe  extends CoapResource {
 		
 		
 
-		public MyObserverResource_Mwe(String name) {
+		public MyObserverResource(String name) {
 			super(name);
 			this.setObservable(true); // enable observing
 			this.setObserveType(Type.CON); // configure the notification type to CONs
@@ -63,6 +63,7 @@ public class MyObserverResource_Mwe  extends CoapResource {
 			}
 		}
 		
+		
 		@Override
 		public void handleGET(CoapExchange exchange) {
 			System.out.println("handleGET");
@@ -73,7 +74,6 @@ public class MyObserverResource_Mwe  extends CoapResource {
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
-			// initial, the first time, the getObserverCount()==0
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
@@ -87,7 +87,7 @@ public class MyObserverResource_Mwe  extends CoapResource {
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
 				System.out.println(exchange.getSourceSocketAddress());
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			
 			

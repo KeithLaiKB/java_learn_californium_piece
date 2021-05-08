@@ -1,4 +1,4 @@
-package com.learn.californium.server.observerdemo.myresc;
+package com.learn.californium.server.minimalexample.myresc;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
-import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.network.Endpoint;
@@ -17,10 +16,9 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
-import com.learn.californium.server.myresc.MyCoapResource;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 
-public class MyObserverResourceTest1  extends MyCoapResource {
+public class MyObserverResource_Mwe  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -28,33 +26,16 @@ public class MyObserverResourceTest1  extends MyCoapResource {
 		
 		private IMyCoapServer myCoapServer1=null;
 	
+		/* The list of observers (not CoAP observer). */
+		//private List<ResourceObserver> observers;
 		
 		
-		// 原来设置的是有  setObserveType(Type.CON)
-		// 如果多了 这句话 相比于 没有这句话 多出ACK
-		// 53144	-> 	5656 	CON		GET ....
-		// 5656		->	53144	ACK		1st_num
-        // 5656		->	53144	CON		2nd_num
-		// 53144	-> 	5656 	ACK		
-        // 5656		->	53144	CON		3rd_num
-		// 53144	-> 	5656 	ACK		
-        // 5656		->	53144	CON		4th_num
-		// 53144	-> 	5656 	ACK		
-		//
-		// 如果没有这句话
-		// 则默认 Type.NON 
-		// 53144	-> 	5656 	CON		GET ....
-		// 5656		->	53144	ACK		1st_num
-        // 5656		->	53144	NON		2nd_num
-        // 5656		->	53144	NON		3rd_num
-        // 5656		->	53144	NON		4th_num
-		public MyObserverResourceTest1(String name) {
+
+		public MyObserverResource_Mwe(String name) {
 			super(name);
-			setObservable(true); // enable observing
-			// Exchange.class 
-			// public void setCurrentResponse(Response newCurrentResponse)
-			setObserveType(Type.CON); // configure the notification type to CONs
-			getAttributes().setObservable(); // mark observable in the Link-Format
+			this.setObservable(true); // enable observing
+			this.setObserveType(Type.CON); // configure the notification type to CONs
+			this.getAttributes().setObservable(); // mark observable in the Link-Format
 			
 			// schedule a periodic update task, otherwise let events call changed()
 			Timer timer = new Timer();
@@ -62,6 +43,7 @@ public class MyObserverResourceTest1  extends MyCoapResource {
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
 		
+
 
 		/**
 		 * 这里面 每一次changed 代表, 要去通知所有的client
@@ -91,36 +73,21 @@ public class MyObserverResourceTest1  extends MyCoapResource {
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
-			//
-			//
-			//exchange.get
-			//
-			//
+			// initial, the first time, the getObserverCount()==0
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			else {
 				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
-				System.out.println("rsc_attr_key_set: "+it_tmp.next().toString());
+				System.out.println("rsc_attr: "+it_tmp.next().toString());
 				ResourceAttributes rscAtr_tmp = this.getAttributes();
 				System.out.println("rsc_attr: "+rscAtr_tmp);
-				System.out.println("rsc_attr_valus_of_var_obs: "+this.getAttributes().getAttributeValues("obs"));
-				
-				//
-				//
-				//
-				// 获取 当前请求的 ip 和 端口 和 具体信息, 例如 127.0.0.1:49599#71D02AE4EEAECC79
+				System.out.println("rsc_attr: "+this.getAttributes().getAttributeValues("obs"));
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
-				// 获取 当前请求的 ip 和 端口  
 				System.out.println(exchange.getSourceSocketAddress());
-				// 
-				//
-				// 
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
-				//
-				
 			}
 			
 			

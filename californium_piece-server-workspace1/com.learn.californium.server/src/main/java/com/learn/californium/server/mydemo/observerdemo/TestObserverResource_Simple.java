@@ -1,4 +1,4 @@
-package com.learn.californium.server.observerdemo;
+package com.learn.californium.server.mydemo.observerdemo;
 
 import java.util.Timer;
 import java.util.TimerTask;

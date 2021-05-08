@@ -1,4 +1,4 @@
-package com.learn.californium.server.minimalexample.mysrc;
+package com.learn.californium.server.minimalexample.myresc;
 
 
 

@@ -2,8 +2,8 @@ package com.learn.californium.server.minimalexample;
 
 import org.eclipse.californium.core.CoapServer;
 
-import com.learn.californium.server.minimalexample.mysrc.MyResource_Mwe;
-import com.learn.californium.server.myresc.MyResource;
+import com.learn.californium.server.minimalexample.myresc.MyResource_Mwe;
+import com.learn.californium.server.mydemo.myresc.MyResource;
 
 /**
  * 
