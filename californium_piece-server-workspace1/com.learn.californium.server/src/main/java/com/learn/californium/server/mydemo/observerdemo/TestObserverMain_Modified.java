@@ -6,6 +6,9 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.impl.MyTestCoapServer;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified;
+import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp1;
+import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp2;
+import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp3;
 
 public class TestObserverMain_Modified  {
 
@@ -20,7 +23,18 @@ public class TestObserverMain_Modified  {
 		// 因为 client那边 是根据 coap://localhost:5656/hello 来发送请求的
 		//MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
 		MyObserverResource_Modified myobResc1 = new MyObserverResource_Modified("hello_observer");
+		MyObserverResource_Modified_Cp1 myobResc1_c1 = new MyObserverResource_Modified_Cp1("hello_observer_child1");
+		MyObserverResource_Modified_Cp2 myobResc1_c2 = new MyObserverResource_Modified_Cp2("hello_observer_child2");
+		MyObserverResource_Modified_Cp3 myobResc1_c3 = new MyObserverResource_Modified_Cp3("hello_observer_child2");
+		//
+		myobResc1_c2.add(myobResc1_c3);
+		myobResc1_c1.add(myobResc1_c2);
+		myobResc1.add(myobResc1_c1);
+		
 		myobResc1.setMyCoapServer(server);
+		myobResc1_c1.setMyCoapServer(server);
+		myobResc1_c2.setMyCoapServer(server);
+		myobResc1_c3.setMyCoapServer(server);
 		
 		server.add(myobResc1);
 

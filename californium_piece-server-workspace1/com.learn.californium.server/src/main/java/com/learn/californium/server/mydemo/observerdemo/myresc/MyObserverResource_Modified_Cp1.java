@@ -39,10 +39,12 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * 
  * @author laipl
  *
- *
+ * 从MyObserverResource_Modified 复制出来的, 内容一模一样的
+ * 只是查错时好判断是那个资源出的问题, 好查出来而已
+ * 可以删除的 
  *
  */
-public class MyObserverResource_Modified  extends MyCoapResource {
+public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -70,7 +72,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
         // 5656		->	53144	NON		2nd_num
         // 5656		->	53144	NON		3rd_num
         // 5656		->	53144	NON		4th_num
-		public MyObserverResource_Modified(String name) {
+		public MyObserverResource_Modified_Cp1(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			// Exchange.class 

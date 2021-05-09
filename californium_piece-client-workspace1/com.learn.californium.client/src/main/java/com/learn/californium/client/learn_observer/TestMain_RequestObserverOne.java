@@ -17,9 +17,50 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 
 public class TestMain_RequestObserverOne {
     public static void main(String[] args) {
+    	/**
+    	 * 假设 服务器设置了
+    	 * 资源	hello_observer
+    	 * 并且	hello_observer 			设置了一个子资源 	hello_observer_child1 
+    	 * 并且	hello_observer_child1 	设置了一个子资源 	hello_observer_child2 
+    	 * 并且	hello_observer_child2 	设置了一个子资源 	hello_observer_child3 
+    	 * 
+    	 */
 
-        //CoapClient client = new CoapClient("coap://localhost:5683/hello_observer");
-        CoapClient client = new CoapClient("coap://localhost:5656/hello_observer");
+    	String myuri1 	 = "coap://localhost:5656/hello_observer";
+    	String myuri1_wrong1 = "coap://localhost:5656/hello_observer_child1";				//根据 上面的假设, 这样是访问不到 hello_observer 的子资源		hello_observer_child1 
+    	String myuri1_wrong2 = "coap://localhost:5656/hello_observer_child2";				//根据 上面的假设, 这样是访问不到 hello_observer 的子资源		hello_observer_child1 	的子资源	 hello_observer_child2 
+    	String myuri1_c1 = "coap://localhost:5656/hello_observer/hello_observer_child1";
+    	String myuri1_c2 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2";
+    	String myuri1_c3 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3";
+    	//CoapClient client = new CoapClient("coap://localhost:5683/hello_observer");
+        
+    	// 情况一:
+    	// 当运行 localhost:5656/hello_observer/hello_observer_child1
+    	// 使用了 delete
+    	// 停止后
+    	// 运行     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
+    	// 是NOT_FOUND的
+    	//
+    	// 情况二:
+    	// 当运行 localhost:5656/hello_observer/hello_observer_child1
+    	// 使用了 delete
+    	// 停止后
+    	// 运行     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3
+    	// 是NOT_FOUND的
+    	
+    	//
+    	// 情况三:
+    	// 当运行 localhost:5656/hello_observer/hello_observer_child1
+    	// 使用了 delete
+    	// 停止后
+    	// 运行     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
+    	// 是可以访问的到的
+    	//
+    	// 也就是说 如果服务器删除一个resource, 它的子resource也会被删除
+    
+    	//
+    	//
+    	CoapClient client = new CoapClient(myuri1);
         //
         CoapObserveRelation response;
 		//
@@ -154,11 +195,11 @@ public class TestMain_RequestObserverOne {
             		//System.out.println("reconnect broker");
             	}
             	else if(int_choice==3) {
-            		response.reactiveCancel();
+            		response.reactiveCancel();				//取消观察状态
             		System.out.println("reactiveCancel");
             	}
             	else if(int_choice==4) {
-            		response = client.observe(myObserveHandler);
+            		response = client.observe(myObserveHandler); //取消观察状态后 还是可以继续observe的
             		System.out.println("observe again");
             	}
             }
