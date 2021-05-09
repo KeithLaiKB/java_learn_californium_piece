@@ -1,16 +1,14 @@
-package com.learn.californium.server.impl;
+package com.learn.californium.server.mydemo.impl;
 
 import java.util.List;
 
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.Endpoint;
-import org.eclipse.californium.core.network.config.NetworkConfig;
-import org.eclipse.californium.core.observe.ObserveRelationContainer;
+
 import org.eclipse.californium.core.server.ServerMessageDeliverer;
 import org.eclipse.californium.core.server.resources.Resource;
-import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 
 public class MyTestCoapServer implements IMyCoapServer {
 
@@ -29,7 +27,7 @@ public class MyTestCoapServer implements IMyCoapServer {
 
 	}
 
-
+	@Override
 	public List<Endpoint> getMyEndPoints() {
 		// TODO Auto-generated method stub
 		System.out.println("now there are:" + server1.getEndpoints().size());
@@ -46,6 +44,14 @@ public class MyTestCoapServer implements IMyCoapServer {
 	
 	public void start() {
 		this.server1.start();
+	}
+
+	
+	
+	@Override
+	public boolean remove(Resource resource) {
+		// TODO Auto-generated method stub
+		return this.server1.remove(resource);
 	}
 
 	

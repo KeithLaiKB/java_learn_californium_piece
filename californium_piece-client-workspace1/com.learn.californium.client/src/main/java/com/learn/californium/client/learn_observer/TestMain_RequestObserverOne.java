@@ -3,6 +3,7 @@ package com.learn.californium.client.learn_observer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapHandler;
@@ -29,11 +30,12 @@ public class TestMain_RequestObserverOne {
 	        //rq1.setType(Type.CON);
 	        //
 	        
-			CoapHandler handler = new CoapHandler() {
+			CoapHandler myObserveHandler = new CoapHandler() {
 
 	            @Override
 	            public void onLoad(CoapResponse response) {
 	                //log.info("Command Response Ack: {}, {}", response.getCode(), response.getResponseText());
+	            	System.out.println("---------------------------------------");
 	            	System.out.println("on load: " + response.getResponseText());
 	            	System.out.println("get code: " + response.getCode().name());
 	            	
@@ -44,6 +46,22 @@ public class TestMain_RequestObserverOne {
 	            }
 	        };
 
+	        
+			CoapHandler myDeleteHandler = new CoapHandler() {
+
+	            @Override
+	            public void onLoad(CoapResponse response) {
+	                //log.info("Command Response Ack: {}, {}", response.getCode(), response.getResponseText());
+	            	System.out.println("---------------------------------------");
+	            	System.out.println("on load: " + response.getResponseText());
+	            	System.out.println("get code: " + response.getCode().name());
+	            	
+	            }
+
+	            @Override
+	            public void onError() {
+	            }
+	        };
 			//response = client.observe(rq1,handler);
 	        //
 	        //
@@ -54,7 +72,7 @@ public class TestMain_RequestObserverOne {
 	        // 5656		->	53144	NON		2nd_num
 	        // 5656		->	53144	NON		3rd_num
 	        // 5656		->	53144	NON		4th_num
-	        response = client.observe(handler);
+	        response = client.observe(myObserveHandler);
 			//response = client.observeAndWait(handler);
 	        //
 	        // 如果用observe的时候
@@ -90,12 +108,73 @@ public class TestMain_RequestObserverOne {
 	        	
 	        }	
 	        
+	        
+	        
+	        Scanner in =new Scanner(System.in) ;
+            int int_choice = 0;
+            while(int_choice!=-1) {
+            	System.out.println("here is the choice:");
+            	System.out.println("-1: to exit");
+            	System.out.println("1: to delete");
+            	System.out.println("2: nothing");
+            	System.out.println("3: to reactiveCancel");
+            	System.out.println("4: to observe again");
+            	System.out.println("enter the choice:");
+            	// input
+            	int_choice = in.nextInt();
+            	if(int_choice==-1) {
+            		//System.exit(0);
+            		break;
+            	}
+            	else if(int_choice==1) {
+            		//
+            		System.out.println("deleteing record");
+            		//System.out.println("deleting resources");
+            		//
+            		//
+            		// 我认为 delete 挺重要的 所以我这选择的是同步
+            		//client.delete();				// 用的是 同步, 对面没回应, 就不能继续往下走
+            		client.delete(myDeleteHandler); // 用的是 异步
+            		//
+            		// 注意 这个delete 
+            		// 可以是让 	服务器删除 这个资源
+            		// 也可以是让	服务器删除 某个记录(比如server那边 连了个数据库)
+            		// 这取决于 server 那边的 handleDelete 里的操作
+            		//
+            		// 如果 是让服务器删除 这个资源
+            		// 以后 client 不会再收到这个resource的内容, 但是 server还是在运行 
+            		// 所以server那边需要 把timer关掉, 此外还有可能要 remove(Resource resource)
+            		//
+            		//
+            		//System.out.println("deleted resources");
+            		//System.out.println("deleted record");
+            	}
+            	else if(int_choice==2) {
+            		//sampleClient.reconnect();
+            		//System.out.println("reconnect broker");
+            	}
+            	else if(int_choice==3) {
+            		response.reactiveCancel();
+            		System.out.println("reactiveCancel");
+            	}
+            	else if(int_choice==4) {
+            		response = client.observe(myObserveHandler);
+            		System.out.println("observe again");
+            	}
+            }
+	        
+	        
+            in.close();
+            
+            
+            /*
 	        System.out.println("enter to exit!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			try { br.readLine(); } catch (IOException e) { }
 			System.out.println("CANCELLATIONING");
 			response.proactiveCancel();
 			System.out.println("CANCELLATION FINISHED");
+			*/
 		//		
 		//	
 		} catch (Exception e) {

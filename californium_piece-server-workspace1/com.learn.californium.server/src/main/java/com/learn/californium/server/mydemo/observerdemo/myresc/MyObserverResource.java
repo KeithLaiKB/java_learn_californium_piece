@@ -16,7 +16,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 
 public class MyObserverResource  extends CoapResource {
 

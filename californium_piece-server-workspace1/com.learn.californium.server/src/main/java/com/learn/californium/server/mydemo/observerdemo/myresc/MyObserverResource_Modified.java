@@ -17,15 +17,29 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.myresc.MyCoapResource;
 
 /**
  * 
  * @author laipl
  *
+ * 参考于 
+ * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
+ *
+ * 此外还
  * 继承 MyCoapResource, 这个类  稍微重写了点 CoapResource 中的一些方法内容 
  *
+ *
+ */
+
+/**
+ * 
+ * 
+ * 
+ * @author laipl
+ *
+
  *
  */
 public class MyObserverResource_Modified  extends MyCoapResource {
@@ -36,7 +50,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 		
 		private IMyCoapServer myCoapServer1=null;
 	
-		
+		Timer timer = null;
 		
 		// 原来设置的是有  setObserveType(Type.CON)
 		// 如果多了 这句话 相比于 没有这句话 多出ACK
@@ -64,8 +78,12 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			setObserveType(Type.CON); // configure the notification type to CONs
 			getAttributes().setObservable(); // mark observable in the Link-Format
 			
+			//
+			//----------------------------------------
+			//
 			// schedule a periodic update task, otherwise let events call changed()
-			Timer timer = new Timer();
+			//Timer timer = new Timer();
+			timer = new Timer();
 			// 每10000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
@@ -134,6 +152,21 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			
 		}
 		
+		/**
+		 * 注意, 我这里的delete方法 
+		 * 是为了  删除这个资源的操作, 因为我这里 里面用了delete() 
+		 * 意思是删除这个资源, 让client无法进行observe
+		 * 
+		 * 当然 handelDelete 可以用来
+         * 		1. 可以是让 	服务器删除 这个资源
+         * 		2. 也可以是让	服务器删除 某个记录(比如server那边 连了个数据库)
+		 * 
+		 * 只是我这里 选择了 1. 可以是让 	服务器删除 这个资源
+		 * 当然你可以改成2, 
+		 * 		那么就是要删除这里面的 delete(), 
+		 * 		然后添加 删除数据库里的某个记录的操作了 
+		 * 
+		 */
 		@Override
 		public void handleDELETE(CoapExchange exchange) {
 			System.out.println("handleDELETE");
@@ -141,6 +174,12 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			//
 			delete(); // will also call clearAndNotifyObserveRelations(ResponseCode.NOT_FOUND)
 			exchange.respond(ResponseCode.DELETED);
+			//
+			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
+			//
+			//
+			timer.cancel();
+			this.myCoapServer1.remove(this);
 		}
 		
 		@Override

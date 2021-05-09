@@ -16,29 +16,52 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.IMyCoapServer;
+import com.learn.californium.server.mydemo.IMyCoapServer;
 
+/**
+ * 
+ * 
+ * 
+ * @author laipl
+ *
+ * 参考于 
+ * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
+ *
+ *
+ */
 public class MyObserverResource_Mwe  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
 		private int int_mytask_used=0;
 		
-		private IMyCoapServer myCoapServer1=null;
+		//private IMyCoapServer myCoapServer1=null;
 	
 		/* The list of observers (not CoAP observer). */
 		//private List<ResourceObserver> observers;
 		
+		Timer timer = null;
 		
-
+		
 		public MyObserverResource_Mwe(String name) {
 			super(name);
+			//
+			//----------------------------------------
 			this.setObservable(true); // enable observing
 			this.setObserveType(Type.CON); // configure the notification type to CONs
-			this.getAttributes().setObservable(); // mark observable in the Link-Format
-			
+			// 设置 setObservable() 使得 mark observable in the Link-Format 
+			// 可以查 californium 的类LinkFormat	
+			// 涉及到 https://tools.ietf.org/html/rfc6690#section-4 	(这讲了Linkformat 这么做的概念)
+			// 和  https://tools.ietf.org/html/rfc6690#section-4.1
+			// https://blog.csdn.net/xukai871105/article/details/45167069/
+			// 其实就是设置好 application/link-format 
+			this.getAttributes().setObservable(); // mark observable in the Link-Format (可以查 californium 的类LinkFormat)	
+			//
+			//----------------------------------------
+			//
 			// schedule a periodic update task, otherwise let events call changed()
-			Timer timer = new Timer();
+			//Timer timer = new Timer();
+			timer = new Timer();
 			// 每10000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
@@ -62,7 +85,13 @@ public class MyObserverResource_Mwe  extends CoapResource {
 				changed(); // notify all observers
 			}
 		}
-		
+		//
+		//
+		//
+		//
+		//--------------------- handle get/ delete / put / post--------------------- 
+		//
+		//
 		@Override
 		public void handleGET(CoapExchange exchange) {
 			System.out.println("handleGET");
@@ -87,7 +116,8 @@ public class MyObserverResource_Mwe  extends CoapResource {
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
 				System.out.println(exchange.getSourceSocketAddress());
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
 			
 			
@@ -98,7 +128,16 @@ public class MyObserverResource_Mwe  extends CoapResource {
 			System.out.println("handleDELETE");
 			//
 			//
+			/*
 			delete(); // will also call clearAndNotifyObserveRelations(ResponseCode.NOT_FOUND)
+			exchange.respond(ResponseCode.DELETED);
+			//
+			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
+			//
+			//
+			timer.cancel();
+			*/
+			//
 			exchange.respond(ResponseCode.DELETED);
 		}
 		
@@ -111,11 +150,12 @@ public class MyObserverResource_Mwe  extends CoapResource {
 			exchange.respond(ResponseCode.CHANGED);
 			changed(); // notify all observers
 		}
-		
+		//
+		//----------------------------------------------------------------- 
 		//
 		//
 		//
-		//
+		/*
 		public IMyCoapServer getMyCoapServer() {
 			return myCoapServer1;
 		}
@@ -123,6 +163,6 @@ public class MyObserverResource_Mwe  extends CoapResource {
 		public void setMyCoapServer(IMyCoapServer myCoapServer1) {
 			this.myCoapServer1 = myCoapServer1;
 		}
-
+		*/
 
 	}
