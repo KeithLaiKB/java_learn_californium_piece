@@ -32,15 +32,15 @@ public class TestMain_Synchronous {
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 		
-		CoapClient client2 = new CoapClient(port1);
+		CoapClient client1 = new CoapClient(port1);
 		//
 		CoapResponse resp;
 		//
 		try {
 			// http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats
-			//resp = client2.put("payload", MediaTypeRegistry.TEXT_PLAIN);
+			//resp = client1.put("payload", MediaTypeRegistry.TEXT_PLAIN);
 			//
-			//resp = client2.post("i am payload", MediaTypeRegistry.TEXT_PLAIN);
+			//resp = client1.post("i am payload", MediaTypeRegistry.TEXT_PLAIN);
 			//
 			DtoFruit dtoFruit1=new DtoFruit();
 			dtoFruit1.setName("i am apple");
@@ -49,10 +49,10 @@ public class TestMain_Synchronous {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
 			//
-			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
-			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
+			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
+			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
 			//
-			resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+			resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 			//
 			System.out.println( resp.isSuccess() );
 			System.out.println( resp.getOptions() );
@@ -98,7 +98,9 @@ public class TestMain_Synchronous {
 		System.out.println("CANCELLATIONING");
 		//resp.proactiveCancel();
 		System.out.println("CANCELLATION FINISHED");
-		
-		
+		//
+		//
+		client1.shutdown();
+        System.exit(0);
 	}
 }

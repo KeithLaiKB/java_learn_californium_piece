@@ -2,7 +2,7 @@ package com.learn.californium.server.minimalexample;
 
 import org.eclipse.californium.core.CoapServer;
 
-import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Mwe;
+import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con_Mwe;
 import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.impl.MyTestCoapServer;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource;
@@ -29,7 +29,7 @@ public class TestObserverMain_Mwe  {
 		MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
 		myobResc1.setMyCoapServer(server);
 		*/
-		MyObserverResource_Mwe myobResc1 = new MyObserverResource_Mwe("hello_observer");
+		MyObserverResource_Con_Mwe myobResc1 = new MyObserverResource_Con_Mwe("hello_observer");
 		//
 		//
 		//------------------------operate server-------------------------------------

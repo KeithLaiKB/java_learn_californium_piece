@@ -32,16 +32,6 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  *
  *
  */
-
-/**
- * 
- * 
- * 
- * @author laipl
- *
- *
- *
- */
 public class MyObserverResource_Modified  extends MyCoapResource {
 
 		

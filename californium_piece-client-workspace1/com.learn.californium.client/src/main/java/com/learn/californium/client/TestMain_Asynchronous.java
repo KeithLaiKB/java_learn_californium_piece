@@ -25,7 +25,7 @@ public class TestMain_Asynchronous {
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 		
-		CoapClient client2 = new CoapClient(port1);
+		CoapClient client1 = new CoapClient(port1);
 		//
 		CoapResponse resp;
 		//
@@ -71,18 +71,18 @@ public class TestMain_Asynchronous {
 		String dtoFruit1AsString = new String("");
 		try {
 			dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
-			//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		//
-		//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
-		//resp = client2.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
+		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
+		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
 		//
 		
-		//client2.get(myCoapHandler1);
-		client2.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+		//client1.get(myCoapHandler1);
+		client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		
 		//---------------------------------------------
 		// 因为 异步，是要等待回传的，等待是需要时间的，
@@ -100,6 +100,7 @@ public class TestMain_Asynchronous {
 		//resp.proactiveCancel();
 		System.out.println("CANCELLATION FINISHED");
 		
-		
+		client1.shutdown();
+        System.exit(0);
 	}
 }

@@ -31,17 +31,9 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * 继承 MyCoapResource, 这个类  稍微重写了点 CoapResource 中的一些方法内容 
  *
  *
- */
-
-/**
- * 
- * 
- * 
- * @author laipl
- *
  * 从MyObserverResource_Modified 复制出来的, 内容一模一样的
  * 只是查错时好判断是那个资源出的问题, 好查出来而已
- * 可以删除的 
+ * 可以删除的
  *
  */
 public class MyObserverResource_Modified_Cp3  extends MyCoapResource {

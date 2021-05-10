@@ -27,9 +27,10 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
  * ²Î¿¼ÓÚ 
  * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
  *
- *
+ * the "_Con_" in MyObserverResource_Con_Mwe means here
+ * use this.setObserveType(Type.CON)
  */
-public class MyObserverResource_Mwe  extends CoapResource {
+public class MyObserverResource_Con_Mwe  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -43,7 +44,7 @@ public class MyObserverResource_Mwe  extends CoapResource {
 		Timer timer = null;
 		
 		
-		public MyObserverResource_Mwe(String name) {
+		public MyObserverResource_Con_Mwe(String name) {
 			super(name);
 			//
 			//----------------------------------------
