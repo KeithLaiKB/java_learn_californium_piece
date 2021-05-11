@@ -8,7 +8,7 @@ import com.learn.californium.server.mydemo.myresc.MyResource;
 /**
  * 
  * MWE means minimal working example
- * 也就是最简化 的例子
+ * MWE 意思就是  简化的例子
  * 
  * @author laipl
  *
