@@ -18,10 +18,11 @@ public class TestObserverMain_Modified  {
 		System.out.println("fkkkk");
 		// 如果不填参数，则默认端口是5683
 		// 这里我尝试自己定义一个端口5656
-		MyTestCoapServer server = new MyTestCoapServer(5656);
+		
 		// 注意 这里的 hello 大小写是敏感的
 		// 因为 client那边 是根据 coap://localhost:5656/hello 来发送请求的
 		//MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
+		MyTestCoapServer server = new MyTestCoapServer(5656);
 		MyObserverResource_Modified myobResc1 = new MyObserverResource_Modified("hello_observer");
 		MyObserverResource_Modified_Cp1 myobResc1_c1 = new MyObserverResource_Modified_Cp1("hello_observer_child1");
 		MyObserverResource_Modified_Cp2 myobResc1_c2 = new MyObserverResource_Modified_Cp2("hello_observer_child2");

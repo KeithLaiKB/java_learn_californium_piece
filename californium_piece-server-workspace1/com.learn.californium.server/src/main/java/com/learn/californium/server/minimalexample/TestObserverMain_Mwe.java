@@ -7,7 +7,14 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.impl.MyTestCoapServer;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified;
-
+/**
+ * 
+ * MWE means minimal working example
+ * MWE 意思就是  简化的例子
+ * 
+ * @author laipl
+ *
+ */
 public class TestObserverMain_Mwe  {
 
 	

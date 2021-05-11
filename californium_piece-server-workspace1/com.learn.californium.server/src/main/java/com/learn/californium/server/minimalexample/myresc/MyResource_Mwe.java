@@ -29,6 +29,7 @@ public class MyResource_Mwe extends CoapResource {
 	
 	@Override
 	public void handleGET(CoapExchange exchange) {
+		// ≥¢ ‘exchange
 		//System.out.println("handleGET" +"//TOKEN:"+ exchange.advanced().getRequest().getTokenString());
 		//
 		// https://datatracker.ietf.org/meeting/interim-2016-t2trg-03/materials/slides-interim-2016-t2trg-03-sessa-californium-coap-00
