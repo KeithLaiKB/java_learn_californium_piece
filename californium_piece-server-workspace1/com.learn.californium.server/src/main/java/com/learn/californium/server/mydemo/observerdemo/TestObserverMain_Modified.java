@@ -6,9 +6,9 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.impl.MyTestCoapServer;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified;
-import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp1;
-import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp2;
-import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified_Cp3;
+import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp1;
+import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp2;
+import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp3;
 
 public class TestObserverMain_Modified  {
 
@@ -26,7 +26,7 @@ public class TestObserverMain_Modified  {
 		MyObserverResource_Modified myobResc1 = new MyObserverResource_Modified("hello_observer");
 		MyObserverResource_Modified_Cp1 myobResc1_c1 = new MyObserverResource_Modified_Cp1("hello_observer_child1");
 		MyObserverResource_Modified_Cp2 myobResc1_c2 = new MyObserverResource_Modified_Cp2("hello_observer_child2");
-		MyObserverResource_Modified_Cp3 myobResc1_c3 = new MyObserverResource_Modified_Cp3("hello_observer_child2");
+		MyObserverResource_Modified_Cp3 myobResc1_c3 = new MyObserverResource_Modified_Cp3("hello_observer_child3");
 		//
 		myobResc1_c2.add(myobResc1_c3);
 		myobResc1_c1.add(myobResc1_c2);

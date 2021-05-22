@@ -9,7 +9,18 @@ import org.eclipse.californium.core.server.ServerMessageDeliverer;
 import org.eclipse.californium.core.server.resources.Resource;
 
 import com.learn.californium.server.mydemo.IMyCoapServer;
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																					</br>	
+ * &emsp;						implements 	IMyCoapServer, so that the resource can access parts info of server				</br>
+ * 	
 
+ *
+ * @author laipl
+ *
+ */
 public class MyTestCoapServer implements IMyCoapServer {
 
 	CoapServer server1 =null ;

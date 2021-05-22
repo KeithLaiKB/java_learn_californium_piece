@@ -1,4 +1,4 @@
-package com.learn.californium.server.mydemo.observerdemo.myresc;
+package com.learn.californium.server.mydemo.observerdemo.myresc.useless;
 
 import java.util.Iterator;
 import java.util.List;

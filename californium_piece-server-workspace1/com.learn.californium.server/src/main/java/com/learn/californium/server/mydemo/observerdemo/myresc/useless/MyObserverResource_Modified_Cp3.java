@@ -1,4 +1,4 @@
-package com.learn.californium.server.mydemo.observerdemo.myresc;
+package com.learn.californium.server.mydemo.observerdemo.myresc.useless;
 
 import java.util.Iterator;
 import java.util.List;
@@ -31,36 +31,12 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * 继承 MyCoapResource, 这个类  稍微重写了点 CoapResource 中的一些方法内容 
  *
  *
- */
-/**
- * 
- * 
- * <p>
- * 							description:																			</br>	
- * &emsp;						it contains server and resource														</br>
- * &emsp;						consist IMyCoapServer																</br>
- * &emsp;						inherit MyCoapResource																</br>	
- * 																													</br>
- * 
- * 							ref:																					</br>	
- * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 	</br>		
- * 																													</br>
- * 
- * 							extra test case:																		</br>				 					
- * &emsp;						modified																			</br>
- * &emsp;&emsp;						cp1																				</br>
- * &emsp;&emsp;&emsp;					cp2																			</br>
- * &emsp;&emsp;&emsp;&emsp;					cp3																		</br>
- * </p>
- *
- * 							param:																					</br>
- * &emsp;						myCoapServer1:																		</br>
- * &emsp;&emsp;&emsp;				for further extension in a multiple requirements, and override some methods		</br>
- *
- * @author laipl
+ * 从MyObserverResource_Modified 复制出来的, 内容一模一样的
+ * 只是查错时好判断是那个资源出的问题, 好查出来而已
+ * 可以删除的
  *
  */
-public class MyObserverResource_Modified  extends MyCoapResource {
+public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -88,7 +64,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
         // 5656		->	53144	NON		2nd_num
         // 5656		->	53144	NON		3rd_num
         // 5656		->	53144	NON		4th_num
-		public MyObserverResource_Modified(String name) {
+		public MyObserverResource_Modified_Cp3(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			// Exchange.class 

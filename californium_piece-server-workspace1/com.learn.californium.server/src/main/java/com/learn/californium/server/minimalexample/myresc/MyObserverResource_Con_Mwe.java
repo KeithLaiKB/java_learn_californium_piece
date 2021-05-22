@@ -18,17 +18,25 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.mydemo.IMyCoapServer;
 
+
 /**
  * 
  * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						MWE means minimal working example													</br>
+ * &emsp;						MWE 意思就是  简化的例子																	</br>
+ * &emsp;						for testing the observer															</br>
+ * &emsp;						the "_Con_" in MyObserverResource_Con_Mwe means in this class						</br>
+ * &emsp;&emsp;						it would use this.setObserveType(Type.CON)										</br>
+ * 																													</br>
  * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ *
+ *
  * @author laipl
  *
- * 参考于 
- * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
- *
- * the "_Con_" in MyObserverResource_Con_Mwe means here
- * use this.setObserveType(Type.CON)
  */
 public class MyObserverResource_Con_Mwe  extends CoapResource {
 
@@ -36,10 +44,6 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 		private int int_connect_get_num=0;
 		private int int_mytask_used=0;
 		
-		//private IMyCoapServer myCoapServer1=null;
-	
-		/* The list of observers (not CoAP observer). */
-		//private List<ResourceObserver> observers;
 		
 		Timer timer = null;
 		
@@ -109,14 +113,6 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			else {
-				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
-				System.out.println("rsc_attr: "+it_tmp.next().toString());
-				ResourceAttributes rscAtr_tmp = this.getAttributes();
-				System.out.println("rsc_attr: "+rscAtr_tmp);
-				System.out.println("rsc_attr: "+this.getAttributes().getAttributeValues("obs"));
-				ObserveRelation ob_tmp = exchange.advanced().getRelation();
-				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
-				System.out.println(exchange.getSourceSocketAddress());
 				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
@@ -129,16 +125,12 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			System.out.println("handleDELETE");
 			//
 			//
-			/*
 			delete(); // will also call clearAndNotifyObserveRelations(ResponseCode.NOT_FOUND)
-			exchange.respond(ResponseCode.DELETED);
 			//
 			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
 			//
-			//
+			// 关闭计时器
 			timer.cancel();
-			*/
-			//
 			exchange.respond(ResponseCode.DELETED);
 		}
 		
@@ -151,19 +143,6 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			exchange.respond(ResponseCode.CHANGED);
 			changed(); // notify all observers
 		}
-		//
-		//----------------------------------------------------------------- 
-		//
-		//
-		//
-		/*
-		public IMyCoapServer getMyCoapServer() {
-			return myCoapServer1;
-		}
 
-		public void setMyCoapServer(IMyCoapServer myCoapServer1) {
-			this.myCoapServer1 = myCoapServer1;
-		}
-		*/
 
 	}

@@ -25,6 +25,18 @@ import org.eclipse.californium.elements.util.NamedThreadFactory;
 import org.eclipse.californium.elements.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						now it is useless, one day i might change it										</br>
+ * 	
+
+ *
+ * @author laipl
+ *
+ */
 
 /**
  * 我想要 再设置一个相同的变量 获取 现在正在连这个server的所有 client

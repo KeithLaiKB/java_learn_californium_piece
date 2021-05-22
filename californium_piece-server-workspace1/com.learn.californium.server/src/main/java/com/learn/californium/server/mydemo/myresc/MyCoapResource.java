@@ -154,8 +154,6 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	
 
 
-	
-
 
 
 

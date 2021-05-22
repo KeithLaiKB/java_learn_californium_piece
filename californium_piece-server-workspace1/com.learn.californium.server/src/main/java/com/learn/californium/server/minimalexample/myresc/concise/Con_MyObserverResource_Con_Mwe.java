@@ -1,4 +1,4 @@
-package com.learn.californium.server.mydemo.observerdemo.myresc;
+package com.learn.californium.server.minimalexample.myresc.concise;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
-import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.network.Endpoint;
@@ -18,60 +17,50 @@ import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.mydemo.IMyCoapServer;
-import com.learn.californium.server.mydemo.myresc.MyCoapResource;
 
 /**
  * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						MWE means minimal working example													</br>
+ * &emsp;						MWE 意思就是  简化的例子																	</br>
+ * &emsp;						for testing the observer															</br>
+ * &emsp;						the "_Con_" in MyObserverResource_Con_Mwe means in this class						</br>
+ * &emsp;&emsp;						it would use this.setObserveType(Type.CON)										</br>
+ * 																													</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ *
+ *
  * @author laipl
  *
- * 参考于 
- * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
- *
- * 此外还
- * 继承 MyCoapResource, 这个类  稍微重写了点 CoapResource 中的一些方法内容 
- *
- *
- * 从MyObserverResource_Modified 复制出来的, 内容一模一样的
- * 只是查错时好判断是那个资源出的问题, 好查出来而已
- * 可以删除的
- *
  */
-public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
+public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 
 		
 		private int int_connect_get_num=0;
 		private int int_mytask_used=0;
 		
-		private IMyCoapServer myCoapServer1=null;
-	
+
+		
 		Timer timer = null;
 		
-		// 原来设置的是有  setObserveType(Type.CON)
-		// 如果多了 这句话 相比于 没有这句话 多出ACK
-		// 53144	-> 	5656 	CON		GET ....
-		// 5656		->	53144	ACK		1st_num
-        // 5656		->	53144	CON		2nd_num
-		// 53144	-> 	5656 	ACK		
-        // 5656		->	53144	CON		3rd_num
-		// 53144	-> 	5656 	ACK		
-        // 5656		->	53144	CON		4th_num
-		// 53144	-> 	5656 	ACK		
-		//
-		// 如果没有这句话
-		// 则默认 Type.NON 
-		// 53144	-> 	5656 	CON		GET ....
-		// 5656		->	53144	ACK		1st_num
-        // 5656		->	53144	NON		2nd_num
-        // 5656		->	53144	NON		3rd_num
-        // 5656		->	53144	NON		4th_num
-		public MyObserverResource_Modified_Cp1(String name) {
+		
+		public Con_MyObserverResource_Con_Mwe(String name) {
 			super(name);
-			setObservable(true); // enable observing
-			// Exchange.class 
-			// public void setCurrentResponse(Response newCurrentResponse)
-			setObserveType(Type.CON); // configure the notification type to CONs
-			getAttributes().setObservable(); // mark observable in the Link-Format
-			
+			//
+			//----------------------------------------
+			this.setObservable(true); // enable observing
+			this.setObserveType(Type.CON); // configure the notification type to CONs
+			// 设置 setObservable() 使得 mark observable in the Link-Format 
+			// 可以查 californium 的类LinkFormat	
+			// 涉及到 https://tools.ietf.org/html/rfc6690#section-4 	(这讲了Linkformat 这么做的概念)
+			// 和  https://tools.ietf.org/html/rfc6690#section-4.1
+			// https://blog.csdn.net/xukai871105/article/details/45167069/
+			// 其实就是设置好 application/link-format 
+			this.getAttributes().setObservable(); // mark observable in the Link-Format (可以查 californium 的类LinkFormat)	
 			//
 			//----------------------------------------
 			//
@@ -82,6 +71,7 @@ public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
 		
+
 
 		/**
 		 * 这里面 每一次changed 代表, 要去通知所有的client
@@ -100,9 +90,6 @@ public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 				changed(); // notify all observers
 			}
 		}
-		
-		
-		
 		//
 		//
 		//
@@ -120,70 +107,39 @@ public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 			//
 			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
 			//exchange.respond(ResponseCode.CREATED);
-			//
-			//
-			//exchange.get
-			//
-			//
+			// initial, the first time, the getObserverCount()==0
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			else {
 				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
-				System.out.println("rsc_attr_key_set: "+it_tmp.next().toString());
+				System.out.println("rsc_attr: "+it_tmp.next().toString());
 				ResourceAttributes rscAtr_tmp = this.getAttributes();
 				System.out.println("rsc_attr: "+rscAtr_tmp);
-				System.out.println("rsc_attr_valus_of_var_obs: "+this.getAttributes().getAttributeValues("obs"));
-				
-				//
-				//
-				//
-				// 获取 当前请求的 ip 和 端口 和 具体信息, 例如 127.0.0.1:49599#71D02AE4EEAECC79
+				System.out.println("rsc_attr: "+this.getAttributes().getAttributeValues("obs"));
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
-				// 获取 当前请求的 ip 和 端口  
 				System.out.println(exchange.getSourceSocketAddress());
-				// 
-				//
-				// 
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
-				//
-				
+				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
 			
 			
 		}
 		
-		/**
-		 * 注意, 我这里的delete方法 
-		 * 是为了  删除这个资源的操作, 因为我这里 里面用了delete() 
-		 * 意思是删除这个资源, 让client无法进行observe
-		 * 
-		 * 当然 handelDelete 可以用来
-         * 		1. 可以是让 	服务器删除 这个资源
-         * 		2. 也可以是让	服务器删除 某个记录(比如server那边 连了个数据库)
-		 * 
-		 * 只是我这里 选择了 1. 可以是让 	服务器删除 这个资源
-		 * 当然你可以改成2, 
-		 * 		那么就是要删除这里面的 delete(), 
-		 * 		然后添加 删除数据库里的某个记录的操作了 
-		 * 
-		 */
 		@Override
 		public void handleDELETE(CoapExchange exchange) {
-			System.out.println("handleDELETE:"+exchange.getRequestPayload());
+			System.out.println("handleDELETE");
 			//
 			//
 			delete(); // will also call clearAndNotifyObserveRelations(ResponseCode.NOT_FOUND)
-			exchange.respond(ResponseCode.DELETED);
 			//
 			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
 			//
 			// 关闭计时器
 			timer.cancel();
-			// 把resource 从这个client 中移除
-			this.myCoapServer1.remove(this);
+			exchange.respond(ResponseCode.DELETED);
 		}
 		
 		@Override
@@ -195,22 +151,5 @@ public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 			exchange.respond(ResponseCode.CHANGED);
 			changed(); // notify all observers
 		}
-		//
-		//----------------------------------------------------------------- 
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		public IMyCoapServer getMyCoapServer() {
-			return myCoapServer1;
-		}
-
-		public void setMyCoapServer(IMyCoapServer myCoapServer1) {
-			this.myCoapServer1 = myCoapServer1;
-		}
-
 
 	}

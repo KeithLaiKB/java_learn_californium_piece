@@ -1,19 +1,13 @@
 package com.learn.californium.client.learn_observer.concise;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.util.Scanner;
 
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapObserveRelation;
 import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.coap.CoAP.Code;
-import org.eclipse.californium.core.coap.CoAP.Type;
-import org.eclipse.californium.core.coap.MediaTypeRegistry;
-import org.eclipse.californium.core.coap.Request;
-import org.eclipse.californium.elements.exception.ConnectorException;
+
 /**
  * 
  * @author laipl
@@ -24,7 +18,6 @@ public class Con_TestMain_RequestObserverOne {
     public static void main(String[] args) {
 
     	String myuri1 	     = "coap://localhost:5656/hello_observer";
-    	//
     	//
     	CoapClient client = new CoapClient(myuri1);
         //
@@ -55,19 +48,11 @@ public class Con_TestMain_RequestObserverOne {
 	        System.out.println("wow_hello");
 	        //
 	        if (coapObRelation1!=null) {
-	        
-	        	System.out.println( "response getCode:");
-	        	System.out.println( "response getOptions:");
-	        	//System.out.println( "response text:" + response.toString() );
-	        	//System.out.println( "payload:" + response.getCurrent().getResponseText() );
-	        	//response.getCurrentResponse();
-	        	//System.out.println( "payload:" + new String(response.getCurrent().getPayload()) );
-	        	
-	        	//System.out.println(xml);
-	        } else {
-	        	
+	        	System.out.println( "coapObRelation1:" + coapObRelation1.toString() );
+
+	        } 
+	        else {
 	        	System.out.println("Request failed");
-	        	
 	        }	
 	        //
 	        //
@@ -115,16 +100,6 @@ public class Con_TestMain_RequestObserverOne {
 	        
             in.close();
             
-			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
-			//response.reactiveCancel();
-            /*
-	        System.out.println("enter to exit!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			try { br.readLine(); } catch (IOException e) { }
-			System.out.println("CANCELLATIONING");
-			response.proactiveCancel();
-			System.out.println("CANCELLATION FINISHED");
-			*/
             client.shutdown();
             System.exit(0);
 		//		

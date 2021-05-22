@@ -9,7 +9,18 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 
 
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						resource could be used by coap server												</br>
+ * 	
 
+ *
+ * @author laipl
+ *
+ */
 public class MyResource extends CoapResource {
 	public MyResource(String name) {
 		super(name);
@@ -34,7 +45,8 @@ public class MyResource extends CoapResource {
 		System.out.println("handleGET" +"//getQueryParameter_myvar1:"+ exchange.getQueryParameter("my_var1"));
 		System.out.println("handleGET" +"//getRequestOptions:"+ exchange.getRequestOptions());
 		//
-		
+		System.out.println("handleGET" +"//getRequestOptions:"+ exchange.getQueryParameter("my_var1"));
+		//
 		exchange.respond("hello world"); // reply with 2.05 payload (text/plain)
 		//exchange.respond(ResponseCode.CREATED);
 	}

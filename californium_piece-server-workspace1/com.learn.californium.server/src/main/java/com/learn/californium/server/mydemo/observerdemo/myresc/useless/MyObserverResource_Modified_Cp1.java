@@ -1,4 +1,4 @@
-package com.learn.californium.server.mydemo.observerdemo.myresc;
+package com.learn.californium.server.mydemo.observerdemo.myresc.useless;
 
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +36,7 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * ©ирти╬ЁЩ╣д
  *
  */
-public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
+public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 
 		
 		private int int_connect_get_num=0;
@@ -64,7 +64,7 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
         // 5656		->	53144	NON		2nd_num
         // 5656		->	53144	NON		3rd_num
         // 5656		->	53144	NON		4th_num
-		public MyObserverResource_Modified_Cp3(String name) {
+		public MyObserverResource_Modified_Cp1(String name) {
 			super(name);
 			setObservable(true); // enable observing
 			// Exchange.class 

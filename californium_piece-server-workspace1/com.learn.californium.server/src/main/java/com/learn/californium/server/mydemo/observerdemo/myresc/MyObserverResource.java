@@ -18,6 +18,24 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.mydemo.IMyCoapServer;
 
+
+/**
+ * 
+ * 
+ * <p>
+ * description:																		</br>	
+ * &emsp;					it contains server and resource							</br>
+ * &emsp;					consist IMyCoapServer									</br>						
+ * 
+ * </p>
+ *
+ * param:																			</br>
+ * &emsp;					myCoapServer1:											</br>
+ * &emsp;&emsp;&emsp;			for further extension in a multiple requirements	</br>
+ *
+ * @author laipl
+ *
+ */
 public class MyObserverResource  extends CoapResource {
 
 		

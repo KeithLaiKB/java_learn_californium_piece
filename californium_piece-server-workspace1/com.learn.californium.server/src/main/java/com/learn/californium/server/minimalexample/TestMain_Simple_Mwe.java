@@ -5,11 +5,17 @@ import org.eclipse.californium.core.CoapServer;
 import com.learn.californium.server.minimalexample.myresc.MyResource_Mwe;
 import com.learn.californium.server.mydemo.myresc.MyResource;
 
+
 /**
  * 
- * MWE means minimal working example
- * MWE 意思就是  简化的例子
  * 
+ * <p>
+ * 							description:																</br>	
+ * &emsp;						MWE means minimal working example										</br>
+ * &emsp;						MWE 意思就是  简化的例子														</br>
+ * 	
+ *
+ *
  * @author laipl
  *
  */

@@ -69,7 +69,7 @@ public class TestMain_RequestObserverOne {
     	//
     	//
     	//CoapClient client = new CoapClient("coap://localhost:5683/hello_observer");
-    	CoapClient client = new CoapClient(myuri1_c1);
+    	CoapClient client = new CoapClient(myuri1);
         //
         CoapObserveRelation coapObRelation1;
 		//

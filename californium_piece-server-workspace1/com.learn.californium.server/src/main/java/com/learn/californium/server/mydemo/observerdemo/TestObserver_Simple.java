@@ -9,6 +9,20 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
+
+/**
+ * 
+ * 
+ * <p>
+ * description																	</br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;		in this class,									</br>						
+ * &nbsp;&nbsp;&nbsp;&nbsp;		it contains server and resource					</br>
+ * </p>
+ * 
+ * 
+ * @author laipl
+ *
+ */
 public class TestObserver_Simple  extends CoapResource {
 
 		
