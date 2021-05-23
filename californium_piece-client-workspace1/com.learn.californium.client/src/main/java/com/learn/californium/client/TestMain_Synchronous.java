@@ -26,8 +26,8 @@ import com.learn.californium.client.datadto.DtoFruit;
  * 
  * <p>
  * 							description:																			</br>	
- * &emsp;						synchronous request																</br>
- * &emsp;&emsp;							it needn't myCoapHandler1														</br>
+ * &emsp;						synchronous request																	</br>
+ * &emsp;&emsp;							it needn't myCoapHandler1													</br>
  * &emsp;						try post with data																	</br>
  * &emsp;&emsp;							1.transform the data view object into json									</br>
  * &emsp;&emsp;							2.set the json as a parameter during sending the request					</br>
