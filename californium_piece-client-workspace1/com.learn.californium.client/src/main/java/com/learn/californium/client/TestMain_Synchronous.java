@@ -21,20 +21,64 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.californium.client.datadto.DtoFruit;
 
 
-
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						synchronous request																</br>
+ * &emsp;&emsp;							it needn't myCoapHandler1														</br>
+ * &emsp;						try post with data																	</br>
+ * &emsp;&emsp;							1.transform the data view object into json									</br>
+ * &emsp;&emsp;							2.set the json as a parameter during sending the request					</br>
+ * 																													</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ *
+ *
+ * @author laipl
+ *
+ */
 public class TestMain_Synchronous {
 
 	
 	public static void main(String[] args) {
+		//
+		// -------------------------preparasion-------------------------------------
 		String port1 = "coap://localhost:5656/hello";
 		String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
 																// 我把它的192.168.50.178:5656 映射成160.32.219.56:5656
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
-		
+		//
+		//
+		// set data vo to test
+		DtoFruit dtoFruit1=new DtoFruit();
+		dtoFruit1.setName("i am apple");
+		dtoFruit1.setWeight(23.666);
+		//
+		//
+		// transform the vo into json
+		ObjectMapper objectMapper = new ObjectMapper();
+		String dtoFruit1AsString = new String("");
+		//
+		try {
+			dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
+			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//
+		//
+		// -------------------------start-------------------------------------
+		// new client
 		CoapClient client1 = new CoapClient(port1);
 		//
 		CoapResponse resp;
+		//
+		//
 		//
 		try {
 			// http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats
@@ -42,17 +86,9 @@ public class TestMain_Synchronous {
 			//
 			//resp = client1.post("i am payload", MediaTypeRegistry.TEXT_PLAIN);
 			//
-			DtoFruit dtoFruit1=new DtoFruit();
-			dtoFruit1.setName("i am apple");
-			dtoFruit1.setWeight(23.666);
-			//
-			ObjectMapper objectMapper = new ObjectMapper();
-			String dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
-			//
+			resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
 			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
-			//
-			resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 			//
 			System.out.println( resp.isSuccess() );
 			System.out.println( resp.getOptions() );

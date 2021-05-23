@@ -14,41 +14,61 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.californium.client.datadto.DtoFruit;
-
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						Asynchronous request																</br>
+ * &emsp;&emsp;							it needs myCoapHandler1														</br>
+ * &emsp;						try post with data																	</br>
+ * &emsp;&emsp;							1.transform the data view object into json									</br>
+ * &emsp;&emsp;							2.set the json as a parameter during sending the request					</br>
+ * 																													</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ *
+ *
+ * @author laipl
+ *
+ */
 public class TestMain_Asynchronous {
 
 	
 	public static void main(String[] args) {
+		//
+		// -------------------------preparasion-------------------------------------
 		String port1 = "coap://localhost:5656/hello?my_var1=i_am_var";
 		String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
 																// 我把它的192.168.50.178:5656 映射成160.32.219.56:5656
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
-		
+		//
+		//
+		// set data vo to test
+		DtoFruit dtoFruit1=new DtoFruit();
+		dtoFruit1.setName("i am apple");
+		dtoFruit1.setWeight(23.666);
+		//
+		// transform the vo into json
+		ObjectMapper objectMapper = new ObjectMapper();
+		String dtoFruit1AsString = new String("");
+		try {
+			dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
+			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//
+		//
+		// -------------------------start-------------------------------------
+		// new client
 		CoapClient client1 = new CoapClient(port1);
 		//
-		CoapResponse resp;
 		//
-		//Request req1 = new Request(null);
-		//req1.setToken(token);
-		
-		//client2.advanced(request)
-		
-		/*
-		client2.get(new CoapHandler() { // e.g., anonymous inner class
-	
-			@Override public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println( "hi:" + response.getResponseText() );
-				System.out.println( "hi:" + response.advanced().getTokenString());
-			}
-			 
-			@Override public void onError() { // I/O errors and timeouts
-				System.err.println("Failed");
-			}
-		});
-		*/
-		
-		
+		// set handler
 		CoapHandler myCoapHandler1 = new CoapHandler() { // e.g., anonymous inner class
 			
 			@Override public void onLoad(CoapResponse response) { // also error resp.
@@ -60,30 +80,17 @@ public class TestMain_Asynchronous {
 				System.err.println("Failed");
 			}
 		};
-		
-		
-		
-		DtoFruit dtoFruit1=new DtoFruit();
-		dtoFruit1.setName("i am apple");
-		dtoFruit1.setWeight(23.666);
 		//
-		ObjectMapper objectMapper = new ObjectMapper();
-		String dtoFruit1AsString = new String("");
-		try {
-			dtoFruit1AsString = objectMapper.writeValueAsString(dtoFruit1);
-			//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		//
+		// action
+		//
+		//client1.get(myCoapHandler1);
+		client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
 		//
-		
-		//client1.get(myCoapHandler1);
-		client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
-		
+		//
+		//
 		//---------------------------------------------
 		// 因为 异步，是要等待回传的，等待是需要时间的，
 		// 所以 我不能让程序那么快结束
@@ -99,7 +106,8 @@ public class TestMain_Asynchronous {
 		System.out.println("CANCELLATIONING");
 		//resp.proactiveCancel();
 		System.out.println("CANCELLATION FINISHED");
-		
+		//---------------------------------------------
+		//
 		client1.shutdown();
         System.exit(0);
 	}
