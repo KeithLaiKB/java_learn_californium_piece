@@ -10,9 +10,18 @@ import org.eclipse.californium.core.CoapResponse;
 
 /**
  * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						client to observe																	</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
+ *  																												</br>
+ *  
+ *
  * @author laipl
  *
- * ²Î¿¼ÁË californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java
  */
 public class Con_TestMain_RequestObserverOne {
     public static void main(String[] args) {
@@ -24,7 +33,7 @@ public class Con_TestMain_RequestObserverOne {
         CoapObserveRelation coapObRelation1;
 		//
         try {
-			
+			//
         	// set handler for observer method, because observe method needs asynchronous operation
 			CoapHandler myObserveHandler = new CoapHandler() {
 
@@ -42,7 +51,7 @@ public class Con_TestMain_RequestObserverOne {
 	            }
 	        };
 	        //
-	        //
+	        // observe
 	        coapObRelation1 = client.observe(myObserveHandler);
 	        //
 	        System.out.println("wow_hello");
@@ -56,7 +65,7 @@ public class Con_TestMain_RequestObserverOne {
 	        }	
 	        //
 	        //
-	        //
+	        //---------------------------------------------
 	        Scanner in =new Scanner(System.in) ;
             int int_choice = 0;
             while(int_choice!=-1) {
@@ -96,10 +105,10 @@ public class Con_TestMain_RequestObserverOne {
             		System.out.println("observe again");
             	}
             }
-	        
-	        
+	        //
+            //---------------------------------------------
             in.close();
-            
+            //
             client.shutdown();
             System.exit(0);
 		//		

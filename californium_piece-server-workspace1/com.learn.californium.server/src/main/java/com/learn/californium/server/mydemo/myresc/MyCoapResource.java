@@ -120,6 +120,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	//
 	//
 	//
+	
 	/**
 	 * Constructs a new resource with the specified name.
 	 *

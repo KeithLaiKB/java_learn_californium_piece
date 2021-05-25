@@ -14,11 +14,21 @@ import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
+
 /**
  * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						client to observe																	</br>
+ * 																													</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						 californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
+ * 																													</br>
+ *
  * @author laipl
  *
- * ²Î¿¼ÁË californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java
  */
 public class TestMain_RequestObserverOne {
     public static void main(String[] args) {
@@ -234,8 +244,8 @@ public class TestMain_RequestObserverOne {
             		System.out.println("observe again");
             	}
             }
-	        
-	        
+	        //
+            //---------------------------------------------
             in.close();
             
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
@@ -248,6 +258,7 @@ public class TestMain_RequestObserverOne {
 			response.proactiveCancel();
 			System.out.println("CANCELLATION FINISHED");
 			*/
+            //
             client.shutdown();
             System.exit(0);
 		//		

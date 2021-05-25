@@ -34,7 +34,8 @@ import com.learn.californium.client.datadto.DtoFruit;
  * 																													</br>
  * 
  * 							ref:																					</br>	
- * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>
+ * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
  *
  *
  * @author laipl

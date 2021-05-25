@@ -5,7 +5,22 @@ import java.io.IOException;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.elements.exception.ConnectorException;
-
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						simple demo mainly refer to the official website									</br>
+ * 																													</br>
+ * 				
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>
+ * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java	
+ *
+ *
+ * @author laipl
+ *
+ */
 public class TestMain_Simple {
     public static void main(String[] args) {
 
