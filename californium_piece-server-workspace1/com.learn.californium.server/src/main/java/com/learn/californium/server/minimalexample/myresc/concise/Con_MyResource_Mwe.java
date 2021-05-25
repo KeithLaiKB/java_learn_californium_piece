@@ -66,7 +66,7 @@ public class Con_MyResource_Mwe extends CoapResource {
 		//
 		if (exchange.getRequestOptions() != null) {
 			// do something specific to the request options
-			System.out.println("handlePOST:"+ exchange.getRequestOptions().toString());
+			System.out.println("handlePOST:\n"+ "\t"+ exchange.getRequestOptions().toString()+"\n"+"\t" +exchange.getRequestText());
 		}
 		exchange.respond("hello world"); // reply with 2.05 payload (text/plain)
 		//exchange.respond(ResponseCode.CREATED); // reply with response code only (shortcut)

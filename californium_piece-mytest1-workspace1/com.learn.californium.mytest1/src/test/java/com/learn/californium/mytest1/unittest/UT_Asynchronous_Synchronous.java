@@ -15,8 +15,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learn.californium.mytest1.unittest.tool.mysrc.concise.Con_MyResource_Mwe;
+
 import com.learn.californium.server.minimalexample.datadto.DtoFruit;
+import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource_Mwe;
 
 
 
@@ -37,7 +38,7 @@ import com.learn.californium.server.minimalexample.datadto.DtoFruit;
  * @author laipl
  *
  */
-class MyTry2 {
+class UT_Asynchronous_Synchronous {
 	
 	String port1 = "coap://localhost:5656/hello";
 	String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
@@ -45,18 +46,23 @@ class MyTry2 {
 	String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 															// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 	static CoapServer server1 = null;
-	
-	// data filed
+	static CoapClient client1 = null;
+	//-------------------- data filed --------------------
 	String str_post_content="hi_i_am_string";
 	// set data vo to test
 	DtoFruit dtoFruit1= null;
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
+	//----------------------------------------------------
 	
 	
-	MyTry2(){
+	
+	
+	
+	UT_Asynchronous_Synchronous(){
 		System.out.println("constructor");
 	}
+	
 	
 	static void datapreparation() {
 		// set data vo to test
@@ -90,18 +96,18 @@ class MyTry2 {
 	@BeforeEach
 	void beforesomething() {
 		// -----------prepare server-----------------------
-		System.out.println("start server");
+		System.out.println("---------------------------------------------------------");
+		System.out.println("starting server");
 		//
 		server1 = new CoapServer(5656);		// define port to be 5656 
 		server1.add(new Con_MyResource_Mwe("hello"));		// name "hello" is letter sensitive
 		server1.start();
-		/*
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		System.out.println("started server");
+		// -----------prepare client-----------------------
+		//
+		// new client
+		client1 = new CoapClient(port1);
+		//
 	}
 	
 	
@@ -112,21 +118,29 @@ class MyTry2 {
 	
 	@Test
 	void testTextPlain() {
-		/*
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-		//
-		CoapClient client1 = null;
-		// new client
-		client1 = new CoapClient(port1);
-		//
 		CoapResponse resp = null;
 		try {
 			resp = client1.post(str_post_content, MediaTypeRegistry.TEXT_PLAIN);
+		} catch (ConnectorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("result from server:" + resp.isSuccess() );
+		System.out.println("result option from server:" + resp.getOptions() );
+		System.out.println("result text from server:" + resp.getResponseText() );
+		assertEquals(true,resp.isSuccess(),"if_success");
+		//fail("Not yet implemented");
+	}
+	
+	
+	@Test
+	void testJson() {
+		CoapResponse resp = null;
+		try {
+			resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		} catch (ConnectorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.elements.exception.ConnectorException;
-
-
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource
  * @author laipl
  *
  */
-class MyTry {
+class UT_Synchronous {
 	
 	String port1 = "coap://localhost:5656/hello";
 	String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
@@ -47,16 +47,21 @@ class MyTry {
 	String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 															// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 	static CoapServer server1 = null;
-	
-	// data filed
+	static CoapClient client1 = null;
+	//static CoapHandler myclientHandler1 = null;
+	//-------------------- data filed --------------------
 	String str_post_content="hi_i_am_string";
 	// set data vo to test
 	DtoFruit dtoFruit1= null;
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
+	//----------------------------------------------------
+	static boolean resultFromServer1=false;
 	
 	
-	MyTry(){
+	
+	
+	UT_Synchronous(){
 		System.out.println("constructor");
 	}
 	
@@ -82,48 +87,79 @@ class MyTry {
 		//
 		//
 	}
-	
-	static void startserver() {
-		// -----------prepare server-----------------------
-		System.out.println("start server");
-		//
-		server1 = new CoapServer(5656);		// define port to be 5656 
-		server1.add(new Con_MyResource_Mwe("hello"));		// name "hello" is letter sensitive
-		server1.start();
-	}
-	
-	
-	
-	
+
 	
 	@BeforeAll
 	static void preparation() {
 		datapreparation();
-		startserver();
 	}
 
 	
 	@BeforeEach
 	void beforesomething() {
-
-	}
-	
-	/*
-	@After
-	void aftersomething() {
-		server1.destroy();
-	}*/
-	
-	@Test
-	void testTextPlain() {
+		// -----------prepare server-----------------------
+		System.out.println("---------------------------------------------------------");
+		System.out.println("starting server");
 		//
-		CoapClient client1 = null;
+		server1 = new CoapServer(5656);		// define port to be 5656 
+		server1.add(new Con_MyResource_Mwe("hello"));		// name "hello" is letter sensitive
+		server1.start();
+		System.out.println("started server");
+		// -----------prepare client-----------------------
+		//
 		// new client
 		client1 = new CoapClient(port1);
 		//
-		CoapResponse resp = null;
+
+	}
+	
+	
+	@AfterEach
+	void aftersomething() {
+		server1.destroy();
+	}
+	
+	@Test
+	void testAsynchronousRequest() {
+		//
+		// set handler
+		CoapHandler myclientHandler1 = new CoapHandler() { // e.g., anonymous inner class
+
+			@Override
+			public void onLoad(CoapResponse response) { // also error resp.
+				resultFromServer1 = response.isSuccess();
+				System.out.println("result from server:" + response.isSuccess() );
+			}
+
+			@Override
+			public void onError() { // I/O errors and timeouts
+				System.err.println("Failed");
+			}
+		};
+		//----------------------------------------
+		System.out.println("+++++ sending request +++++");
+		client1.post(myclientHandler1, str_post_content, MediaTypeRegistry.TEXT_PLAIN);
+		System.out.println("++++++ sent request ++++++");
+		//----------------------------------------
 		try {
-			resp = client1.post(str_post_content, MediaTypeRegistry.TEXT_PLAIN);
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(true,resultFromServer1,"if_success");
+		//fail("Not yet implemented");
+	}
+	
+	
+	@Test
+	void testSynchronousRequest() {
+		CoapResponse resp = null;
+		//----------------------------------------
+		try {
+			System.out.println("+++++ sending request +++++");
+			resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.TEXT_PLAIN);
+			System.out.println("++++++ sent request ++++++");
 		} catch (ConnectorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,9 +167,8 @@ class MyTry {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//----------------------------------------
 		System.out.println("result from server:" + resp.isSuccess() );
-		System.out.println("result option from server:" + resp.getOptions() );
-		System.out.println("result text from server:" + resp.getResponseText() );
 		assertEquals(true,resp.isSuccess(),"if_success");
 		//fail("Not yet implemented");
 	}
