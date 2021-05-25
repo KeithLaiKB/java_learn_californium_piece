@@ -47,18 +47,17 @@ class UT_Asynchronous_Synchronous {
 															// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 	static CoapServer server1 = null;
 	static CoapClient client1 = null;
-	//-------------------- data filed --------------------
+	//---------------- data field ----------------
 	String str_post_content="hi_i_am_string";
 	// set data vo to test
 	DtoFruit dtoFruit1= null;
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
-	//----------------------------------------------------
 	
 	
 	
-	
-	
+	//----------------------------------------------------------
+	//
 	UT_Asynchronous_Synchronous(){
 		System.out.println("constructor");
 	}
@@ -85,8 +84,12 @@ class UT_Asynchronous_Synchronous {
 		//
 		//
 	}
-
+	//
+	//
+	//----------------------------------------------------------
+	//---------------------start test---------------------------
 	
+
 	@BeforeAll
 	static void preparation() {
 		datapreparation();

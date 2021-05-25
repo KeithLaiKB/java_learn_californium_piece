@@ -49,18 +49,20 @@ class UT_Synchronous {
 	static CoapServer server1 = null;
 	static CoapClient client1 = null;
 	//static CoapHandler myclientHandler1 = null;
-	//-------------------- data filed --------------------
+	//
+	//---------------- data field ----------------
 	String str_post_content="hi_i_am_string";
 	// set data vo to test
 	DtoFruit dtoFruit1= null;
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
-	//----------------------------------------------------
+	//--------------------------------------------
 	static boolean resultFromServer1=false;
 	
 	
 	
-	
+	//----------------------------------------------------------
+	//
 	UT_Synchronous(){
 		System.out.println("constructor");
 	}
@@ -87,8 +89,12 @@ class UT_Synchronous {
 		//
 		//
 	}
-
+	//
+	//
+	//----------------------------------------------------------
+	//---------------------start test---------------------------
 	
+
 	@BeforeAll
 	static void preparation() {
 		datapreparation();
