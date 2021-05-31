@@ -2,6 +2,7 @@ package com.learn.californium.server.minimalexample;
 
 import org.eclipse.californium.core.CoapServer;
 
+import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.MyResource_Mwe;
 import com.learn.californium.server.mydemo.myresc.MyResource;
 
@@ -26,8 +27,16 @@ public class TestMain_Simple_Mwe {
 		//
 		// define port to be 5656 
 		CoapServer server = new CoapServer(5656);
+		//
+		//
+		//------------------------resource settings-------------------------------------
+		//
 		// name "hello" is letter sensitive
-		server.add(new MyResource_Mwe("hello"));
+		MyResource_Mwe myResc1 = new MyResource_Mwe("hello");
+		//
+		//
+		//------------------------operate server-------------------------------------
+		server.add(myResc1);
 		// start
 		server.start(); // does all the magic
 

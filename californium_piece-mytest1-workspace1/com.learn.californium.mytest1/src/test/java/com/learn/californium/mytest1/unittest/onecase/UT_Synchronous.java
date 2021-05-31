@@ -1,4 +1,4 @@
-package com.learn.californium.mytest1.unittest;
+package com.learn.californium.mytest1.unittest.onecase;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +38,7 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource
  * @author laipl
  *
  */
-class UT_Asynchronous_Synchronous {
+class UT_Synchronous {
 	
 	String port1 = "coap://localhost:5656/hello";
 	String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
@@ -47,6 +47,7 @@ class UT_Asynchronous_Synchronous {
 															// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
 	static CoapServer server1 = null;
 	static CoapClient client1 = null;
+	Con_MyResource_Mwe myResc1 = null;
 	//---------------- data field ----------------
 	String str_post_content="hi_i_am_string";
 	// set data vo to test
@@ -58,7 +59,7 @@ class UT_Asynchronous_Synchronous {
 	
 	//----------------------------------------------------------
 	//
-	UT_Asynchronous_Synchronous(){
+	UT_Synchronous(){
 		System.out.println("constructor");
 	}
 	
@@ -98,12 +99,18 @@ class UT_Asynchronous_Synchronous {
 	
 	@BeforeEach
 	void beforesomething() {
-		// -----------prepare server-----------------------
 		System.out.println("---------------------------------------------------------");
-		System.out.println("starting server");
 		//
-		server1 = new CoapServer(5656);		// define port to be 5656 
-		server1.add(new Con_MyResource_Mwe("hello"));		// name "hello" is letter sensitive
+		// -----------configure server-----------------------
+		// new server
+		server1 = new CoapServer(5656);				// define port to be 5656 
+		//
+		// add resource
+		myResc1 = new Con_MyResource_Mwe("hello");	// name "hello" is letter sensitive
+		server1.add(myResc1);	
+		//
+		// -----------start server-----------------------
+		System.out.println("starting server");
 		server1.start();
 		System.out.println("started server");
 		// -----------prepare client-----------------------

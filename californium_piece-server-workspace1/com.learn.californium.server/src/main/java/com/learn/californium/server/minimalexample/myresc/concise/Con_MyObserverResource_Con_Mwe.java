@@ -16,7 +16,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.eclipse.californium.core.server.resources.ResourceObserver;
 
-import com.learn.californium.server.mydemo.IMyCoapServer;
+
 
 /**
  * 
@@ -113,15 +113,6 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
 			}
 			else {
-				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
-				System.out.println("rsc_attr: "+it_tmp.next().toString());
-				ResourceAttributes rscAtr_tmp = this.getAttributes();
-				System.out.println("rsc_attr: "+rscAtr_tmp);
-				System.out.println("rsc_attr: "+this.getAttributes().getAttributeValues("obs"));
-				ObserveRelation ob_tmp = exchange.advanced().getRelation();
-				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
-				System.out.println(exchange.getSourceSocketAddress());
-				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
 			
