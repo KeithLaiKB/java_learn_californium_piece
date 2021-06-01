@@ -1,4 +1,4 @@
-package com.learn.californium.client.learn_observer;
+package com.learn.californium.client.learn_observer.concise;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -96,11 +96,11 @@ public class TestMain_RequestObserverOne {
 	            public void onLoad(CoapResponse response) {
 	                //log.info("Command Response Ack: {}, {}", response.getCode(), response.getResponseText());
 	            	System.out.println("---------------------------------------");
-	            	System.out.println("-------- observe handler onload start --------------");
+	            	boolean resultFromServer1_tmp = false;
+	            	resultFromServer1_tmp = response.isSuccess();
 					System.out.println("result from server:" + response.isSuccess() );
 	            	System.out.println("on load: " + response.getResponseText());
 	            	System.out.println("get code: " + response.getCode().name());
-	            	System.out.println("---------- observe handler onload end --------------");
 	            	
 	            }
 
@@ -117,12 +117,8 @@ public class TestMain_RequestObserverOne {
 	            public void onLoad(CoapResponse response) {
 	                //log.info("Command Response Ack: {}, {}", response.getCode(), response.getResponseText());
 	            	System.out.println("---------------------------------------");
-	            	System.out.println("-------- delete handler onload start --------------");
-	            	System.out.println("result from server:" + response.isSuccess() );
-					//
 	            	System.out.println("on load: " + response.getResponseText());
 	            	System.out.println("get code: " + response.getCode().name());
-	            	System.out.println("---------- delete handler onload end --------------");
 	            	
 	            }
 

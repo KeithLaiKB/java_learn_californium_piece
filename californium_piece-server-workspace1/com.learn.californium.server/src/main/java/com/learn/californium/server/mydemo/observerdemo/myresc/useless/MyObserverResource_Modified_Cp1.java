@@ -19,6 +19,7 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.myresc.MyCoapResource;
+import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified;
 
 /**
  * 
@@ -93,7 +94,7 @@ public class MyObserverResource_Modified_Cp1  extends MyCoapResource {
 		private class UpdateTask extends TimerTask {
 			@Override
 			public void run() {
-				System.out.println("UpdateTask-------");
+				System.out.println("UpdateTask-------name:"+MyObserverResource_Modified_Cp1.this.getName());
 				//
 				int_mytask_used = int_mytask_used+1;
 				// .. periodic update of the resource

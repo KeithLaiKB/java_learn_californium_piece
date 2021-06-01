@@ -93,7 +93,7 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 		private class UpdateTask extends TimerTask {
 			@Override
 			public void run() {
-				System.out.println("UpdateTask-------");
+				System.out.println("UpdateTask-------name:"+MyObserverResource_Modified_Cp3.this.getName());
 				//
 				int_mytask_used = int_mytask_used+1;
 				// .. periodic update of the resource

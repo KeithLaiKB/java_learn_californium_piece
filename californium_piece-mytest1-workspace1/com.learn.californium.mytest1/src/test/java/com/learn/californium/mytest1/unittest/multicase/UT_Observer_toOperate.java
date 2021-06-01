@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.learn.californium.mytest1.MyThreadSleep;
 import com.learn.californium.server.minimalexample.datadto.DtoFruit;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource_Mwe;
@@ -42,13 +42,20 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource
  * @author laipl
  *
  */
-class UT_Observer {
+class UT_Observer_toOperate {
 	
-	String port1 = "coap://localhost:5656/hello_observer";
+	
 	String port2 = "coap://160.32.219.56:5656/hello_observer";		//有线连接树莓派, 路由给的地址是192.168.50.178
 																	// 我把它的192.168.50.178:5656 映射成160.32.219.56:5656
 	String port3 = "coap://160.32.219.56:5657/hello_observer";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																	// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
+	
+	String port1 		 = "coap://localhost:5656/hello_observer";
+	String myuri1_c1 	 = "coap://localhost:5656/hello_observer/hello_observer_child1";
+	String myuri1_c2 	 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2";
+	String myuri1_c3	 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3";
+	
+	
 	static CoapServer server1 = null;
 	static CoapClient client1 = null;
 	//static CoapHandler myclientHandler1 = null;
@@ -61,13 +68,13 @@ class UT_Observer {
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
 	//--------------------------------------------
-	static boolean resultFromServer1=false;
-	
+	static CoapResponse resultFromServer1 = null;
+	static CoapResponse resultFromServer2 = null;
 	
 	
 	//----------------------------------------------------------
 	//
-	UT_Observer(){
+	UT_Observer_toOperate(){
 		System.out.println("constructor");
 	}
 	
@@ -111,22 +118,26 @@ class UT_Observer {
 		//
 		// -----------configure server-----------------------
 		// new server
-		server1 = new CoapServer(5656);				// define port to be 5656 
+		server1 = new CoapServer(5656);										// define port to be 5656 
 		//
 		// add resource
 		myobResc1 = new Con_MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive
+		//
+		Con_MyObserverResource_Con_Mwe myobResc1_c1 = new Con_MyObserverResource_Con_Mwe("hello_observer_child1");
+		Con_MyObserverResource_Con_Mwe myobResc1_c2 = new Con_MyObserverResource_Con_Mwe("hello_observer_child2");
+		Con_MyObserverResource_Con_Mwe myobResc1_c3 = new Con_MyObserverResource_Con_Mwe("hello_observer_child3");
+		//
+		myobResc1_c2.add(myobResc1_c3);
+		myobResc1_c1.add(myobResc1_c2);
+		myobResc1.add(myobResc1_c1);
+		//
 		server1.add(myobResc1);	
 		//
 		// -----------start server-----------------------
 		System.out.println("starting server");
 		server1.start();
 		System.out.println("started server");
-		// -----------prepare client-----------------------
-		//
-		// new client
-		client1 = new CoapClient(port1);
-		
-		//
+
 
 	}
 	
@@ -137,7 +148,13 @@ class UT_Observer {
 	}*/
 	
 	@Test
-	void testObserve() {
+	void testDelete_syn() {
+		//
+		// -----------prepare client-----------------------
+		//
+		// new client
+		client1 = new CoapClient(myuri1_c1);
+		//
 		//
 		// set handler
 		CoapHandler myObserveHandler1 = new CoapHandler() { // e.g., anonymous inner class
@@ -145,9 +162,10 @@ class UT_Observer {
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
 				System.out.println("-------- client side onload start --------------");
-				resultFromServer1 = response.isSuccess();
+				resultFromServer1 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
+				System.out.println("response code name: " + response.getCode().name());
 				System.out.println("--------- client side onload end ---------------");
 			}
 
@@ -161,57 +179,64 @@ class UT_Observer {
 		CoapObserveRelation coapObRelation1 = client1.observe(myObserveHandler1);
 		System.out.println("++++++ sent request ++++++");
 		//----------------------------------------
+		
+		//
+		MyThreadSleep.sleep30s();
+		//----------------- delete resource -----------------------
+
+		CoapResponse del_reponse = null;
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+			del_reponse = client1.delete();
+			System.out.println(del_reponse.getCode().name());
+		} catch (ConnectorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//
+		MyThreadSleep.sleep20s();
+        //
+		//
+        assertEquals(false,resultFromServer1.isSuccess(),"if_success");
+        assertEquals("DELETED",del_reponse.getCode().name(),"test_deleted");
+		//
+		//
+		//------------------------------------------------------------------------
+		//------------------------ second client ---------------------------------
+		// new client
+		CoapClient client2 = null;
+		client2 = new CoapClient(myuri1_c1);
+		//
+		//
+		// set handler
+		CoapHandler myObserveHandler2 = new CoapHandler() { // e.g., anonymous inner class
 
-		Scanner in =new Scanner(System.in) ;
-        int int_choice = 0;
-        while(int_choice!=-1) {
-        	System.out.println("here is the choice:");
-        	System.out.println("-1: to exit");
-        	System.out.println("1: to delete");
-        	System.out.println("2: to reactiveCancel");
-        	System.out.println("3: to proactiveCancel");
-        	System.out.println("4: to observe again");
-        	System.out.println("enter the choice:");
-        	// input
-        	int_choice = in.nextInt();
-        	if(int_choice==-1) {
-        		//System.exit(0);
-        		break;
-        	}
-        	else if(int_choice==1) {
-        		//
-        		System.out.println("deleteing record");
-        		// 我认为 delete 挺重要的 所以我这选择的是同步
-        		//client.delete();				// 用的是 同步, 对面没回应, 就不能继续往下走
-        		//client1.delete(myDeleteHandler); // 用的是 异步
-        	}
-        	else if(int_choice==2) {	
-        		// ref https://datatracker.ietf.org/doc/html/rfc7641#section-3.6
-        		coapObRelation1.reactiveCancel();				//取消观察状态
-        		System.out.println("reactiveCancel");
-        		
-        	}
-        	else if(int_choice==3) {
+			@Override
+			public void onLoad(CoapResponse response) { // also error resp.
+				System.out.println("-------- client side onload start --------------");
+				resultFromServer2 = response;
+				System.out.println("result from server:" + response.isSuccess() );
+				System.out.println("on load: " + response.getResponseText());
+				System.out.println("response code name: " + response.getCode().name());
+				System.out.println("--------- client side onload end ---------------");
+			}
 
-        		// ref https://datatracker.ietf.org/doc/html/rfc7641#section-3.6 
-        		coapObRelation1.proactiveCancel();				//取消观察状态
-        		System.out.println("proactiveCancel");
-        	}
-        	else if(int_choice==4) {
-        		coapObRelation1 = client1.observe(myObserveHandler1); //取消观察状态后 还是可以继续observe的
-        		System.out.println("observe again");
-        	}
-        }
-        assertEquals(false,resultFromServer1,"if_success");
-		assertEquals(true,resultFromServer1,"if_success");
-		//fail("Not yet implemented");
+			@Override
+			public void onError() { // I/O errors and timeouts
+				System.err.println("Failed");
+			}
+		};
+		CoapObserveRelation coapObRelation2 = client2.observe(myObserveHandler2);
+		MyThreadSleep.sleep20s();
+        assertEquals(false,resultFromServer2.isSuccess(),"if_success");
+        assertEquals("NOT_FOUND",resultFromServer2.getCode().name(),"if_success");
+
 	}
+	
+	
+	
 	
 	
 }

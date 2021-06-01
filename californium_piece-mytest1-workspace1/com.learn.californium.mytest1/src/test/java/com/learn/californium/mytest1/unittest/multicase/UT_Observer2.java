@@ -61,7 +61,7 @@ class UT_Observer2 {
 	static ObjectMapper objectMapper = null;
 	static String dtoFruit1AsString =null;
 	//--------------------------------------------
-	static boolean resultFromServer1=false;
+	static CoapResponse resultFromServer1=null;
 	
 	
 	
@@ -111,7 +111,7 @@ class UT_Observer2 {
 		//
 		// -----------configure server-----------------------
 		// new server
-		server1 = new CoapServer(5656);				// define port to be 5656 
+		server1 = new CoapServer(5656);										// define port to be 5656 
 		//
 		// add resource
 		myobResc1 = new Con_MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive
@@ -145,9 +145,10 @@ class UT_Observer2 {
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
 				System.out.println("-------- client side onload start --------------");
-				resultFromServer1 = response.isSuccess();
+				resultFromServer1 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
+				System.out.println("response code name: " + response.getCode().name());
 				System.out.println("--------- client side onload end ---------------");
 			}
 
@@ -156,35 +157,51 @@ class UT_Observer2 {
 				System.err.println("Failed");
 			}
 		};
-		//----------------------------------------	 
-		//
+		//----------------------------------------
 		System.out.println("+++++ sending request +++++");
 		CoapObserveRelation coapObRelation1 = client1.observe(myObserveHandler1);
 		System.out.println("++++++ sent request ++++++");
-		//
 		//----------------------------------------
+		//
+		// method 1 to wait notification from server
+		/*
+		// 这里用sleep 并不会影响 handler那个线程的运行
+		// 用这个也行, 只不过怕 有些不熟悉的人 不知道
 		try {
-			Thread.sleep(1000);
+			System.out.println("go to sleep");
+			Thread.sleep(30*1000);
+			System.out.println("wake up");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Scanner in =new Scanner(System.in) ;
-        int int_choice = 0;
-        while(int_choice!=-1) {
-        	System.out.println("here is the choice:");
-        	System.out.println("-1: to exit");
-        	// input
-        	int_choice = in.nextInt();
-        	if(int_choice==-1) {
-        		//System.exit(0);
-        		break;
-        	}
-        	
-        }
+		*/
+		//
+		//
+		// method 2 to wait notification from server
+		// 1s  =         1,000 ms
+		// 1ms =     1,000,000 ns
+		// 1s  = 1,000,000,000 ns
+		long startObserveTime=System.nanoTime();   //获取开始时间  
+		//
+		//
+		boolean judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=30*1000000000L;
+			//System.out.println("h"+nowTime_tmp);
+			//System.out.println("hh2:"+(nowTime_tmp-startObserveTime));
+			//System.out.println("hh3:"+(nowTime_tmp-startObserveTime-timelimit_tmp));
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
         //
-        assertEquals(true,resultFromServer1,"if_success");
+        assertEquals(true,resultFromServer1.isSuccess(),"if_success");
 	}
+	
+	
+	
 	
 	
 }
