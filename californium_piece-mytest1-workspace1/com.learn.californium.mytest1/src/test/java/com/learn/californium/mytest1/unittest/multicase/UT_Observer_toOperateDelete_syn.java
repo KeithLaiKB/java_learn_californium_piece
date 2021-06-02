@@ -46,7 +46,7 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource
  * @author laipl
  *
  */
-class UT_Observer_toOperate {
+class UT_Observer_toOperateDelete_syn {
 	
 	
 	String port2 = "coap://160.32.219.56:5656/hello_observer";		//有线连接树莓派, 路由给的地址是192.168.50.178
@@ -78,7 +78,7 @@ class UT_Observer_toOperate {
 	CoapObserveRelation coapObRelation1 =null;
 	//----------------------------------------------------------
 	//
-	UT_Observer_toOperate(){
+	UT_Observer_toOperateDelete_syn(){
 		System.out.println("constructor");
 	}
 	
