@@ -100,7 +100,7 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 		//
 		@Override
 		public void handleGET(CoapExchange exchange) {
-			System.out.println("handleGET");
+			System.out.println("handleGET: "+ super.getName());
 			//
 			int_connect_get_num = int_connect_get_num +1;
 			System.out.println("connect num: "+int_connect_get_num);

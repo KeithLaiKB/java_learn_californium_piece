@@ -26,3 +26,9 @@ hs_err_pid*
 /**/mycerts/**/*.jks
 /**/mycerts/**/*.cer
 /**/.metadata/
+
+
+
+# 因为 我test的project 有时候需要 这里的jar, 所以 maven install 后这里都会有东西, 而且比较多
+# 况且 我没必要把他上传, 你自己下载以后 maven-> debug->maven install就可以了
+/java_learn_californium_piece/com.learn.californium.server/target/*
