@@ -247,8 +247,7 @@ class UT_Observer_toOperateDelete_asyn {
 		client1.delete(myDeleteHandler);
 		//------------------------------------------------------------------------
 		//
-		// sleep main function avoid ending the program 
-		// to let the handler thread to get more notifications from server
+		// sleep main function for getting the last notification due to concurrency
 		MyThreadSleep.sleep20s();
         //
 		//
@@ -353,8 +352,7 @@ class UT_Observer_toOperateDelete_asyn {
 		client1.delete(myDeleteHandler);
 		//------------------------------------------------------------------------
 		//
-		// sleep main function avoid ending the program 
-		// to let the handler thread to get more notifications from server
+		// sleep main function for getting the last notification due to concurrency
 		MyThreadSleep.sleep20s();
         //
 		//
@@ -458,8 +456,7 @@ class UT_Observer_toOperateDelete_asyn {
 		client1.delete(myDeleteHandler);
 		//------------------------------------------------------------------------
 		//
-		// sleep main function avoid ending the program 
-		// to let the handler thread to get more notifications from server
+		// sleep main function for getting the last notification due to concurrency
 		MyThreadSleep.sleep20s();
         //
 		//
