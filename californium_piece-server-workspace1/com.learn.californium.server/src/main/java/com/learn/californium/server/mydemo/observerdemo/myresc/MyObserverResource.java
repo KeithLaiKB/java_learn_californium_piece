@@ -32,6 +32,10 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
  * param:																			</br>
  * &emsp;					myCoapServer1:											</br>
  * &emsp;&emsp;&emsp;			for further extension in a multiple requirements	</br>
+ * 																					</br>
+ * 
+ * </p>
+ *
  *
  * @author laipl
  *

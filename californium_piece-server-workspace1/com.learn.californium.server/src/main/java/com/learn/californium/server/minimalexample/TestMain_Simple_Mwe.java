@@ -15,7 +15,9 @@ import com.learn.californium.server.minimalexample.myresc.MyResource_Mwe;
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
  * &emsp;						MWE 意思就是  简化的例子														</br>
- * 	
+ * 																										</br>
+ * 
+ * </p>
  *
  *
  * @author laipl

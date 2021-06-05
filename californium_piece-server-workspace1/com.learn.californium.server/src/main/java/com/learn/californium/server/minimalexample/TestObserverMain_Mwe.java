@@ -12,7 +12,9 @@ import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con
  * &emsp;						MWE means minimal working example										</br>
  * &emsp;						MWE 意思就是  简化的例子														</br>
  * &emsp;						for testing the observer												</br>
- * 	
+ * 																										</br>
+ * 
+ * </p>
  *
  *
  * @author laipl

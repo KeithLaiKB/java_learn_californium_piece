@@ -33,6 +33,9 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyObserver
  * 
  * 							ref:																					</br>	
  * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>	
+ * 																													</br>	
+ * 
+ * </p>
  *
  *
  * @author laipl

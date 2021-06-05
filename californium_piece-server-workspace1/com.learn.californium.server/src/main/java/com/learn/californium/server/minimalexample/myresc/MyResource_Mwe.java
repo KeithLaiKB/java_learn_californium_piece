@@ -17,6 +17,8 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  * &emsp;						MWE means minimal working example										</br>
  * &emsp;						MWE 意思就是  简化的例子														</br>
  * 																										</br>
+ * 
+ * </p>
  *
  *
  * @author laipl

@@ -57,6 +57,9 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * 							param:																					</br>
  * &emsp;						myCoapServer1:																		</br>
  * &emsp;&emsp;&emsp;				for further extension in a multiple requirements, and override some methods		</br>
+ * 																													</br>
+ * 
+ * </p>
  *
  * @author laipl
  *
