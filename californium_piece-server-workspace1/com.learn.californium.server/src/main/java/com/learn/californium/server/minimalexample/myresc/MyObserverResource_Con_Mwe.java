@@ -72,7 +72,7 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			timer = new Timer();
 			// 1s = 1000ms
 			// 每10000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
-			timer.schedule(new UpdateTask(),0, 10000);
+			timer.schedule(new UpdateTask(),0, 5000);
 		}
 		
 
@@ -103,6 +103,7 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 		//
 		@Override
 		public void handleGET(CoapExchange exchange) {
+			System.out.println("--------- server side handleGET start ---------------");
 			System.out.println("handleGET: "+ super.getName());
 			//
 			int_connect_get_num = int_connect_get_num +1;
@@ -120,7 +121,7 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
-			
+			System.out.println("--------- server side handleGET end ---------------");
 			
 		}
 		
@@ -148,5 +149,15 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			changed(); // notify all observers
 		}
 
+		
+		
+		
+		//--------------------- my method --------------------- 
+		//把timer 停止了, 如果只是server.destory 是不会把这个 resource的 Timer结束的
+		//所以我需要 自己设置一个方法来停止这个timer
+		public int stopMyResource(){
+			this.timer.cancel();
+			return 1;
+		}
 
 	}

@@ -67,8 +67,8 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			// schedule a periodic update task, otherwise let events call changed()
 			//Timer timer = new Timer();
 			timer = new Timer();
-			// 每10000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
-			timer.schedule(new UpdateTask(),0, 10000);
+			// 每5000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
+			timer.schedule(new UpdateTask(),0, 5000);
 		}
 		
 
@@ -141,6 +141,14 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			// ...
 			exchange.respond(ResponseCode.CHANGED);
 			changed(); // notify all observers
+		}
+		
+		//--------------------- my method --------------------- 
+		//把timer 停止了, 如果只是server.destory 是不会把这个 resource的 Timer结束的
+		//所以我需要 自己设置一个方法来停止这个timer
+		public int stopMyResource(){
+			this.timer.cancel();
+			return 1;
 		}
 
 	}

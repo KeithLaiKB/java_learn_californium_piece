@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.californium.mytest1.MyThreadSleep;
 import com.learn.californium.server.minimalexample.datadto.DtoFruit;
+import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource_Mwe;
 
@@ -76,6 +77,14 @@ class UT_Observer_toOperateDelete_syn {
 	static CoapResponse resultFromServer2 = null;
 	
 	CoapObserveRelation coapObRelation1 =null;
+	
+	
+	
+	MyObserverResource_Con_Mwe myobResc1 	= null;
+	//
+	MyObserverResource_Con_Mwe myobResc1_c1 = null;
+	MyObserverResource_Con_Mwe myobResc1_c2 = null;
+	MyObserverResource_Con_Mwe myobResc1_c3 = null;
 	//----------------------------------------------------------
 	//
 	UT_Observer_toOperateDelete_syn(){
@@ -128,11 +137,11 @@ class UT_Observer_toOperateDelete_syn {
 		server1 = new CoapServer(5656);										// define port to be 5656 
 		//
 		// add resource
-		Con_MyObserverResource_Con_Mwe myobResc1 	= new Con_MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive
+		myobResc1 	= new MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive
 		//
-		Con_MyObserverResource_Con_Mwe myobResc1_c1 = new Con_MyObserverResource_Con_Mwe("hello_observer_child1");
-		Con_MyObserverResource_Con_Mwe myobResc1_c2 = new Con_MyObserverResource_Con_Mwe("hello_observer_child2");
-		Con_MyObserverResource_Con_Mwe myobResc1_c3 = new Con_MyObserverResource_Con_Mwe("hello_observer_child3");
+		myobResc1_c1 = new MyObserverResource_Con_Mwe("hello_observer_child1");
+		myobResc1_c2 = new MyObserverResource_Con_Mwe("hello_observer_child2");
+		myobResc1_c3 = new MyObserverResource_Con_Mwe("hello_observer_child3");
 		//
 		myobResc1_c2.add(myobResc1_c3);
 		myobResc1_c1.add(myobResc1_c2);
@@ -183,11 +192,30 @@ class UT_Observer_toOperateDelete_syn {
 	@AfterEach
 	void aftersomething() {
 		// server side
-		server1.destroy();						//destory 只是释放了端口
+		// 在我看来 如果实在demo 里面 其实 是不用这个 destroy方法
+		// 因为 作为一个observe的关系
+		// 
+		server1.destroy();						//destory 只是 server side 释放了端口
 		// client side
-		coapObRelation1.reactiveCancel();		//还需要手动关掉relation							
+		coapObRelation1.reactiveCancel();		//client side 还需要手动关掉 自己 observe 那个 server的 relation, 							
         //MyThreadSleep.sleep20s();
 		System.out.println("###############################################server1.destroy");
+		MyThreadSleep.sleep10s();
+		// server side
+		// 问题, 我发现单纯destroy是 不会停止 resource里的计时器的！！！！！！！！！！！
+		// 所以我接下来就是需要 想想 是不是应该destroy 的时候把计时器也关掉！！！！！！
+		// 所以这里还需要关掉 resource的timer
+		myobResc1.stopMyResource();
+		myobResc1_c1.stopMyResource();
+		myobResc1_c2.stopMyResource();
+		myobResc1_c3.stopMyResource();
+		MyThreadSleep.sleep10s();
+		System.out.println("###############################################server1.destroyed");
+		// client side
+		client1.shutdown();
+		System.out.println("###############################################client1.shutdown finishied");
+		MyThreadSleep.sleep10s();
+		System.out.println("###############################################server and client close checked finished");
 	}
 	
 	/**
@@ -211,7 +239,7 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
@@ -229,7 +257,7 @@ class UT_Observer_toOperateDelete_syn {
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
         //
 		//
         assertEquals(false,resultFromServer1.isSuccess(),"if_success_client1");
@@ -267,7 +295,7 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		assertEquals("NOT_FOUND",resultFromServer2.getCode().name(),"test_notfound_client2");
         assertEquals(false,resultFromServer2.isSuccess(),"if_success_client2");
@@ -275,7 +303,7 @@ class UT_Observer_toOperateDelete_syn {
         //必须要取消observe， 不然它会影响后面的testcase, 
         //当然你用proactiveCancel也行
         coapObRelation2.reactiveCancel();											
-        MyThreadSleep.sleep20s();
+        MyThreadSleep.sleep10s();
         System.out.println("###############################################end");
 
 	}
@@ -302,7 +330,7 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
@@ -320,7 +348,7 @@ class UT_Observer_toOperateDelete_syn {
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
         //
 		//
         assertEquals(false,resultFromServer1.isSuccess(),"if_success_client1");
@@ -358,7 +386,7 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		assertEquals("NOT_FOUND",resultFromServer2.getCode().name(),"test_notfound_client2");
         assertEquals(false,resultFromServer2.isSuccess(),"if_success_client2");
@@ -366,7 +394,7 @@ class UT_Observer_toOperateDelete_syn {
         //必须要取消observe， 不然它会影响后面的testcase, 
         //当然你用proactiveCancel也行
         coapObRelation2.reactiveCancel();											
-        MyThreadSleep.sleep20s();
+        MyThreadSleep.sleep10s();
         System.out.println("###############################################end");
 	}
 
@@ -392,7 +420,7 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
@@ -410,7 +438,7 @@ class UT_Observer_toOperateDelete_syn {
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
         //
 		//
         assertEquals(false,resultFromServer1.isSuccess(),"if_success_client1");
@@ -448,16 +476,18 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
         assertEquals(true,resultFromServer2.isSuccess(),"if_success_client2");
         // --------------------------------------------------------------------
         //必须要取消observe， 不然它会影响后面的testcase, 
         //当然你用proactiveCancel也行
         coapObRelation2.reactiveCancel();											
-        MyThreadSleep.sleep20s();
+        MyThreadSleep.sleep10s();
         System.out.println("###############################################end");
 	}
 	
+	
+
 	
 }

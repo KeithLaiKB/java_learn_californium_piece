@@ -57,6 +57,50 @@ public class TestObserverMain_Mwe_trydelete  {
 		//
 		server.start(); // does all the magic
 		
+		System.out.println("try to destroy server!!!!!!!!!!!!!!!!!!!!!!");
+		
+		
+		
+		
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		System.out.println("destroying server!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		server.destroy(); // does all the magic
+		// 问题, 我发现单纯destroy是 不会停止 resource里的计时器的
+		// 所以我接下来就是需要 想想 是不是应该destroy 的时候把计时器也关掉
+		// californium/californium-tests/californium-integration-tests/src/test/java/org/eclipse/californium/integration/test/SecureObserveTest.java 
+		// 像是官方文档的话, 他是在Main 用个for循环 来更新值, 添加一个changed(String)方法  ,   然后手动 让 resouce 去change
+		/*
+		for (int i = 0; i < REPEATS; ++i) {
+			resource.changed("client");
+			Thread.sleep(50);
+		}
+		
+		但实际情况不能这么做吧, 你在main 函数去更新, 
+		相当于把 这个resource里的业务逻辑 	
+				从resource 上移到了 server
+		 * 
+		 */
+		myobResc1.stopMyResource();
+		myobResc1_c1.stopMyResource();
+		myobResc1_c2.stopMyResource();
+		myobResc1_c3.stopMyResource();
+		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//myobResc1_c1 = null;
+		System.out.println("finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 	}
 
 	

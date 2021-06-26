@@ -240,5 +240,11 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			this.myCoapServer1 = myCoapServer1;
 		}
 
+		//
+		//把timer 停止了, 如果只是server.destory 是不会把这个 resource的 Timer结束的
+		public int stopMyResource(){
+			this.timer.cancel();
+			return 1;
+		}
 
 	}

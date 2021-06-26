@@ -185,7 +185,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
@@ -193,7 +193,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
         //
 		resultFromServer1 = null;
 		//
@@ -211,7 +211,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//
 		// sleep main function avoid ending the program 
 		// to let the handler thread to get more notifications from server
-		MyThreadSleep.sleep30s();				
+		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
@@ -219,13 +219,13 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
         //
 		resultFromServer1 = null;
 		//
 		// if reactiveCancel is unsuccessful, resultFromServer1 is not null
 		// because during the main function is sleeping, the observe handler can receive the payload
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
 		//
         assertEquals(null,resultFromServer1,"test_canceled_client1");
 	}

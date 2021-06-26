@@ -146,5 +146,7 @@ public class MyObserverResource  extends CoapResource {
 			this.myCoapServer1 = myCoapServer1;
 		}
 
+		
+
 
 	}
