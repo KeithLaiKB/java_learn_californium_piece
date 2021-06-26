@@ -103,7 +103,8 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 		//
 		@Override
 		public void handleGET(CoapExchange exchange) {
-			System.out.println("--------- server side handleGET start ---------------");
+			System.out.println("---------------------------------------------------");
+			System.out.println("--------- server side handleGET start -------------");
 			System.out.println("handleGET: "+ super.getName());
 			//
 			int_connect_get_num = int_connect_get_num +1;
@@ -122,6 +123,7 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
 			System.out.println("--------- server side handleGET end ---------------");
+			System.out.println("---------------------------------------------------");
 			
 		}
 		

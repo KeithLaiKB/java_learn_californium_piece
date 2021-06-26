@@ -16,6 +16,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.californium.mytest1.MyThreadSleep;
@@ -85,6 +87,12 @@ class UT_Observer_toOperateDelete_syn {
 	MyObserverResource_Con_Mwe myobResc1_c1 = null;
 	MyObserverResource_Con_Mwe myobResc1_c2 = null;
 	MyObserverResource_Con_Mwe myobResc1_c3 = null;
+	//----------------------------------------------------------
+	//
+	//
+	final Logger LOGGER = LoggerFactory.getLogger(UT_Observer_toOperateDelete_syn.class);
+	
+	
 	//----------------------------------------------------------
 	//
 	UT_Observer_toOperateDelete_syn(){
@@ -166,12 +174,14 @@ class UT_Observer_toOperateDelete_syn {
 
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println("-------- client side onload start --------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("--------- client side onload start ----------------");
 				resultFromServer1 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
 				System.out.println("response code name: " + response.getCode().name());
-				System.out.println("--------- client side onload end ---------------");
+				System.out.println("---------- client side onload end -----------------");
+				System.out.println("---------------------------------------------------");
 			}
 
 			@Override
@@ -181,9 +191,9 @@ class UT_Observer_toOperateDelete_syn {
 		};
 		//----------------------------------------
 		// ----------- client1 observe -----------
-		System.out.println("+++++ sending request +++++");
+		System.out.println("+++++ client1 start to observe +++++");
 		coapObRelation1 = client1.observe(myObserveHandler1);
-		System.out.println("++++++ sent request ++++++");
+		System.out.println("++++++++ client1 observing ++++++++");
 		//----------------------------------------
 
 	}
@@ -191,31 +201,55 @@ class UT_Observer_toOperateDelete_syn {
 	
 	@AfterEach
 	void aftersomething() {
-		// server side
+		// 注意 我下面这个关闭流程 并不是特别标准, 但是 很能体现细节问题
+		//
+		//
+		// ----------------------- server side 进行 destroy -----------------------------
 		// 在我看来 如果实在demo 里面 其实 是不用这个 destroy方法
 		// 因为 作为一个observe的关系
 		// 
 		server1.destroy();						//destory 只是 server side 释放了端口
-		// client side
+		//
+		// ----------------------- client side 取消 subscribe --------------------------
+		//
+        // 
+        // 必须要取消observe， 不然它会影响后面的testcase, 
+        // 当然你用proactiveCancel也行
+        //
+        // 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
+        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
+        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        //
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client1已经没了
 		coapObRelation1.reactiveCancel();		//client side 还需要手动关掉 自己 observe 那个 server的 relation, 							
-        //MyThreadSleep.sleep20s();
-		System.out.println("###############################################server1.destroy");
+		LOGGER.info("###############################################server1.destroy");
+		//
+		// ----------------------- 利用 sleep main function 来发现问题  ---------------------
+		//
+		// server side 问题, 我发现单纯destroy是 不会停止 resource里的计时器的！！！！！！！！！！！
 		MyThreadSleep.sleep10s();
-		// server side
-		// 问题, 我发现单纯destroy是 不会停止 resource里的计时器的！！！！！！！！！！！
-		// 所以我接下来就是需要 想想 是不是应该destroy 的时候把计时器也关掉！！！！！！
+		//
+		// --------------------------------- 解决问题, 所以去停止 resource 的 timer ----------
+		//
 		// 所以这里还需要关掉 resource的timer
 		myobResc1.stopMyResource();
 		myobResc1_c1.stopMyResource();
 		myobResc1_c2.stopMyResource();
 		myobResc1_c3.stopMyResource();
 		MyThreadSleep.sleep10s();
-		System.out.println("###############################################server1.destroyed");
-		// client side
+		LOGGER.info("###############################################server1.destroyed");
+		//
+		// ------------------- client side 取消完subscribe 还要 sutdown -------------------
+		//
 		client1.shutdown();
-		System.out.println("###############################################client1.shutdown finishied");
+		LOGGER.info("###############################################client1.shutdown finishied");
+		//
+		// ---------------- 利用 sleep main function 尝试来发现问题 , 然后 发现没有问题---------------
+		//
 		MyThreadSleep.sleep10s();
-		System.out.println("###############################################server and client close checked finished");
+		LOGGER.info("###############################################server and client close checked finished");
+		//
 	}
 	
 	/**
@@ -266,6 +300,8 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		//------------------------------------------------------------------------
 		//--------------------------- client2 ------------------------------------
+        //
+        // delete children1 以后, 新建一个client2 判断 是否能observe 同一个 resource
 		// new client
 		CoapClient client2 = null;
 		client2 = new CoapClient(myuri1_c1);
@@ -276,12 +312,14 @@ class UT_Observer_toOperateDelete_syn {
 
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println("-------- client side onload start --------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("--------- client side onload start ----------------");
 				resultFromServer2 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
 				System.out.println("response code name: " + response.getCode().name());
-				System.out.println("--------- client side onload end ---------------");
+				System.out.println("---------- client side onload end -----------------");
+				System.out.println("---------------------------------------------------");
 			}
 
 			@Override
@@ -298,13 +336,23 @@ class UT_Observer_toOperateDelete_syn {
 		MyThreadSleep.sleep20s();				
 		//
 		assertEquals("NOT_FOUND",resultFromServer2.getCode().name(),"test_notfound_client2");
+		//
+		// if children1 is deleted, sub resource could not be observed
         assertEquals(false,resultFromServer2.isSuccess(),"if_success_client2");
         // --------------------------------------------------------------------
-        //必须要取消observe， 不然它会影响后面的testcase, 
-        //当然你用proactiveCancel也行
-        coapObRelation2.reactiveCancel();											
+        // 必须要取消observe， 不然它会影响后面的testcase, 
+        // 当然你用proactiveCancel也行
+        //
+        // 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
+        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
+        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        //
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        coapObRelation2.reactiveCancel();
         MyThreadSleep.sleep10s();
-        System.out.println("###############################################end");
+        client2.shutdown();
+        LOGGER.info("###############################################end");
 
 	}
 	
@@ -357,6 +405,8 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		//------------------------------------------------------------------------
 		//--------------------------- client2 ------------------------------------
+        //
+        // delete children1 以后, 新建一个client2 判断 是否能observe sub resource
 		// new client
 		CoapClient client2 = null;
 		client2 = new CoapClient(myuri1_c2);
@@ -367,12 +417,14 @@ class UT_Observer_toOperateDelete_syn {
 
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println("-------- client side onload start --------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("--------- client side onload start ----------------");
 				resultFromServer2 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
 				System.out.println("response code name: " + response.getCode().name());
-				System.out.println("--------- client side onload end ---------------");
+				System.out.println("---------- client side onload end -----------------");
+				System.out.println("---------------------------------------------------");
 			}
 
 			@Override
@@ -389,13 +441,23 @@ class UT_Observer_toOperateDelete_syn {
 		MyThreadSleep.sleep20s();				
 		//
 		assertEquals("NOT_FOUND",resultFromServer2.getCode().name(),"test_notfound_client2");
+		//
+		// if children1 is deleted, sub resource could not be observed
         assertEquals(false,resultFromServer2.isSuccess(),"if_success_client2");
-        //----------------------------------------
-        //必须要取消observe， 不然它会影响后面的testcase, 
-        //当然你用proactiveCancel也行
-        coapObRelation2.reactiveCancel();											
+        // --------------------------------------------------------------------
+        // 必须要取消observe， 不然它会影响后面的testcase, 
+        // 当然你用proactiveCancel也行
+        //
+        // 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
+        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
+        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        //
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        coapObRelation2.reactiveCancel();
         MyThreadSleep.sleep10s();
-        System.out.println("###############################################end");
+        client2.shutdown();
+        LOGGER.info("###############################################end");
 	}
 
 	
@@ -447,6 +509,8 @@ class UT_Observer_toOperateDelete_syn {
 		//
 		//------------------------------------------------------------------------
 		//--------------------------- client2 ------------------------------------
+        // delete children1 以后, 新建一个client2 判断 是否能observe parent resource
+        //
 		// new client
 		CoapClient client2 = null;
 		client2 = new CoapClient(myuri1);
@@ -457,12 +521,14 @@ class UT_Observer_toOperateDelete_syn {
 
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println("-------- client side onload start --------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("--------- client side onload start ----------------");
 				resultFromServer2 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
 				System.out.println("response code name: " + response.getCode().name());
-				System.out.println("--------- client side onload end ---------------");
+				System.out.println("---------- client side onload end -----------------");
+				System.out.println("---------------------------------------------------");
 			}
 
 			@Override
@@ -478,13 +544,22 @@ class UT_Observer_toOperateDelete_syn {
 		// to let the handler thread to get more notifications from server
 		MyThreadSleep.sleep20s();				
 		//
+		// if children1 is deleted, parent resource could be observed
         assertEquals(true,resultFromServer2.isSuccess(),"if_success_client2");
         // --------------------------------------------------------------------
-        //必须要取消observe， 不然它会影响后面的testcase, 
-        //当然你用proactiveCancel也行
-        coapObRelation2.reactiveCancel();											
+        // 必须要取消observe， 不然它会影响后面的testcase, 
+        // 当然你用proactiveCancel也行
+        //
+        // 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
+        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
+        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        //
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        coapObRelation2.reactiveCancel();
         MyThreadSleep.sleep10s();
-        System.out.println("###############################################end");
+        client2.shutdown();
+        LOGGER.info("###############################################end");
 	}
 	
 	

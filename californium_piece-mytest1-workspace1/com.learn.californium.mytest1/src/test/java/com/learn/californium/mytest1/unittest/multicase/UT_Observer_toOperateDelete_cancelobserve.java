@@ -146,12 +146,14 @@ class UT_Observer_toOperateDelete_cancelobserve {
 
 			@Override
 			public void onLoad(CoapResponse response) { // also error resp.
-				System.out.println("-------- client side onload start --------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("--------- client side onload start ----------------");
 				resultFromServer1 = response;
 				System.out.println("result from server:" + response.isSuccess() );
 				System.out.println("on load: " + response.getResponseText());
 				System.out.println("response code name: " + response.getCode().name());
-				System.out.println("--------- client side onload end ---------------");
+				System.out.println("---------- client side onload end -----------------");
+				System.out.println("---------------------------------------------------");
 			}
 
 			@Override
@@ -161,9 +163,9 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		};
 		
 		// ----------- client1 observe -----------
-		System.out.println("+++++ sending request +++++");
+		System.out.println("+++++ client1 start to observe +++++");
 		coapObRelation1 = client1.observe(myObserveHandler1);
-		System.out.println("++++++ sent request ++++++");
+		System.out.println("++++++++ client1 observing ++++++++");
 		//----------------------------------------
 	}
 	
@@ -172,9 +174,9 @@ class UT_Observer_toOperateDelete_cancelobserve {
 	void aftersomething() {
 		// server side
 		server1.destroy();						//destory 只是释放了端口
-		// client side
-		coapObRelation1.reactiveCancel();		//还需要手动关掉relation							
-        //MyThreadSleep.sleep20s();
+		//
+        MyThreadSleep.sleep10s();
+        client1.shutdown();
 		System.out.println("###############################################server1.destroy");
 	}
 	
@@ -188,7 +190,18 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		MyThreadSleep.sleep20s();				
 		//
 		//----------------- client1 deletes server resource ----------------------
+		// client side
 		//
+        // 
+        // 必须要取消observe， 不然它会影响后面的testcase, 
+        // 当然你用proactiveCancel也行
+        //
+        // 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
+        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
+        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        //
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client1已经没了
 		coapObRelation1.reactiveCancel();
 		//------------------------------------------------------------------------
 		//
@@ -199,7 +212,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//
 		// if reactiveCancel is unsuccessful, resultFromServer1 is not null
 		// because during the main function is sleeping, the observe handler can receive the payload
-		MyThreadSleep.sleep20s();
+		MyThreadSleep.sleep10s();
 		//
         assertEquals(null,resultFromServer1,"test_canceled_client1");
 	}
@@ -215,7 +228,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		//
 		//----------------- client1 deletes server resource ----------------------
 		//
-		coapObRelation1.reactiveCancel();
+		coapObRelation1.proactiveCancel();
 		//------------------------------------------------------------------------
 		//
 		// sleep main function for getting the last notification due to concurrency
