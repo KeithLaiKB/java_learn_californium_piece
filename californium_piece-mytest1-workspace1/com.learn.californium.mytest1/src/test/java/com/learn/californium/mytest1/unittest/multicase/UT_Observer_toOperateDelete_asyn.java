@@ -360,14 +360,25 @@ class UT_Observer_toOperateDelete_asyn {
         // 当然你用proactiveCancel也行
         //
         // 注意
-        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
-        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
-        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        // 如果你用reactiveCancel 最好, 等一段时间再 让这个子程序结束
+        // 因为 reactiveCancel 是等待 下一次notification过来的时候, 再发送RST 让server不再发送消息过来
+        // 如果当下一次 notification 过来时, 这个子程序却 已经运行完了, 那么也就是说
+        // 这个 子程序的  内部变量 coapObRelation2 来不及 发送RST 去server 取消订阅了
         //
-        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        //
         coapObRelation2.reactiveCancel();
-        MyThreadSleep.sleep10s();
+        //MyThreadSleep.sleep10s();
+        //
+        // shutdown need sometime to wait
         client2.shutdown();
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        // 在我看来 有点奇怪的是, 我明明 shutdown了 client2 可是在这里写sleep 也能避免RST无法发送的问题
+        // 我猜测发送消息 可能是跟coapObRelation2有关, 
+        // 因为他发送过去以后 不需要 server再发送消息过来了
+        // 
+        // 总而言之, 如果想要reactiveCancel 以后 还打算shutdown, 记得要稍微等待一段时间(最好超过 服务器每次发送消息的间隔)
+        // 从而能够让 client2 等待 下一次信息过来 进而发送RST 给server, 从而达到取消订阅的目的
+        MyThreadSleep.sleep10s();
         LOGGER.info("###############################################end");
 
 
@@ -479,14 +490,25 @@ class UT_Observer_toOperateDelete_asyn {
         // 当然你用proactiveCancel也行
         //
         // 注意
-        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
-        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
-        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        // 如果你用reactiveCancel 最好, 等一段时间再 让这个子程序结束
+        // 因为 reactiveCancel 是等待 下一次notification过来的时候, 再发送RST 让server不再发送消息过来
+        // 如果当下一次 notification 过来时, 这个子程序却 已经运行完了, 那么也就是说
+        // 这个 子程序的  内部变量 coapObRelation2 来不及 发送RST 去server 取消订阅了
         //
-        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        //
         coapObRelation2.reactiveCancel();
-        MyThreadSleep.sleep10s();
+        //MyThreadSleep.sleep10s();
+        //
+        // shutdown need sometime to wait
         client2.shutdown();
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        // 在我看来 有点奇怪的是, 我明明 shutdown了 client2 可是在这里写sleep 也能避免RST无法发送的问题
+        // 我猜测发送消息 可能是跟coapObRelation2有关, 
+        // 因为他发送过去以后 不需要 server再发送消息过来了
+        // 
+        // 总而言之, 如果想要reactiveCancel 以后 还打算shutdown, 记得要稍微等待一段时间(最好超过 服务器每次发送消息的间隔)
+        // 从而能够让 client2 等待 下一次信息过来 进而发送RST 给server, 从而达到取消订阅的目的
+        MyThreadSleep.sleep10s();
         LOGGER.info("###############################################end");
 	}
 
@@ -594,14 +616,25 @@ class UT_Observer_toOperateDelete_asyn {
         // 当然你用proactiveCancel也行
         //
         // 注意
-        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
-        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
-        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
+        // 如果你用reactiveCancel 最好, 等一段时间再 让这个子程序结束
+        // 因为 reactiveCancel 是等待 下一次notification过来的时候, 再发送RST 让server不再发送消息过来
+        // 如果当下一次 notification 过来时, 这个子程序却 已经运行完了, 那么也就是说
+        // 这个 子程序的  内部变量 coapObRelation2 来不及 发送RST 去server 取消订阅了
         //
-        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        //
         coapObRelation2.reactiveCancel();
-        MyThreadSleep.sleep10s();
+        //MyThreadSleep.sleep10s();
+        //
+        // shutdown need sometime to wait
         client2.shutdown();
+        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client2已经没了
+        // 在我看来 有点奇怪的是, 我明明 shutdown了 client2 可是在这里写sleep 也能避免RST无法发送的问题
+        // 我猜测发送消息 可能是跟coapObRelation2有关, 
+        // 因为他发送过去以后 不需要 server再发送消息过来了
+        // 
+        // 总而言之, 如果想要reactiveCancel 以后 还打算shutdown, 记得要稍微等待一段时间(最好超过 服务器每次发送消息的间隔)
+        // 从而能够让 client2 等待 下一次信息过来 进而发送RST 给server, 从而达到取消订阅的目的
+        MyThreadSleep.sleep10s();
         LOGGER.info("###############################################end");
 	}
 	

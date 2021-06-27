@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.californium.mytest1.MyThreadSleep;
 import com.learn.californium.server.minimalexample.datadto.DtoFruit;
+import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyObserverResource_Con_Mwe;
 import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource_Mwe;
 
@@ -46,7 +47,7 @@ import com.learn.californium.server.minimalexample.myresc.concise.Con_MyResource
  * @author laipl
  *
  */
-class UT_Observer_toOperateDelete_cancelobserve {
+class UT_Observer_toCancelobserve {
 	
 	
 	String port2 = "coap://160.32.219.56:5656/hello_observer";		//有线连接树莓派, 路由给的地址是192.168.50.178
@@ -60,7 +61,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 	static CoapServer server1 = null;
 	static CoapClient client1 = null;
 	//static CoapHandler myclientHandler1 = null;
-	//Con_MyObserverResource_Con_Mwe myobResc1=null;
+	MyObserverResource_Con_Mwe myobResc1=null;
 	//
 	//---------------- data field ----------------
 	String str_post_content="hi_i_am_string";
@@ -75,7 +76,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 	//
 	//----------------------------------------------------------
 	//
-	UT_Observer_toOperateDelete_cancelobserve(){
+	UT_Observer_toCancelobserve(){
 		System.out.println("constructor");
 	}
 	
@@ -124,7 +125,7 @@ class UT_Observer_toOperateDelete_cancelobserve {
 		server1 = new CoapServer(5656);										// define port to be 5656 
 		//
 		// add resource
-		Con_MyObserverResource_Con_Mwe myobResc1 	= new Con_MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive		
+		myobResc1 	= new MyObserverResource_Con_Mwe("hello_observer");	// name "hello" is letter sensitive		
 		//
 		//
 		server1.add(myobResc1);	
@@ -174,8 +175,10 @@ class UT_Observer_toOperateDelete_cancelobserve {
 	void aftersomething() {
 		// server side
 		server1.destroy();						//destory 只是释放了端口
+		myobResc1.stopMyResource();
 		//
         MyThreadSleep.sleep10s();
+        // server side
         client1.shutdown();
 		System.out.println("###############################################server1.destroy");
 	}
@@ -196,12 +199,11 @@ class UT_Observer_toOperateDelete_cancelobserve {
         // 必须要取消observe， 不然它会影响后面的testcase, 
         // 当然你用proactiveCancel也行
         //
-        // 注意
-        // 如果你用reactiveCancel 最好, 等一段时间再shutdown
-        // 因为 reactiveCancel 是等待 下一次过来的时候, 在发送RST 让server不再发送消息过来
-        // 如果不等待的话, 直接shutdown, 会导致 对于server来说 还有这个 observe relation, 
-        //
-        // 如果 你不信 你可以试试删掉 sleep, 你会发现 除了 update task 之外 还有 handle get的输出, 然而此时 你的client1已经没了
+		// 注意
+        // 如果你用reactiveCancel 最好, 等一段时间再 让这个子程序结束
+        // 因为 reactiveCancel 是等待 下一次notification过来的时候, 再发送RST 让server不再发送消息过来
+        // 如果当下一次 notification 过来时, 这个子程序却 已经运行完了, 那么也就是说
+        // 这个 子程序的  内部变量 coapObRelation1 来不及 发送RST 去server 取消订阅了
 		coapObRelation1.reactiveCancel();
 		//------------------------------------------------------------------------
 		//
