@@ -42,30 +42,28 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 		
 		private int int_connect_get_num=0;
 		private int int_mytask_used=0;
-		
-
-		
+		//
 		Timer timer = null;
 		
 		
+		
+		//
+		//
 		public Con_MyObserverResource_Con_Mwe(String name) {
 			super(name);
 			//
 			//----------------------------------------
-			this.setObservable(true); // enable observing
-			this.setObserveType(Type.CON); // configure the notification type to CONs
-			// 设置 setObservable() 使得 mark observable in the Link-Format 
-			// 可以查 californium 的类LinkFormat	
+			this.setObservable(true); 				// enable observing
+			this.setObserveType(Type.CON); 			// configure the notification type to CONs
 			// 涉及到 https://tools.ietf.org/html/rfc6690#section-4 	(这讲了Linkformat 这么做的概念)
 			// 和  https://tools.ietf.org/html/rfc6690#section-4.1
-			// https://blog.csdn.net/xukai871105/article/details/45167069/
 			// 其实就是设置好 application/link-format 
 			this.getAttributes().setObservable(); // mark observable in the Link-Format (可以查 californium 的类LinkFormat)	
 			//
 			//----------------------------------------
 			//
 			// schedule a periodic update task, otherwise let events call changed()
-			//Timer timer = new Timer();
+			// Timer timer = new Timer();
 			timer = new Timer();
 			// 每5000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
 			timer.schedule(new UpdateTask(),0, 5000);
@@ -94,7 +92,8 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 		//
 		//
 		//
-		//--------------------- handle get/ delete / put / post--------------------- 
+		//--------------------------------------------------------------------------------
+		//------------------------ handle get/ delete / put / post------------------------ 
 		//
 		//
 		@Override
@@ -103,26 +102,11 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			//
 			int_connect_get_num = int_connect_get_num +1;
 			System.out.println("connect num: "+int_connect_get_num);
-			System.out.println("task used num: "+int_mytask_used);
-			//
-			//exchange.setMaxAge(1); // the Max-Age value should match the update interval
-			//exchange.respond(ResponseCode.CREATED);
-			// initial, the first time, the getObserverCount()==0
-			if(this.getObserverCount()==0) {
-				System.out.println("end points list is null");
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
-			}
-			else {
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
-			}
-			
-			
 		}
 		
 		@Override
 		public void handleDELETE(CoapExchange exchange) {
 			System.out.println("handleDELETE");
-			//
 			//
 			delete(); // will also call clearAndNotifyObserveRelations(ResponseCode.NOT_FOUND)
 			//
@@ -142,8 +126,11 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			exchange.respond(ResponseCode.CHANGED);
 			changed(); // notify all observers
 		}
-		
-		//--------------------- my method --------------------- 
+		//
+		//
+		//
+		//--------------------------------------------------------------------------------
+		//----------------------------------  my method ----------------------------------
 		//把timer 停止了, 如果只是server.destory 是不会把这个 resource的 Timer结束的
 		//所以我需要 自己设置一个方法来停止这个timer
 		public int stopMyResource(){
