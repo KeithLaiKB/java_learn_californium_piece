@@ -175,7 +175,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 				// 
 				//
 				// 
-				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
 				//
 				
 			}

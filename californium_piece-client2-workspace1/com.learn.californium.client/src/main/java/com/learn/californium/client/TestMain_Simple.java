@@ -4,10 +4,24 @@ import java.io.IOException;
 
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.elements.exception.ConnectorException;
-
-public class TestMain {
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						simple demo mainly refer to the official website									</br>
+ * 																													</br>
+ * 				
+ * 							ref:																					</br>	
+ * &emsp;						californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java  	</br>
+ * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java	
+ *
+ *
+ * @author laipl
+ *
+ */
+public class TestMain_Simple {
     public static void main(String[] args) {
 
         CoapClient client = new CoapClient("coap://localhost:5656/hello");
@@ -15,26 +29,20 @@ public class TestMain {
         CoapResponse response;
 		//
         try {
-			
 			response = client.get();
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
-			
-	        
+			//
 	        if (response!=null) {
 	        
 	        	System.out.println( response.getCode().name() );
 	        	System.out.println( response.getOptions() );
 	        	System.out.println( "response text:" + response.getResponseText() );
 	        	System.out.println( "payload:" + new String(response.getPayload()) );
-	        	
 	        	//System.out.println(xml);
 	        	
-	        } else {
-	        	
+	        } else { 	
 	        	System.out.println("Request failed");
-	        	
 	        }			
-		//		
 		//	
 		} catch (ConnectorException e) {
 			// TODO Auto-generated catch block
