@@ -101,7 +101,7 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			System.out.println("handleGET: "+ super.getName());
 			//
 			int_connect_get_num = int_connect_get_num +1;
-			System.out.println("connect num: "+int_connect_get_num);
+			exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
 		}
 		
 		@Override

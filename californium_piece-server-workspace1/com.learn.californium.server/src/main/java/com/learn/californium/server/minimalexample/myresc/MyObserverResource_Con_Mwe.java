@@ -116,11 +116,11 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			// initial, the first time, the getObserverCount()==0
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
+				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
 			}
 			else {
 				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
 			}
 			System.out.println("--------- server side handleGET end ---------------");
 			System.out.println("---------------------------------------------------");

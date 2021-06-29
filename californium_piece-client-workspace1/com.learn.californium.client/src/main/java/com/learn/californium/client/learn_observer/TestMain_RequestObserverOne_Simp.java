@@ -43,6 +43,7 @@ public class TestMain_RequestObserverOne_Simp {
 	            public void onLoad(CoapResponse response) {
 	            	System.out.println("on load: " + response.getResponseText());
 	            	System.out.println("get code: " + response.getCode().name());
+	            	//System.out.println("get code: " + response.getCode().value);
 	            }
 
 	            @Override

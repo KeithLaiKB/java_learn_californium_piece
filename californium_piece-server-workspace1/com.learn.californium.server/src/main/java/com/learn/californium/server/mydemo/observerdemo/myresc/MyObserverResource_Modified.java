@@ -155,7 +155,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			//
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used);
+				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
 			}
 			else {
 				Iterator it_tmp=this.getAttributes().getAttributeKeySet().iterator();
@@ -175,7 +175,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 				// 
 				//
 				// 
-				exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
 				//
 				
 			}
