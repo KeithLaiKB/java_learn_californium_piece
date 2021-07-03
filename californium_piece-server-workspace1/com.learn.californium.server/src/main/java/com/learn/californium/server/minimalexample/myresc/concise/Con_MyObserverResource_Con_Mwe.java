@@ -18,6 +18,8 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
 
 
 
+
+
 /**
  * 
  * 
@@ -43,6 +45,7 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 		private int int_connect_get_num=0;
 		private int int_mytask_used=0;
 		//
+		MyTimerTaskForUpdate myUpdateTask1 = null;
 		Timer timer = null;
 		
 		
@@ -66,7 +69,10 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			// Timer timer = new Timer();
 			timer = new Timer();
 			// 每5000ms 则去 执行一次 里面那个run 的 changed 从而通知所有的client, 通知的时候调用handleGet
-			timer.schedule(new UpdateTask(),0, 5000);
+			//timer.schedule(new MyUpdateTask(),0, 5000);
+			myUpdateTask1 = new MyTimerTaskForUpdate();
+			timer.schedule(myUpdateTask1,0, 5000);
+			
 		}
 		
 
@@ -78,7 +84,7 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 		 * @author laipl
 		 *
 		 */
-		private class UpdateTask extends TimerTask {
+		private class MyTimerTaskForUpdate extends TimerTask {
 			@Override
 			public void run() {
 				System.out.println("UpdateTask-------name:"+Con_MyObserverResource_Con_Mwe.this.getName());
