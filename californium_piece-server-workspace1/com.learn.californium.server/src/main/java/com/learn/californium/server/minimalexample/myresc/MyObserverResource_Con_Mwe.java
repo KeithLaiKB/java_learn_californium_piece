@@ -119,11 +119,18 @@ public class MyObserverResource_Con_Mwe  extends CoapResource {
 			// initial, the first time, the getObserverCount()==0
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
-				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
+				//
+				// 在这里它 默认的 ResponseCode 的值就是Content, 所以在这 你不需要特别指定 为 Content, 当然你指定也是可以的 
+				//exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
+				exchange.respond("task used num:"+int_mytask_used);
 			}
 			else {
 				//exchange.respond(ResponseCode.CREATED, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+ "//"+ exchange.getSourceSocketAddress());
-				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
+				//
+				// 在这里它 默认的 ResponseCode 的值就是Content, 所以在这 你不需要特别指定 为 Content, 当然你指定也是可以的 
+				// exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
+				exchange.respond("task used num:"+int_mytask_used+ "//" + exchange.getSourceSocketAddress());
+				
 			}
 			System.out.println("--------- server side handleGET end ---------------");
 			System.out.println("---------------------------------------------------");

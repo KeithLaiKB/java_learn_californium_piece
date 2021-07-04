@@ -2,13 +2,12 @@ package com.learn.californium.server.mydemo.observerdemo;
 
 import org.eclipse.californium.core.CoapServer;
 
-import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.impl.MyTestCoapServer;
-import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource;
 import com.learn.californium.server.mydemo.observerdemo.myresc.MyObserverResource_Modified;
 import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp1;
 import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp2;
 import com.learn.californium.server.mydemo.observerdemo.myresc.useless.MyObserverResource_Modified_Cp3;
+
 
 public class TestObserverMain_Modified  {
 

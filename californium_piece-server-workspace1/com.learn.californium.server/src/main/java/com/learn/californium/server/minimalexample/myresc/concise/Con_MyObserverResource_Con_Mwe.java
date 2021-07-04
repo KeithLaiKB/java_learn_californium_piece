@@ -107,7 +107,12 @@ public class Con_MyObserverResource_Con_Mwe  extends CoapResource {
 			System.out.println("handleGET: "+ super.getName());
 			//
 			int_connect_get_num = int_connect_get_num +1;
-			exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
+			//
+			// if you does not specify the responseCode here, its default value is CONTENT, 
+			// so you needn't specify the value to be CONTENT here
+			//exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
+			exchange.respond("task used num:"+int_mytask_used);
+
 		}
 		
 		@Override

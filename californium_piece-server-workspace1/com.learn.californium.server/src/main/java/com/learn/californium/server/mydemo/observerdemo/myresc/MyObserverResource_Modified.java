@@ -21,6 +21,7 @@ import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con
 import com.learn.californium.server.mydemo.IMyCoapServer;
 import com.learn.californium.server.mydemo.myresc.MyCoapResource;
 
+
 /**
  * 
  * @author laipl
@@ -155,6 +156,8 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			//
 			if(this.getObserverCount()==0) {
 				System.out.println("end points list is null");
+				// 在这里它 默认的 ResponseCode 的值就是Content, 所以在这 你不需要特别指定 为 Content, 当然你指定也是可以的 
+				//exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
 				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used);
 			}
 			else {
@@ -175,7 +178,9 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 				// 
 				//
 				// 
-				exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
+				// 在这里它 默认的 ResponseCode 的值就是Content, 所以在这 你不需要特别指定 为 Content, 当然你指定也是可以的
+				//exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
+				exchange.respond("task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
 				//
 				
 			}
