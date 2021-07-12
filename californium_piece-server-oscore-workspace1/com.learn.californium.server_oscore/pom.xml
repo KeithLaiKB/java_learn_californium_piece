@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.learn.californium</groupId>
-  <artifactId>com.learn.californium.server</artifactId>
+  <artifactId>com.learn.californium.server_oscore</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
@@ -30,33 +30,15 @@
 
 
 
-
-		<!-- dtsl -->
+		<!-- californium oscore -->
 		<dependency>
-			<groupId>org.eclipse.californium</groupId>
-			<artifactId>scandium</artifactId>
-			<version>2.6.0</version>
+    		<groupId>org.eclipse.californium</groupId>
+    		<artifactId>cf-oscore</artifactId>
+    		<version>3.0.0-M2</version>
 		</dependency>
-
 	</dependencies>
 
 
-
-
-	<repositories>
-
-		<repository>
-			<id>repo.eclipse.org</id>
-			<name>Californium Repository - Releases</name>
-			<url>https://repo.eclipse.org/content/repositories/californium-releases/</url>
-		</repository>
-		<repository>
-			<id>repo.eclipse.org</id>
-			<name>Californium Repository - Snapshots</name>
-			<url>https://repo.eclipse.org/content/repositories/californium-snapshots/</url>
-		</repository>
-
-	</repositories>
 
 
 

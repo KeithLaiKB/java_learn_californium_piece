@@ -62,8 +62,8 @@ public class TestObserver_Simple  extends CoapResource {
 			//
 			//
 			//
-			exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num+"//"+this.getEndpoints().size());
-			
+			//exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num+"//"+this.getEndpoints().size());
+			exchange.respond(ResponseCode.CREATED, ""+int_connect_get_num);
 		}
 		
 		@Override

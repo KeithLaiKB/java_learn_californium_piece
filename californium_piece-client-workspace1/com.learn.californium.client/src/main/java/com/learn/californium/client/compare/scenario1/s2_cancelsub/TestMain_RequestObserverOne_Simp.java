@@ -1,4 +1,4 @@
-package com.learn.californium.client.compare.scenario1;
+package com.learn.californium.client.compare.scenario1.s2_cancelsub;
 
 
 import java.util.Scanner;
@@ -15,11 +15,12 @@ import org.eclipse.californium.core.CoapResponse;
  * 							description:																			</br>	
  * &emsp;						client to observe																	</br>
  * &emsp;						in this demo you don't have too much selection operation such as delete				</br>
+ * &emsp;						before shutting down, it uses proactive cancel here									</br>
  * 
  * 							ref:																					</br>	
  * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
  *  																												</br>
-
+ *
  * 
  * </p>
  * @author laipl
