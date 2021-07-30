@@ -30,12 +30,29 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 import org.eclipse.californium.oscore.ContextRederivation.PHASE;
-
-public class TestOb2_Rederivation_CliInt_nocan {
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						client to observe																	</br>
+ * &emsp;						enable rederivation and set param to be PHASE.CLIENT_INITIATE						</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/ContextRederivationTest.java  	</br>	
+ *  																												</br>
+ *  
+ *
+ * @author laipl
+ *
+ */
+public class TestOb2_Rederivation_CliInit_noc {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
+	
+	
 	//
 	private static String uri_addr1 = "127.0.0.1";
 	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
