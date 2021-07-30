@@ -37,11 +37,15 @@ public class TestObserverMain {
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";
+	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
+	private static String uri_addr3 = "192.168.239.137";		
+	private static String uri_addr4 = "192.168.50.178";			//因为你是访问者, 你不需要知道树莓派在它的局域网中的内部IP,所以这个不需要
 	//
 	//private final static String uriLocal 			= "coap://localhost";
-	private final static String uriLocal 			= "coap://"+uri_addr1;
-	private final static String coap_server_uri 	= "coap://"+uri_addr2;
+	private final static String uriLocal1 			= "coap://"+uri_addr1;
+	private final static String uriLocal2 			= "coap://"+uri_addr2;
+	private final static String uriLocal3 			= "coap://"+uri_addr3;
+	private final static String uriLocal4 			= "coap://"+uri_addr4;
 	private final static String uriLocal9 			= "myranduri";
 	//
 	//
@@ -53,15 +57,15 @@ public class TestObserverMain {
 			(byte) 0x78, (byte) 0x63, (byte) 0x40 };
 	//
 	//
-	
+
 
 	public static void main(String[] args) throws OSException {
-		
-		
+
+
 		//californium/cf-oscore/src/main/java/org/eclipse/californium/oscore/ResponseDecryptor.java
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
-		
-		
+
+
 		byte[] sid = new byte[0];
 		byte[] rid = new byte[] { 0x01 };
 		//
@@ -72,19 +76,20 @@ public class TestObserverMain {
 			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext("coap://" + "127.0.0.1", ctx);
 			//db.addContext("coap://" + uri_addr2, ctx);
-			db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
-			
+			//db.addContext(inner_server_uri, ctx);
+			db.addContext(uriLocal2, ctx);
+
 		}
 		catch(OSException e) {
 			System.err.println("Failed to set client OSCORE Context information!");
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 
 		String resourceUri = "/oscore/observe2";
 		//CoapClient client = new CoapClient("coap://"+uri_addr2+":5656");
@@ -113,16 +118,17 @@ public class TestObserverMain {
 		}
 
 		//ObserveHandler handler = new ObserveHandler();
-		
+
 		//Create request and initiate Observe relationship
 		byte[] token = Bytes.createBytes(new Random(), 8);
 		System.out.println(token);
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		//r1.setURI("coap://"+uri_addr1+":5656"+"/oscore/observe2");
+		r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
-		r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
+		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
+		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
 		r1.getOptions().setOscore(Bytes.EMPTY);
 		//
 		//
@@ -130,7 +136,7 @@ public class TestObserverMain {
 		r1.setToken(token);
 		r1.setObserve();
 		CoapObserveRelation relation = client.observe(r1,myObserveHandler);
-		
+
 		//
 		//
 		//
@@ -149,19 +155,20 @@ public class TestObserverMain {
 				judge_timeout=true;
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		//Now cancel the Observe and wait for the final response
 		Request r2 = new Request(Code.GET);
 		r2.setConfirmable(true);
-		//r2.setURI("coap://"+uri_addr1+":5656"+"/oscore/observe2");
+		r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
-		r2.setURI("coap://127.0.0.1:5656/oscore/observe2");
+		//r2.setURI("coap://127.0.0.1:5656/oscore/observe2");
+		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
 		r2.getOptions().setOscore(Bytes.EMPTY);
 		//
 		//
@@ -175,14 +182,14 @@ public class TestObserverMain {
 		//
 		//
 		r2.send();
-		
+
 		try {
 			Response resp = r2.waitForResponse(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		/*
 		assertEquals( ResponseCode.CONTENT, resp.getCode());
 		assertEquals(MediaTypeRegistry.TEXT_PLAIN, resp.getOptions().getContentFormat());
@@ -192,20 +199,16 @@ public class TestObserverMain {
 		*/
 		client.shutdown();
 	}
-	
+
 	/*
 	private Request createClientRequest(Code c, String resourceUri) {
 		String serverUri = "coap://localhost";
-
 		Request r = new Request(c);
-
 		r.setConfirmable(true);
 		r.setURI(serverUri);
-
 		if(withOSCORE) {
 			r.getOptions().setOscore(Bytes.EMPTY); //Use OSCORE
 		}
-
 		return r;
 	}*/
 }

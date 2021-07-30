@@ -29,11 +29,15 @@ public class TestObserverMain {
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";
+	private static String uri_addr2 = "135.0.237.84";			//如果你的树莓派 上方没有路由器, 而是公共IP, 则你用这个
+	private static String uri_addr3 = "192.168.239.137";		
+	private static String uri_addr4 = "192.168.50.178";			//因为你放在树莓派这个服务器上, 并且你的树莓派上有路由器, 这个是树莓派在那个路由器下的地址
 	//
 	//private final static String uriLocal 			= "coap://localhost";
-	private final static String uriLocal 			= "coap://"+uri_addr1;
-	private final static String coap_server_uri 	= "coap://"+uri_addr2;
+	private final static String uriLocal1 			= "coap://"+uri_addr1;
+	private final static String uriLocal2 			= "coap://"+uri_addr2;
+	private final static String uriLocal3 			= "coap://"+uri_addr3;
+	private final static String uriLocal4 			= "coap://"+uri_addr4;
 	private final static String uriLocal9 			= "myranduri";
 	//
 	//
@@ -51,8 +55,10 @@ public class TestObserverMain {
 	private static Endpoint serverEndpoint;
 	//public static final InetSocketAddress LOCALHOST_EPHEMERAL = new InetSocketAddress(InetAddress.getLoopbackAddress(), 0);
 	//public static final InetSocketAddress LOCALHOST_EPHEMERAL = new InetSocketAddress(InetAddress.getLoopbackAddress(), 5656);
-	public static final InetSocketAddress LOCALHOST_EPHEMERAL = new InetSocketAddress(uri_addr1,5656);
+	public static final InetSocketAddress LOCALHOST_EPHEMERAL1 = new InetSocketAddress(uri_addr1,5656);
 	public static final InetSocketAddress LOCALHOST_EPHEMERAL2 = new InetSocketAddress(uri_addr2,5656);
+	public static final InetSocketAddress LOCALHOST_EPHEMERAL3 = new InetSocketAddress(uri_addr3,5656);
+	public static final InetSocketAddress LOCALHOST_EPHEMERAL4 = new InetSocketAddress(uri_addr4,5656);
 	private static Timer timer;
 	
 	
@@ -105,7 +111,7 @@ public class TestObserverMain {
 		try {
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext(uriLocal, ctx_B);
-			db.addContext(uriLocal, ctx_B);
+			db.addContext(uriLocal4, ctx_B);
 		}
 		catch (OSException e) {
 			System.err.println("Failed to set server OSCORE Context information!");
@@ -116,7 +122,7 @@ public class TestObserverMain {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL);
+		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
 		server.addEndpoint(serverEndpoint);
