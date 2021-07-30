@@ -1,4 +1,4 @@
-package com.learn.californium.client_oscore.easy_basic_demo.observerdemo;
+package com.learn.californium.client_oscore.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -30,7 +30,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestObserverMain {
+public class TestObMdf1_3_difftoken {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -74,12 +74,13 @@ public class TestObserverMain {
 		//
 		try {
 			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
+			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
 			//db.addContext("coap://" + "127.0.0.1", ctx);
 			//db.addContext("coap://" + uri_addr2, ctx);
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
-			db.addContext(uriLocal2, ctx);
+			db.addContext(uriLocal3, ctx);
 
 		}
 		catch(OSException e) {
@@ -120,12 +121,14 @@ public class TestObserverMain {
 		//ObserveHandler handler = new ObserveHandler();
 
 		//Create request and initiate Observe relationship
-		byte[] token = Bytes.createBytes(new Random(), 8);
+		//byte[] token = Bytes.createBytes(new Random(), 8);
+		//byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
+		byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
 		System.out.println(token);
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
+		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
@@ -150,7 +153,7 @@ public class TestObserverMain {
 		boolean judge_timeout = false;
 		while (judge_timeout==false) {
 			long nowTime_tmp=System.nanoTime();
-			long timelimit_tmp=5*1000000000L;
+			long timelimit_tmp=10*1000000000L;
 			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
 				judge_timeout=true;
 			}
@@ -160,12 +163,12 @@ public class TestObserverMain {
 
 
 
-
+		/*
 
 		//Now cancel the Observe and wait for the final response
 		Request r2 = new Request(Code.GET);
 		r2.setConfirmable(true);
-		r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
+		r2.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
 		//r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r2.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
@@ -183,13 +186,37 @@ public class TestObserverMain {
 		//
 		r2.send();
 
+		
+		
+		
 		try {
-			Response resp = r2.waitForResponse(1000);
+			Response resp = r2.waitForResponse(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		*/
+		
+		
+		
+		
+		
+		//relation.proactiveCancel();
+		
+		
+        //---------------------------------------------
+        // wait for the notifications
+        startObserveTime=System.nanoTime();   			//获取开始时间  
+		//
+		//
+		judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=5*1000000000L;
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
 		/*
 		assertEquals( ResponseCode.CONTENT, resp.getCode());
 		assertEquals(MediaTypeRegistry.TEXT_PLAIN, resp.getOptions().getContentFormat());

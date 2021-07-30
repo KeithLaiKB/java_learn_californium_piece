@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.easy_basic_demo;
+package com.learn.californium.server_oscore.mydemo;
 
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;

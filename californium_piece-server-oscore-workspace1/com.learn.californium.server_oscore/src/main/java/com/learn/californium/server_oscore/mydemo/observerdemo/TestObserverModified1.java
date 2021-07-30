@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.easy_basic_demo.observerdemo;
+package com.learn.californium.server_oscore.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -22,7 +22,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestObserverMain {
+public class TestObserverModified1 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -122,68 +122,18 @@ public class TestObserverMain {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
+		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL3);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
 		server.addEndpoint(serverEndpoint);
 
-		/** --- Resources for Observe tests follow --- **/
 		
-		//Base resource for OSCORE Observe test resources
-		OSCoreResource oscore = new OSCoreResource("oscore", true);
-		
-		//Second level base resource for OSCORE Observe test resources
-		OSCoreResource oscore_hello = new OSCoreResource("hello", true);
-
-		/**
-		 * The resource for testing Observe support 
-		 * 
-		 * Responds with "one" for the first request and "two" for later updates.
-		 *
-		 */
-		class ObserveResource extends CoapResource {
-			
-			public String value = "one";
-			private boolean firstRequestReceived = false;
-
-			public ObserveResource(String name, boolean visible) {
-				super(name, visible);
-				
-				this.setObservable(true); 
-				this.setObserveType(Type.NON);
-				this.getAttributes().setObservable();
-				
-				timer.schedule(new UpdateTask(), 0, 750);
-			}
-
-			@Override
-			public void handleGET(CoapExchange exchange) {
-				firstRequestReceived  = true;
-
-				exchange.respond(value);
-			}
-			
-			//Update the resource value when timer triggers (if 1st request is received)
-			class UpdateTask extends TimerTask {
-				@Override
-				public void run() {
-					if(firstRequestReceived) {
-						value = "two";
-						changed(); // notify all observers
-					}
-				}
-			}
-		}
+		MyObserverResource_Con_Mwe myobResc1 = new MyObserverResource_Con_Mwe("hello_observer");
 		//
-		timer = new Timer();
-		//observe2 resource for OSCORE Observe tests
-		ObserveResource oscore_observe2 = new ObserveResource("observe2", true);
-
-		//Creating resource hierarchy	
-		oscore.add(oscore_hello);
-		oscore.add(oscore_observe2);
-
-		server.add(oscore);
+		//
+		//------------------------operate server-------------------------------------
+		//
+		server.add(myobResc1);
 
 		/** --- End of resources for Observe tests **/
 
