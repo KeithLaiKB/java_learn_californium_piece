@@ -31,7 +31,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestOb2_Rederivation_CliInt_can {
+public class TestOb2_1_Rederivation_CliInt_can {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
