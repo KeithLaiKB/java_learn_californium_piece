@@ -36,6 +36,17 @@
     		<artifactId>cf-oscore</artifactId>
     		<version>3.0.0-M2</version>
 		</dependency>
+		
+		
+		
+			<!-- 因为这个project要 用来单元测试 所以要用junit 测试用的 -->
+	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.13.2</version>
+		<scope>test</scope>
+	</dependency>
 	</dependencies>
 
 

@@ -26,7 +26,9 @@ import org.eclipse.californium.core.CoapResponse;
 public class Con_TestMain_RequestObserverOne {
     public static void main(String[] args) {
 
-    	String myuri1 	     = "coap://localhost:5656/hello_observer";
+    	String myuri1 	     	= "coap://localhost:5656/hello_observer";
+    	//String myuri1 	    = "coap://localhost:5656/hello_observer";
+    	//String myuri1 	    = "coap://135.0.237.84:5656/hello";
     	//
     	CoapClient client = new CoapClient(myuri1);
         //

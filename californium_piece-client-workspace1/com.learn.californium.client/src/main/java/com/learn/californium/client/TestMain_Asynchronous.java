@@ -41,7 +41,7 @@ public class TestMain_Asynchronous {
 		//
 		// -------------------------preparasion-------------------------------------
 		String port1 = "coap://localhost:5656/hello?my_var1=i_am_var";
-		String port2 = "coap://160.32.219.56:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
+		String port2 = "coap://135.0.237.84:5656/hello";		//有线连接树莓派, 路由给的地址是192.168.50.178
 																// 我把它的192.168.50.178:5656 映射成160.32.219.56:5656
 		String port3 = "coap://160.32.219.56:5657/hello";		//无线连接树莓派, 路由给的地址是192.168.50.179
 																// 我把它的192.168.50.179:5656 映射成160.32.219.56:5657
@@ -66,7 +66,7 @@ public class TestMain_Asynchronous {
 		//
 		// -------------------------start-------------------------------------
 		// new client
-		CoapClient client1 = new CoapClient(port1);
+		CoapClient client1 = new CoapClient(port2);
 		//
 		//
 		// set handler
@@ -86,7 +86,16 @@ public class TestMain_Asynchronous {
 		// action
 		//
 		//client1.get(myCoapHandler1);
-		client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
+		try {
+			client1.put(dtoFruit1AsString,  MediaTypeRegistry.APPLICATION_JSON);
+		} catch (ConnectorException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);
 		//

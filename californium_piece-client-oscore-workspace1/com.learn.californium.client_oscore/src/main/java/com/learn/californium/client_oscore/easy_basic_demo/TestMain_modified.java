@@ -7,6 +7,7 @@ import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.CoAP.Code;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
+import org.eclipse.californium.core.coap.OptionSet;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.server.resources.CoapExchange;
@@ -17,23 +18,22 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-/**
- * 
- * 
- * <p>
- * 							description:																			</br>	
- * 
- * 							ref:																					</br>	
- * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/HelloWorldClient.java  	</br>	
- *
- *
- * @author laipl
- *
- */
-public class TestMain_Simple {
+
+public class TestMain_modified {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
-	private final static String uriLocal = "coap://localhost";
+	//
+	//
+	//
+	private static String uri_addr1 = "localhost";
+	private static String uri_addr2 = "135.0.237.84";
+	//
+	//private final static String uriLocal = "coap://localhost";
+	private final static String uriLocal = "coap://"+uri_addr1;
+	private final static String uriLocal2 = "coap://"+uri_addr2;
+	//
+	//
+	//
 	private final static String hello1 = "/hello/1";
 	private final static AlgorithmID alg = AlgorithmID.AES_CCM_16_64_128;
 	private final static AlgorithmID kdf = AlgorithmID.HKDF_HMAC_SHA_256;
@@ -41,24 +41,36 @@ public class TestMain_Simple {
 	// test vector OSCORE draft Appendix C.1.1
 	private final static byte[] master_secret = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B,
 			0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
+	private final static byte[] master_secret2 = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B,
+			0x0C, 0x0D, 0x0E, 0x0F, 0x11 };
 	private final static byte[] master_salt = { (byte) 0x9e, (byte) 0x7c, (byte) 0xa9, (byte) 0x22, (byte) 0x23,
 			(byte) 0x78, (byte) 0x63, (byte) 0x40 };
+	private final static byte[] master_salt2 = { (byte) 0x9e, (byte) 0x7c, (byte) 0xa9, (byte) 0x22, (byte) 0x23,
+			(byte) 0x78, (byte) 0x63, (byte) 0x41 };
+	
 	private final static byte[] sid = new byte[0];
+	//private final static byte[] sid = new byte[1];
+	// 写上 server 的id 作为  Recipient ID
 	private final static byte[] rid = new byte[] { 0x01 };
 
 	public static void main(String[] args) throws OSException, ConnectorException, IOException {
 		OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
-		db.addContext(uriLocal, ctx);
+		// context好像可以不一样
+		db.addContext(uriLocal2, ctx);
 
 		OSCoreCoapStackFactory.useAsDefault(db);
-		CoapClient c = new CoapClient(uriLocal + hello1);
+		CoapClient c = new CoapClient(uriLocal2 +":5656" + hello1);
 
 		Request r = new Request(Code.GET);
 		CoapResponse resp = c.advanced(r);
 		printResponse(resp);
 
+		System.out.println("kkkkkkkkkkkkkkkkk");
+		
 		r = new Request(Code.GET);
+		// 在getOptions()的时候,  options = new OptionSet();
 		r.getOptions().setOscore(new byte[0]);
+		//r.getOptions();
 		resp = c.advanced(r);
 		printResponse(resp);
 		c.shutdown();
