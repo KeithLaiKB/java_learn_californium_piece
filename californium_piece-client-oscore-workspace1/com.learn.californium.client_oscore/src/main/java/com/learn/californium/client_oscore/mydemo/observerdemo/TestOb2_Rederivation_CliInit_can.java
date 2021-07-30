@@ -30,8 +30,23 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-
-public class TestOb2_1_Rederivation_CliInt_can {
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * &emsp;						client to observe																	</br>
+ * &emsp;						enable rederivation and set param to be PHASE.CLIENT_INITIATE						</br>
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/ContextRederivationTest.java  	</br>	
+ *  																												</br>
+ *  
+ *
+ * @author laipl
+ *
+ */
+public class TestOb2_Rederivation_CliInit_can {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
