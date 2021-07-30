@@ -51,6 +51,8 @@ public class TestOb2_Rederivation_CliInit_can {
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
+	
+	
 	//
 	private static String uri_addr1 = "127.0.0.1";
 	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
