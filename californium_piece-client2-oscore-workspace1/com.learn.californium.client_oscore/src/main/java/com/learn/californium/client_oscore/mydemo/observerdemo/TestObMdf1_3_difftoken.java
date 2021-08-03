@@ -29,30 +29,12 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-import org.eclipse.californium.oscore.ContextRederivation.PHASE;
-/**
- * 
- * 
- * <p>
- * 							description:																			</br>	
- * &emsp;						client to observe																	</br>
- * &emsp;						enable rederivation and set param to be PHASE.CLIENT_INITIATE						</br>
- * 
- * 							ref:																					</br>	
- * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/ContextRederivationTest.java  	</br>	
- *  																												</br>
- *  
- *
- * @author laipl
- *
- */
-public class TestOb2_Rederivation_CliInit_noc {
+
+public class TestObMdf1_3_difftoken {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
-	
-	
 	//
 	private static String uri_addr1 = "127.0.0.1";
 	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
@@ -99,10 +81,7 @@ public class TestOb2_Rederivation_CliInit_noc {
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
 			db.addContext(uriLocal3, ctx);
-			//
-			ctx.setContextRederivationEnabled(true);
-			// Explicitly initiate the context re-derivation procedure
-			ctx.setContextRederivationPhase(PHASE.CLIENT_INITIATE);
+
 		}
 		catch(OSException e) {
 			System.err.println("Failed to set client OSCORE Context information!");
@@ -143,8 +122,8 @@ public class TestOb2_Rederivation_CliInit_noc {
 
 		//Create request and initiate Observe relationship
 		//byte[] token = Bytes.createBytes(new Random(), 8);
-		byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
-		//byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
+		//byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
+		byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
 		System.out.println(token);
 
 		Request r1 = new Request(Code.GET);

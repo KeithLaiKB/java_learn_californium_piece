@@ -24,35 +24,17 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
-import org.eclipse.californium.oscore.ContextRederivation.PHASE;
 import org.eclipse.californium.oscore.HashMapCtxDB;
 import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-/**
- * 
- * 
- * <p>
- * 							description:																			</br>	
- * &emsp;						client to observe																	</br>
- * &emsp;						enable rederivation and set param to be PHASE.CLIENT_INITIATE						</br>
- * 
- * 							ref:																					</br>	
- * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/ContextRederivationTest.java  	</br>	
- *  																												</br>
- *  
- *
- * @author laipl
- *
- */
-public class TestOb2_Rederivation_CliInit_can {
+
+public class TestObMdf1_1_cancel {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
-	
-	
 	//
 	private static String uri_addr1 = "127.0.0.1";
 	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
@@ -99,10 +81,6 @@ public class TestOb2_Rederivation_CliInit_can {
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
 			db.addContext(uriLocal3, ctx);
-			//
-			ctx.setContextRederivationEnabled(true);
-			// Explicitly initiate the context re-derivation procedure
-			ctx.setContextRederivationPhase(PHASE.CLIENT_INITIATE);
 
 		}
 		catch(OSException e) {

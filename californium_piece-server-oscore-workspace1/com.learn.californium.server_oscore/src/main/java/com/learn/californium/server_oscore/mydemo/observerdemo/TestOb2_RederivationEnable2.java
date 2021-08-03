@@ -23,7 +23,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestOb2_RederivationEnable {
+public class TestOb2_RederivationEnable2 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -132,7 +132,7 @@ public class TestOb2_RederivationEnable {
 
 			// If the server is to initiate the context re-derivation procedure, set
 			// accordingly in the context
-			//ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
+			ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
 			//ctx_B.setContextRederivationPhase(PHASE.SERVER_PHASE_1);
 			
 			

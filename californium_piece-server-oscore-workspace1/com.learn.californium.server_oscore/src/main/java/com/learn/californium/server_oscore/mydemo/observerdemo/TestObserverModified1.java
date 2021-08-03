@@ -111,6 +111,7 @@ public class TestObserverModified1 {
 		try {
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext(uriLocal, ctx_B);
+			// server 这里的uri 貌似随便填都可以
 			db.addContext(uriLocal4, ctx_B);
 		}
 		catch (OSException e) {
@@ -122,6 +123,7 @@ public class TestObserverModified1 {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
+		// 但是 server 这里的uri 必须要填写 当前机子 的ip(局域网192.xxx.xxx.xxx 或者 它的映射到公网的ip), 最好不要填写成127.0.0.1
 		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL3);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
