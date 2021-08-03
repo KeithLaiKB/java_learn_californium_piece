@@ -117,9 +117,9 @@ public class TestOb2_RederivationEnable2 {
 		//
 		try {
 			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
-			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
+			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
 			//
-			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, myContextId1);
+			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, myContextId1);
 			//
 			//
 			//db.addContext(uriLocal, ctx_B);
@@ -132,7 +132,7 @@ public class TestOb2_RederivationEnable2 {
 
 			// If the server is to initiate the context re-derivation procedure, set
 			// accordingly in the context
-			ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
+			//ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
 			//ctx_B.setContextRederivationPhase(PHASE.SERVER_PHASE_1);
 			
 			
