@@ -107,7 +107,7 @@ public class TstOb2_Rederivation_CliInit_can2 {
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
-			db.addContext(uriLocal3, ctx);
+			db.addContext(uriLocal2, ctx);
 			//
 			ctx.setContextRederivationEnabled(true);
 			// Explicitly initiate the context re-derivation procedure
@@ -169,7 +169,7 @@ public class TstOb2_Rederivation_CliInit_can2 {
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
+		r1.setURI("coap://"+uri_addr2+":5656"+"/hello_observer");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
