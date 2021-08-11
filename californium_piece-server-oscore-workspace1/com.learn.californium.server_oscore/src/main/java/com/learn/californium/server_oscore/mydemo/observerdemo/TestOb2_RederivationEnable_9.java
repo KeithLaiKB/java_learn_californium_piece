@@ -23,7 +23,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestOb2_RederivationEnable2 {
+public class TestOb2_RederivationEnable_9 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//

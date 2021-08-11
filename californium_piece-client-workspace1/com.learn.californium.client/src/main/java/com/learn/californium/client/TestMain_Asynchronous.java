@@ -87,7 +87,8 @@ public class TestMain_Asynchronous {
 		//
 		//client1.get(myCoapHandler1);
 		try {
-			client1.put(dtoFruit1AsString,  MediaTypeRegistry.APPLICATION_JSON);
+			CoapResponse resp1= client1.put(dtoFruit1AsString,  MediaTypeRegistry.APPLICATION_JSON);
+			System.out.println(resp1.getResponseText());
 		} catch (ConnectorException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
