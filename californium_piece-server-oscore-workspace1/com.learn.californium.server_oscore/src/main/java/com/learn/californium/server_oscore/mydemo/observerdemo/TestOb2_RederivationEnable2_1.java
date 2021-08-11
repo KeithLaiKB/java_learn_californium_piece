@@ -119,7 +119,7 @@ public class TestOb2_RederivationEnable2_1 {
 			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
 			//
-			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, myContextId1);
+			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//
 			//
 			//db.addContext(uriLocal, ctx_B);
