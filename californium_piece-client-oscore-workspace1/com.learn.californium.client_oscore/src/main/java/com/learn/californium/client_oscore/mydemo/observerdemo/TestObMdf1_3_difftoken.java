@@ -66,8 +66,16 @@ public class TestObMdf1_3_difftoken {
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
 
 
+
+
 		byte[] sid = new byte[0];
 		byte[] rid = new byte[] { 0x01 };
+		//
+		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
+		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
+		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
+		byte[] myContextId4 = { 0x75 };
+		//
 		//
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);

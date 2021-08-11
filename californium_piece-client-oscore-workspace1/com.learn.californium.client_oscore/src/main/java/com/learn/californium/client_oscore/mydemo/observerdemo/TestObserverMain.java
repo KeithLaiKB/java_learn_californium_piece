@@ -66,18 +66,20 @@ public class TestObserverMain {
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
 
 
+
+
 		byte[] sid = new byte[0];
 		byte[] rid = new byte[] { 0x01 };
-		//
-		EndpointManager.clear();
-		OSCoreCoapStackFactory.useAsDefault(db);
-		//
-		//
 		//
 		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
 		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
 		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
 		byte[] myContextId4 = { 0x75 };
+		//
+		//
+		EndpointManager.clear();
+		OSCoreCoapStackFactory.useAsDefault(db);
+		//
 		try {
 			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
