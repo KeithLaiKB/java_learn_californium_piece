@@ -100,14 +100,14 @@ public class TstOb2_Rederivation_CliInit_can2 {
 			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//
 			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
-			OSCoreCtx ctx = new OSCoreCtx(master_secret, true);
-			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, myContextId1);
+			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true);
+			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext("coap://" + "127.0.0.1", ctx);
 			//db.addContext("coap://" + uri_addr2, ctx);
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
-			db.addContext(uriLocal3, ctx);
+			db.addContext(uriLocal2, ctx);
 			//
 			ctx.setContextRederivationEnabled(true);
 			// Explicitly initiate the context re-derivation procedure
@@ -165,11 +165,11 @@ public class TstOb2_Rederivation_CliInit_can2 {
 		//byte[] token = Bytes.createBytes(new Random(), 8);
 		byte[] token1 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
 		byte[] token2 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
-		System.out.println(token2);
+		System.out.println(token1);
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
+		r1.setURI("coap://"+uri_addr2+":5656"+"/hello_observer");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
@@ -183,7 +183,7 @@ public class TstOb2_Rederivation_CliInit_can2 {
 		//
 		//
 		//Request r = createClientRequest(Code.GET, resourceUri);
-		r1.setToken(token2);
+		r1.setToken(token1);
 		r1.setObserve();
 		CoapObserveRelation relation = client.observe(r1,myObserveHandler);
 
