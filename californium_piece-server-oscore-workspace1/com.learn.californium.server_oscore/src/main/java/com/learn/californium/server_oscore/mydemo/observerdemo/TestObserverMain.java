@@ -108,8 +108,13 @@ public class TestObserverMain {
 		
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);
+		
+		
+		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
+		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
+		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
 		try {
-			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
+			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, myContextId1);
 			//db.addContext(uriLocal, ctx_B);
 			db.addContext(uriLocal4, ctx_B);
 		}
