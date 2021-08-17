@@ -29,9 +29,9 @@ public class TestObserverMain {
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ ï¿½Ï·ï¿½Ã»ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½IP, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private static String uri_addr2 = "135.0.237.84";			//Èç¹ûÄãµÄÊ÷İ®ÅÉ ÉÏ·½Ã»ÓĞÂ·ÓÉÆ÷, ¶øÊÇ¹«¹²IP, ÔòÄãÓÃÕâ¸ö
 	private static String uri_addr3 = "192.168.239.137";		
-	private static String uri_addr4 = "192.168.50.178";			//ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄµï¿½Ö·
+	private static String uri_addr4 = "192.168.50.178";			//ÒòÎªÄã·ÅÔÚÊ÷İ®ÅÉÕâ¸ö·şÎñÆ÷ÉÏ, ²¢ÇÒÄãµÄÊ÷İ®ÅÉÉÏÓĞÂ·ÓÉÆ÷, Õâ¸öÊÇÊ÷İ®ÅÉÔÚÄÇ¸öÂ·ÓÉÆ÷ÏÂµÄµØÖ·
 	//
 	//private final static String uriLocal 			= "coap://localhost";
 	private final static String uriLocal1 			= "coap://"+uri_addr1;

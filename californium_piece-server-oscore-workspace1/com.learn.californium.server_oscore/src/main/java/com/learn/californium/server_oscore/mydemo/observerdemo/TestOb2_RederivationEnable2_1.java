@@ -30,9 +30,9 @@ public class TestOb2_RederivationEnable2_1 {
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";			//��������ݮ�� �Ϸ�û��·����, ���ǹ���IP, ���������
+	private static String uri_addr2 = "135.0.237.84";			//如果你的树莓派 上方没有路由器, 而是公共IP, 则你用这个
 	private static String uri_addr3 = "192.168.239.137";		
-	private static String uri_addr4 = "192.168.50.178";			//��Ϊ�������ݮ�������������, ���������ݮ������·����, �������ݮ�����Ǹ�·�����µĵ�ַ
+	private static String uri_addr4 = "192.168.50.178";			//因为你放在树莓派这个服务器上, 并且你的树莓派上有路由器, 这个是树莓派在那个路由器下的地址
 	//
 	//private final static String uriLocal 			= "coap://localhost";
 	private final static String uriLocal1 			= "coap://"+uri_addr1;
@@ -123,7 +123,7 @@ public class TestOb2_RederivationEnable2_1 {
 			//
 			//
 			//db.addContext(uriLocal, ctx_B);
-			// server �����uri ò����������
+			// server 锟斤拷锟斤拷锟絬ri 貌锟斤拷锟斤拷锟斤拷疃硷拷锟斤拷锟�
 			db.addContext(uriLocal4, ctx_B);
 			
 			
@@ -146,7 +146,7 @@ public class TestOb2_RederivationEnable2_1 {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		// ���� server �����uri ����Ҫ��д ��ǰ���� ��ip(������192.xxx.xxx.xxx ���� ����ӳ�䵽������ip), ��ò�Ҫ��д��127.0.0.1
+		// 但是 server 这里的uri 必须要填写 当前机子 的ip(局域网192.xxx.xxx.xxx 或者 它的映射到公网的ip), 最好不要填写成127.0.0.1
 		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
