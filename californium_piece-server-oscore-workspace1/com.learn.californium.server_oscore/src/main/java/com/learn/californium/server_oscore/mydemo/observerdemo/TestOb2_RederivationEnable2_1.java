@@ -123,7 +123,7 @@ public class TestOb2_RederivationEnable2_1 {
 			//
 			//
 			//db.addContext(uriLocal, ctx_B);
-			// server 锟斤拷锟斤拷锟絬ri 貌锟斤拷锟斤拷锟斤拷疃硷拷锟斤拷锟�
+			// server 这里的uri 貌似随便填都可以
 			db.addContext(uriLocal4, ctx_B);
 			
 			
