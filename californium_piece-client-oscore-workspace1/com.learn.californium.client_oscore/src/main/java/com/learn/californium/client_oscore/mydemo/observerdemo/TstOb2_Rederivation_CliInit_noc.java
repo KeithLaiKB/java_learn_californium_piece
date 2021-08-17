@@ -106,7 +106,7 @@ public class TstOb2_Rederivation_CliInit_noc {
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
-			db.addContext(uriLocal3, ctx);
+			db.addContext(uriLocal2, ctx);
 			//
 			ctx.setContextRederivationEnabled(true);
 			// Explicitly initiate the context re-derivation procedure
@@ -157,11 +157,14 @@ public class TstOb2_Rederivation_CliInit_noc {
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
+		r1.setURI("coap://"+uri_addr2+":5656"+"/hello_observer");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
-		r1.getOptions().setOscore(Bytes.EMPTY);
+		//r1.getOptions().setOscore(Bytes.EMPTY);
+		byte[] oscorenum1 = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+		byte[] oscorenum2 = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x09};
+		r1.getOptions().setOscore(oscorenum1);
 		//
 		//
 		//Request r = createClientRequest(Code.GET, resourceUri);
@@ -182,7 +185,7 @@ public class TstOb2_Rederivation_CliInit_noc {
 		boolean judge_timeout = false;
 		while (judge_timeout==false) {
 			long nowTime_tmp=System.nanoTime();
-			long timelimit_tmp=10*1000000000L;
+			long timelimit_tmp=20*1000000000L;
 			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
 				judge_timeout=true;
 			}

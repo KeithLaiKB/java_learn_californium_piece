@@ -216,7 +216,7 @@ public class TstOb1Md1_can {
 		judge_timeout = false;
 		while (judge_timeout==false) {
 			long nowTime_tmp=System.nanoTime();
-			long timelimit_tmp=5*1000000000L;
+			long timelimit_tmp=10*1000000000L;
 			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
 				judge_timeout=true;
 			}
