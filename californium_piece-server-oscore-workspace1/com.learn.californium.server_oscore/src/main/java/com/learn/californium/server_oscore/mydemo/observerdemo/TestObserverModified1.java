@@ -108,6 +108,11 @@ public class TestObserverModified1 {
 		
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);
+		
+		
+		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
+		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
+		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
 		try {
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext(uriLocal, ctx_B);
@@ -124,7 +129,7 @@ public class TestObserverModified1 {
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
 		// 但是 server 这里的uri 必须要填写 当前机子 的ip(局域网192.xxx.xxx.xxx 或者 它的映射到公网的ip), 最好不要填写成127.0.0.1
-		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL3);
+		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
 		server.addEndpoint(serverEndpoint);
