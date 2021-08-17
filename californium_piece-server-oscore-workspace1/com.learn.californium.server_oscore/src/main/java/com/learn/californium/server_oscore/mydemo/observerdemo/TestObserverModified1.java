@@ -29,9 +29,9 @@ public class TestObserverModified1 {
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";			//Èç¹ûÄãµÄÊ÷İ®ÅÉ ÉÏ·½Ã»ÓĞÂ·ÓÉÆ÷, ¶øÊÇ¹«¹²IP, ÔòÄãÓÃÕâ¸ö
+	private static String uri_addr2 = "135.0.237.84";			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ ï¿½Ï·ï¿½Ã»ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½IP, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private static String uri_addr3 = "192.168.239.137";		
-	private static String uri_addr4 = "192.168.50.178";			//ÒòÎªÄã·ÅÔÚÊ÷İ®ÅÉÕâ¸ö·şÎñÆ÷ÉÏ, ²¢ÇÒÄãµÄÊ÷İ®ÅÉÉÏÓĞÂ·ÓÉÆ÷, Õâ¸öÊÇÊ÷İ®ÅÉÔÚÄÇ¸öÂ·ÓÉÆ÷ÏÂµÄµØÖ·
+	private static String uri_addr4 = "192.168.50.178";			//ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ®ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄµï¿½Ö·
 	//
 	//private final static String uriLocal 			= "coap://localhost";
 	private final static String uriLocal1 			= "coap://"+uri_addr1;
@@ -116,7 +116,7 @@ public class TestObserverModified1 {
 		try {
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext(uriLocal, ctx_B);
-			// server ÕâÀïµÄuri Ã²ËÆËæ±ãÌî¶¼¿ÉÒÔ
+			// server ï¿½ï¿½ï¿½ï¿½ï¿½uri Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¼ï¿½ï¿½ï¿½ï¿½
 			db.addContext(uriLocal4, ctx_B);
 		}
 		catch (OSException e) {
@@ -128,7 +128,7 @@ public class TestObserverModified1 {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		// µ«ÊÇ server ÕâÀïµÄuri ±ØĞëÒªÌîĞ´ µ±Ç°»ú×Ó µÄip(¾ÖÓòÍø192.xxx.xxx.xxx »òÕß ËüµÄÓ³Éäµ½¹«ÍøµÄip), ×îºÃ²»ÒªÌîĞ´³É127.0.0.1
+		// ï¿½ï¿½ï¿½ï¿½ server ï¿½ï¿½ï¿½ï¿½ï¿½uri ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ğ´ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ip(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½192.xxx.xxx.xxx ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ó³ï¿½äµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip), ï¿½ï¿½Ã²ï¿½Òªï¿½ï¿½Ğ´ï¿½ï¿½127.0.0.1
 		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
