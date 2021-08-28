@@ -1,4 +1,4 @@
-package com.learn.californium.client_oscore.mydemo.observerdemo.mytry;
+package com.learn.californium.client_oscore.mydemo.observerdemo.mytry.ntry;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -95,7 +95,7 @@ public class TstOb1Md1_can {
 			db.addContext(uriLocal2, ctx);
 			//ctx.setSenderKey(senderKey);
 			//好像默认初始是0
-			ctx.setSenderSeq(1);
+			//ctx.setSenderSeq(1);
 
 		}
 		catch(OSException e) {
@@ -245,6 +245,175 @@ public class TstOb1Md1_can {
 		assertEquals("two", relation.getCurrent().getResponseText());
 		*/
 		client.shutdown();
+		
+		
+		
+		
+		
+		
+		
+		
+		judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=15*1000000000L;
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
+		
+		
+		
+		
+		
+		final HashMapCtxDB db2 = new HashMapCtxDB();
+		
+		EndpointManager.clear();
+		OSCoreCoapStackFactory.useAsDefault(db2);
+		
+		//
+		try {
+			OSCoreCtx ctx2 = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
+			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
+			//db.addContext("coap://" + "127.0.0.1", ctx);
+			//db.addContext("coap://" + uri_addr2, ctx);
+			//db.addContext(uriLocal, ctx);
+			//db.addContext(uriLocal9, ctx);
+			//db.addContext(inner_server_uri, ctx);
+			db2.addContext(uriLocal2, ctx2);
+			//ctx.setSenderKey(senderKey);
+			//好像默认初始是0
+			//ctx.setSenderSeq(1);
+
+		}
+		catch(OSException e) {
+			System.err.println("Failed to set client OSCORE Context information!");
+		}
+
+		
+		
+		CoapClient client2 = new CoapClient();
+
+		CoapHandler myObserveHandler2 			= null;
+		// Handler for Observe responses
+        try {
+			//
+        	// set handler for observer method, because observe method needs asynchronous operation
+			myObserveHandler2 = new CoapHandler() {
+
+	            @Override
+	            public void onLoad(CoapResponse response) {
+	            	System.out.println("on load: " + response.getResponseText());
+	            	System.out.println("get code: " + response.getCode().name());
+	            }
+
+	            @Override
+	            public void onError() {
+	            }
+	        };
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//ObserveHandler handler = new ObserveHandler();
+
+		//Create request and initiate Observe relationship
+		//byte[] token = Bytes.createBytes(new Random(), 8);
+
+		System.out.println(token2);
+
+		Request r2 = new Request(Code.GET);
+		r2.setConfirmable(true);
+		//r1.setConfirmable(false);
+		r2.setURI("coap://"+uri_addr2+":5656"+"/hello_observer");
+		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
+		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
+		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
+		r2.getOptions().setOscore(Bytes.EMPTY);
+		//r1.getOptions().setOscore(new byte[101]);
+		//
+		//
+		//Request r = createClientRequest(Code.GET, resourceUri);
+		byte[] token_rand2 = Bytes.createBytes(new Random(), 8);
+
+		//TokenGenerator tokenGenerator = new RandomTokenGenerator(Configuration.createStandardWithoutFile());
+		TokenGenerator tokenGenerator2 = new RandomTokenGenerator(NetworkConfig.getStandard());
+		Token tokengen2 = tokenGenerator2.createToken(TokenGenerator.Scope.LONG_TERM);
+		//RandomTokenGenerator a = new RandomTokenGenerator(null);
+		r2.setToken(tokengen2);
+		r2.setObserve();
+		CoapObserveRelation relation2 = client2.observe(r2,myObserveHandler2);
+
+		//
+		//
+		//
+		//Wait until 2 messages have been received
+		//assertTrue(handler.waitOnLoadCalls(2, 2000, TimeUnit.MILLISECONDS));
+        //---------------------------------------------
+        // wait for the notifications
+        startObserveTime=System.nanoTime();   			//获取开始时间  
+		//
+		//
+		judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=20*1000000000L;
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
+
+
+		relation2.reactiveCancel();
+
+        //---------------------------------------------
+        // wait for the notifications
+        startObserveTime=System.nanoTime();   			//获取开始时间  
+		//
+		//
+		judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=10*1000000000L;
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
+		//---------------------------------------------
+		//---------------------------------------------
+		System.out.println("try to reregister");
+		//relation2.reregister();
+        //---------------------------------------------
+        // wait for the notifications
+        startObserveTime=System.nanoTime();   			//获取开始时间  
+		//
+		//
+		judge_timeout = false;
+		while (judge_timeout==false) {
+			long nowTime_tmp=System.nanoTime();
+			long timelimit_tmp=10*1000000000L;
+			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
+				judge_timeout=true;
+			}
+		}
+		
+		
+		//relation2.reactiveCancel();
+		client2.shutdown();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/*
