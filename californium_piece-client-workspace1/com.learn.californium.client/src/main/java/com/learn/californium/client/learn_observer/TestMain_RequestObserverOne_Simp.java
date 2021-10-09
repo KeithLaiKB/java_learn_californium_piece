@@ -20,7 +20,7 @@ import org.eclipse.californium.core.CoapResponse;
  * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
  *  																												</br>
 
- * 
+ * ×î³õ²Î¿¼µÄ³¢ÊÔ
  * </p>
  * @author laipl
  *
