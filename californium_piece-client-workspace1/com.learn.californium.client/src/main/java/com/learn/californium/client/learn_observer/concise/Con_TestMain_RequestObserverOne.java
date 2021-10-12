@@ -32,7 +32,7 @@ public class Con_TestMain_RequestObserverOne {
     	//
     	CoapClient client = new CoapClient(myuri1);
         //
-        CoapObserveRelation coapObRelation1;
+        CoapObserveRelation coapObRelation1 = null;
 		//
         try {
 			//
