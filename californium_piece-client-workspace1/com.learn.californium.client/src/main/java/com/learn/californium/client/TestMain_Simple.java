@@ -29,6 +29,8 @@ public class TestMain_Simple {
         CoapResponse response;
 		//
         try {
+        	// 你仔细查底下 get()的实现
+        	// 你发现它 自带了 Type.Con 这个设置
 			response = client.get();
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
 			//

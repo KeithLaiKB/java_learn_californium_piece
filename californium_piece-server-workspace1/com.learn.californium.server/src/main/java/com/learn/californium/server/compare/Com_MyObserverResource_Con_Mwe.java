@@ -57,7 +57,7 @@ public class Com_MyObserverResource_Con_Mwe  extends CoapResource {
 			//
 			//----------------------------------------
 			this.setObservable(true); 				// enable observing
-			this.setObserveType(Type.CON); 			// configure the notification type to CONs
+			this.setObserveType(Type.CON); 			// configure the notification type to CONs, 如果不写这个默认的是 NON
 			// 涉及到 https://tools.ietf.org/html/rfc6690#section-4 	(这讲了Linkformat 这么做的概念)
 			// 和  https://tools.ietf.org/html/rfc6690#section-4.1
 			// 其实就是设置好 application/link-format 

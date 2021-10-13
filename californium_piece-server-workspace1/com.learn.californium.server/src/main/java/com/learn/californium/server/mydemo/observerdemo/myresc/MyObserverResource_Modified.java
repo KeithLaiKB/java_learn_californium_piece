@@ -98,7 +98,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 			setObservable(true); // enable observing
 			// Exchange.class 
 			// public void setCurrentResponse(Response newCurrentResponse)
-			setObserveType(Type.CON); // configure the notification type to CONs
+			setObserveType(Type.CON); // configure the notification type to CONs, 如果不写这个默认的是 NON
 			getAttributes().setObservable(); // mark observable in the Link-Format
 			
 			//
