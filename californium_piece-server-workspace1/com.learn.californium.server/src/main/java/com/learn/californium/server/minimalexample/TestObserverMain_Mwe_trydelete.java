@@ -5,6 +5,7 @@ import org.eclipse.californium.core.CoapServer;
 import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con_Mwe;
 
 
+
 /**
  * 
  * 
@@ -13,9 +14,15 @@ import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con
  * &emsp;						MWE means minimal working example										</br>
  * &emsp;						MWE 意思就是  简化的例子														</br>
  * &emsp;						for testing the observer												</br>
- * 	
- *
- *
+ * 
+ * 该服务器设置了
+ * 资源	hello_observer
+ * 并且	hello_observer 			设置了一个子资源 	hello_observer_child1 
+ * 并且	hello_observer_child1 	设置了一个子资源 	hello_observer_child2 
+ * 并且	hello_observer_child2 	设置了一个子资源 	hello_observer_child3 
+ * 
+ * 用来测试, client 那边去 delete server这边的resource
+ * 
  * @author laipl
  *
  */
