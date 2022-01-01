@@ -24,16 +24,16 @@ import com.learn.californium.server.mydemo.myresc.MyCoapResource;
  * 
  * @author laipl
  *
- * ²Î¿¼ÓÚ 
+ * å‚è€ƒäº 
  * californium/api-demo/src/org/eclipse/californium/examples/CoAPObserveExample.java 
  *
- * ´ËÍâ»¹
- * ¼Ì³Ğ MyCoapResource, Õâ¸öÀà  ÉÔÎ¢ÖØĞ´ÁËµã CoapResource ÖĞµÄÒ»Ğ©·½·¨ÄÚÈİ 
+ * æ­¤å¤–è¿˜
+ * ç»§æ‰¿ MyCoapResource, è¿™ä¸ªç±»  ç¨å¾®é‡å†™äº†ç‚¹ CoapResource ä¸­çš„ä¸€äº›æ–¹æ³•å†…å®¹ 
  *
  *
- * ´ÓMyObserverResource_Modified ¸´ÖÆ³öÀ´µÄ, ÄÚÈİÒ»Ä£Ò»ÑùµÄ
- * Ö»ÊÇ²é´íÊ±ºÃÅĞ¶ÏÊÇÄÇ¸ö×ÊÔ´³öµÄÎÊÌâ, ºÃ²é³öÀ´¶øÒÑ
- * ¿ÉÒÔÉ¾³ıµÄ
+ * ä»MyObserverResource_Modified å¤åˆ¶å‡ºæ¥çš„, å†…å®¹ä¸€æ¨¡ä¸€æ ·çš„
+ * åªæ˜¯æŸ¥é”™æ—¶å¥½åˆ¤æ–­æ˜¯é‚£ä¸ªèµ„æºå‡ºçš„é—®é¢˜, å¥½æŸ¥å‡ºæ¥è€Œå·²
+ * å¯ä»¥åˆ é™¤çš„
  *
  */
 public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
@@ -46,8 +46,8 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 	
 		Timer timer = null;
 		
-		// Ô­À´ÉèÖÃµÄÊÇÓĞ  setObserveType(Type.CON)
-		// Èç¹û¶àÁË Õâ¾ä»° Ïà±ÈÓÚ Ã»ÓĞÕâ¾ä»° ¶à³öACK
+		// åŸæ¥è®¾ç½®çš„æ˜¯æœ‰  setObserveType(Type.CON)
+		// å¦‚æœå¤šäº† è¿™å¥è¯ ç›¸æ¯”äº æ²¡æœ‰è¿™å¥è¯ å¤šå‡ºACK
 		// 53144	-> 	5656 	CON		GET ....
 		// 5656		->	53144	ACK		1st_num
         // 5656		->	53144	CON		2nd_num
@@ -57,8 +57,8 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
         // 5656		->	53144	CON		4th_num
 		// 53144	-> 	5656 	ACK		
 		//
-		// Èç¹ûÃ»ÓĞÕâ¾ä»°
-		// ÔòÄ¬ÈÏ Type.NON 
+		// å¦‚æœæ²¡æœ‰è¿™å¥è¯
+		// åˆ™é»˜è®¤ Type.NON 
 		// 53144	-> 	5656 	CON		GET ....
 		// 5656		->	53144	ACK		1st_num
         // 5656		->	53144	NON		2nd_num
@@ -78,14 +78,14 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 			// schedule a periodic update task, otherwise let events call changed()
 			//Timer timer = new Timer();
 			timer = new Timer();
-			// Ã¿10000ms ÔòÈ¥ Ö´ĞĞÒ»´Î ÀïÃæÄÇ¸örun µÄ changed ´Ó¶øÍ¨ÖªËùÓĞµÄclient, Í¨ÖªµÄÊ±ºòµ÷ÓÃhandleGet
+			// æ¯10000ms åˆ™å» æ‰§è¡Œä¸€æ¬¡ é‡Œé¢é‚£ä¸ªrun çš„ changed ä»è€Œé€šçŸ¥æ‰€æœ‰çš„client, é€šçŸ¥çš„æ—¶å€™è°ƒç”¨handleGet
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
 		
 
 		/**
-		 * ÕâÀïÃæ Ã¿Ò»´Îchanged ´ú±í, ÒªÈ¥Í¨ÖªËùÓĞµÄclient
-		 * Ôò»áµ÷ÓÃhandelGet
+		 * è¿™é‡Œé¢ æ¯ä¸€æ¬¡changed ä»£è¡¨, è¦å»é€šçŸ¥æ‰€æœ‰çš„client
+		 * åˆ™ä¼šè°ƒç”¨handelGet
 		 * 
 		 * @author laipl
 		 *
@@ -139,10 +139,10 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 				//
 				//
 				//
-				// »ñÈ¡ µ±Ç°ÇëÇóµÄ ip ºÍ ¶Ë¿Ú ºÍ ¾ßÌåĞÅÏ¢, ÀıÈç 127.0.0.1:49599#71D02AE4EEAECC79
+				// è·å– å½“å‰è¯·æ±‚çš„ ip å’Œ ç«¯å£ å’Œ å…·ä½“ä¿¡æ¯, ä¾‹å¦‚ 127.0.0.1:49599#71D02AE4EEAECC79
 				ObserveRelation ob_tmp = exchange.advanced().getRelation();
 				System.out.println("rsc_endp: "+ob_tmp.getKey().toString());
-				// »ñÈ¡ µ±Ç°ÇëÇóµÄ ip ºÍ ¶Ë¿Ú  
+				// è·å– å½“å‰è¯·æ±‚çš„ ip å’Œ ç«¯å£  
 				System.out.println(exchange.getSourceSocketAddress());
 				// 
 				//
@@ -156,18 +156,18 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 		}
 		
 		/**
-		 * ×¢Òâ, ÎÒÕâÀïµÄdelete·½·¨ 
-		 * ÊÇÎªÁË  É¾³ıÕâ¸ö×ÊÔ´µÄ²Ù×÷, ÒòÎªÎÒÕâÀï ÀïÃæÓÃÁËdelete() 
-		 * ÒâË¼ÊÇÉ¾³ıÕâ¸ö×ÊÔ´, ÈÃclientÎŞ·¨½øĞĞobserve
+		 * æ³¨æ„, æˆ‘è¿™é‡Œçš„deleteæ–¹æ³• 
+		 * æ˜¯ä¸ºäº†  åˆ é™¤è¿™ä¸ªèµ„æºçš„æ“ä½œ, å› ä¸ºæˆ‘è¿™é‡Œ é‡Œé¢ç”¨äº†delete() 
+		 * æ„æ€æ˜¯åˆ é™¤è¿™ä¸ªèµ„æº, è®©clientæ— æ³•è¿›è¡Œobserve
 		 * 
-		 * µ±È» handelDelete ¿ÉÒÔÓÃÀ´
-         * 		1. ¿ÉÒÔÊÇÈÃ 	·şÎñÆ÷É¾³ı Õâ¸ö×ÊÔ´
-         * 		2. Ò²¿ÉÒÔÊÇÈÃ	·şÎñÆ÷É¾³ı Ä³¸ö¼ÇÂ¼(±ÈÈçserverÄÇ±ß Á¬ÁË¸öÊı¾İ¿â)
+		 * å½“ç„¶ handelDelete å¯ä»¥ç”¨æ¥
+         * 		1. å¯ä»¥æ˜¯è®© 	æœåŠ¡å™¨åˆ é™¤ è¿™ä¸ªèµ„æº
+         * 		2. ä¹Ÿå¯ä»¥æ˜¯è®©	æœåŠ¡å™¨åˆ é™¤ æŸä¸ªè®°å½•(æ¯”å¦‚serveré‚£è¾¹ è¿äº†ä¸ªæ•°æ®åº“)
 		 * 
-		 * Ö»ÊÇÎÒÕâÀï Ñ¡ÔñÁË 1. ¿ÉÒÔÊÇÈÃ 	·şÎñÆ÷É¾³ı Õâ¸ö×ÊÔ´
-		 * µ±È»Äã¿ÉÒÔ¸Ä³É2, 
-		 * 		ÄÇÃ´¾ÍÊÇÒªÉ¾³ıÕâÀïÃæµÄ delete(), 
-		 * 		È»ºóÌí¼Ó É¾³ıÊı¾İ¿âÀïµÄÄ³¸ö¼ÇÂ¼µÄ²Ù×÷ÁË 
+		 * åªæ˜¯æˆ‘è¿™é‡Œ é€‰æ‹©äº† 1. å¯ä»¥æ˜¯è®© 	æœåŠ¡å™¨åˆ é™¤ è¿™ä¸ªèµ„æº
+		 * å½“ç„¶ä½ å¯ä»¥æ”¹æˆ2, 
+		 * 		é‚£ä¹ˆå°±æ˜¯è¦åˆ é™¤è¿™é‡Œé¢çš„ delete(), 
+		 * 		ç„¶åæ·»åŠ  åˆ é™¤æ•°æ®åº“é‡Œçš„æŸä¸ªè®°å½•çš„æ“ä½œäº† 
 		 * 
 		 */
 		@Override
@@ -180,9 +180,9 @@ public class MyObserverResource_Modified_Cp3  extends MyCoapResource {
 			//
 			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
 			//
-			// ¹Ø±Õ¼ÆÊ±Æ÷
+			// å…³é—­è®¡æ—¶å™¨
 			timer.cancel();
-			// °Ñresource ´ÓÕâ¸öclient ÖĞÒÆ³ı
+			// æŠŠresource ä»è¿™ä¸ªclient ä¸­ç§»é™¤
 			this.myCoapServer1.remove(this);
 		}
 		

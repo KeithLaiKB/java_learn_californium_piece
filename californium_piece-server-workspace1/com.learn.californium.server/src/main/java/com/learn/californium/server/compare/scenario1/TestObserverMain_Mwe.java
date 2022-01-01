@@ -12,7 +12,7 @@ import com.learn.californium.server.compare.Com_MyObserverResource_Con_Mwe;
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó														</br>
+ * &emsp;						MWE æ„æ€å°±æ˜¯  ç®€åŒ–çš„ä¾‹å­														</br>
  * &emsp;						for testing the observer												</br>
  * 																										</br>
  * 
@@ -38,7 +38,7 @@ public class TestObserverMain_Mwe  {
 		server.start(); // does all the magic
 		//
 		//
-		// Í£ÁôÒ»¶ÎÊ±¼ä ÈÃserver¼ÌĞøÔËĞĞ
+		// åœç•™ä¸€æ®µæ—¶é—´ è®©serverç»§ç»­è¿è¡Œ
 		try {
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
@@ -48,16 +48,16 @@ public class TestObserverMain_Mwe  {
 		//
 		//
 		//
-		// ÒòÎªÎÒÃÇµÄresourceÓÃÁË timer,
-		// ËùÒÔÎÒÃÇ destroy ÁËserverÒÔºó , resource»¹ÊÇÔÚÔËĞĞµÄ
+		// å› ä¸ºæˆ‘ä»¬çš„resourceç”¨äº† timer,
+		// æ‰€ä»¥æˆ‘ä»¬ destroy äº†serverä»¥å , resourceè¿˜æ˜¯åœ¨è¿è¡Œçš„
 		// in my opinion, we should apply a standard process
 		// so we need to stop the resource
 		myobResc1.stopMyResource();
 		//
 		//
-		// ÔÙÈÃMainº¯Êı ÔËĞĞÒ»¶ÎÊ±¼ä, ÎÒÃÇ¿ÉÒÔ·¢ÏÖresourceÃ»ÓĞÊä³öÁË, Ò²¾ÍÒâÎ¶×Å È·Êµ½áÊøÁË
-		// ÆäÊµ ÕâºóÃæµÄ¿ÉÒÔ²»ÓÃ, Ö»ÊÇÓÃÀ´ÅĞ¶ÏresourceÊÇ·ñ½áÊøÁË,
-		// Èç¹ûresource Ã»¹Øµô, ¾Í¿ÉÒÔ ÔÚÕâ¶ÎÊ±¼äÄÚ ·¢ÏÖÓĞresourceµÄÊä³ö
+		// å†è®©Mainå‡½æ•° è¿è¡Œä¸€æ®µæ—¶é—´, æˆ‘ä»¬å¯ä»¥å‘ç°resourceæ²¡æœ‰è¾“å‡ºäº†, ä¹Ÿå°±æ„å‘³ç€ ç¡®å®ç»“æŸäº†
+		// å…¶å® è¿™åé¢çš„å¯ä»¥ä¸ç”¨, åªæ˜¯ç”¨æ¥åˆ¤æ–­resourceæ˜¯å¦ç»“æŸäº†,
+		// å¦‚æœresource æ²¡å…³æ‰, å°±å¯ä»¥ åœ¨è¿™æ®µæ—¶é—´å†… å‘ç°æœ‰resourceçš„è¾“å‡º
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

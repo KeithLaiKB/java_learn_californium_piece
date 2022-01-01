@@ -15,7 +15,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó														</br>
+ * &emsp;						MWE æŒ‡çš„æ˜¯æœ€å°è¿è¡Œä¾‹å­														</br>
  * 																										</br>
  *
  *

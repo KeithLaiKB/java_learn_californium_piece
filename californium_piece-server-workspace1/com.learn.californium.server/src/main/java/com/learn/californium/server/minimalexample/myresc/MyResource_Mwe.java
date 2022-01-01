@@ -15,7 +15,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó														</br>
+ * &emsp;						MWE æ„æ€å°±æ˜¯  ç®€åŒ–çš„ä¾‹å­														</br>
  * 																										</br>
  * 
  * </p>
@@ -36,7 +36,7 @@ public class MyResource_Mwe extends CoapResource {
 	
 	@Override
 	public void handleGET(CoapExchange exchange) {
-		// ³¢ÊÔexchange
+		// å°è¯•exchange
 		//System.out.println("handleGET" +"//TOKEN:"+ exchange.advanced().getRequest().getTokenString());
 		//
 		// https://datatracker.ietf.org/meeting/interim-2016-t2trg-03/materials/slides-interim-2016-t2trg-03-sessa-californium-coap-00
@@ -75,11 +75,11 @@ public class MyResource_Mwe extends CoapResource {
 		
 		//
 		/*
-		// Èç¹û 	²»Ğ´		exchange.accept(),  
-		// ÄÇÃ´ client  ÔÚ server  ´óÔ¼1·ÖÖÓºó       »¹Ã»µÃµ½»Ø´ğ, ¾Í»á±¨´í
-		// Èç¹û 	Ğ´ÁË		exchange.accept(),  
-		// ÄÇÃ´ client  ÔÚ server  ´óÔ¼5·ÖÖÓºó       »¹Ã»µÃµ½»Ø´ğ, ¾Í»á±¨´í, 
-		//		µ«ÎÒ¾õµÃÕâ¸öÊ±¼äÓ¦¸Ã¿ÉÒÔÔÚ ÓÃaccpetµÄ»ù´¡ÉÏÉèÖÃµÄ 
+		// å¦‚æœ 	ä¸å†™		exchange.accept(),  
+		// é‚£ä¹ˆ client  åœ¨ server  å¤§çº¦1åˆ†é’Ÿå       è¿˜æ²¡å¾—åˆ°å›ç­”, å°±ä¼šæŠ¥é”™
+		// å¦‚æœ 	å†™äº†		exchange.accept(),  
+		// é‚£ä¹ˆ client  åœ¨ server  å¤§çº¦5åˆ†é’Ÿå       è¿˜æ²¡å¾—åˆ°å›ç­”, å°±ä¼šæŠ¥é”™, 
+		//		ä½†æˆ‘è§‰å¾—è¿™ä¸ªæ—¶é—´åº”è¯¥å¯ä»¥åœ¨ ç”¨accpetçš„åŸºç¡€ä¸Šè®¾ç½®çš„ 
 		exchange.accept(); 	// make it a separate response
 		try {
 			

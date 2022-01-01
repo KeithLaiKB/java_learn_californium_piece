@@ -16,7 +16,6 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  * 							description:																			</br>	
  * &emsp;						resource could be used by coap server												</br>
  * 	
-
  *
  * @author laipl
  *
@@ -73,11 +72,11 @@ public class MyResource extends CoapResource {
 	@Override
 	public void handlePOST(CoapExchange exchange) {
 		//
-		// Ô­À´
+		// åŽŸæ¥
 		// 53144	-> 	5656 	CON		POST ....
 		// 5656		->	53144	ACK
 		//
-		// Èç¹û¶àÁË Õâ¾ä»° Ïà±ÈÓÚ Ã»ÓÐÕâ¾ä»° ¶à³öACK
+		// å¦‚æžœå¤šäº† è¿™å¥è¯ ç›¸æ¯”äºŽ æ²¡æœ‰è¿™å¥è¯ å¤šå‡ºACK
 		// 53144	-> 	5656 	CON		POST ....
 		// 5656		->	53144	ACK
 		// 5656		->	53144	CON		hello_nihao

@@ -26,7 +26,7 @@ import org.eclipse.californium.core.server.resources.ResourceObserver;
  * <p>
  * 							description:																			</br>	
  * &emsp;						MWE means minimal working example													</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó																	</br>
+ * &emsp;						MWE æ„æ€å°±æ˜¯  ç®€åŒ–çš„ä¾‹å­																	</br>
  * &emsp;						for testing the observer															</br>
  * &emsp;						the "_Con_" in MyObserverResource_Con_Mwe means in this class						</br>
  * &emsp;&emsp;						it would use this.setObserveType(Type.CON)										</br>
@@ -57,18 +57,18 @@ public class Com_MyObserverResource_Con_Mwe  extends CoapResource {
 			//
 			//----------------------------------------
 			this.setObservable(true); 				// enable observing
-			this.setObserveType(Type.CON); 			// configure the notification type to CONs, Èç¹û²»Ğ´Õâ¸öÄ¬ÈÏµÄÊÇ NON
-			// Éæ¼°µ½ https://tools.ietf.org/html/rfc6690#section-4 	(Õâ½²ÁËLinkformat ÕâÃ´×öµÄ¸ÅÄî)
-			// ºÍ  https://tools.ietf.org/html/rfc6690#section-4.1
-			// ÆäÊµ¾ÍÊÇÉèÖÃºÃ application/link-format 
-			this.getAttributes().setObservable(); // mark observable in the Link-Format (¿ÉÒÔ²é californium µÄÀàLinkFormat)	
+			this.setObserveType(Type.CON); 			// configure the notification type to CONs, å¦‚æœä¸å†™è¿™ä¸ªé»˜è®¤çš„æ˜¯ NON
+			// æ¶‰åŠåˆ° https://tools.ietf.org/html/rfc6690#section-4 	(è¿™è®²äº†Linkformat è¿™ä¹ˆåšçš„æ¦‚å¿µ)
+			// å’Œ  https://tools.ietf.org/html/rfc6690#section-4.1
+			// å…¶å®å°±æ˜¯è®¾ç½®å¥½ application/link-format 
+			this.getAttributes().setObservable(); // mark observable in the Link-Format (å¯ä»¥æŸ¥ californium çš„ç±»LinkFormat)	
 			//
 			//----------------------------------------
 			//
 			// schedule a periodic update task, otherwise let events call changed()
 			// Timer timer = new Timer();
 			timer = new Timer();
-			// Ã¿5000ms ÔòÈ¥ Ö´ĞĞÒ»´Î ÀïÃæÄÇ¸örun µÄ changed ´Ó¶øÍ¨ÖªËùÓĞµÄclient, Í¨ÖªµÄÊ±ºòµ÷ÓÃhandleGet
+			// æ¯5000ms åˆ™å» æ‰§è¡Œä¸€æ¬¡ é‡Œé¢é‚£ä¸ªrun çš„ changed ä»è€Œé€šçŸ¥æ‰€æœ‰çš„client, é€šçŸ¥çš„æ—¶å€™è°ƒç”¨handleGet
 			//timer.schedule(new MyUpdateTask(),0, 5000);
 			myUpdateTask1 = new MyTimerTaskForUpdate();
 			timer.schedule(myUpdateTask1,0, 5000);
@@ -78,8 +78,8 @@ public class Com_MyObserverResource_Con_Mwe  extends CoapResource {
 
 
 		/**
-		 * ÕâÀïÃæ Ã¿Ò»´Îchanged ´ú±í, ÒªÈ¥Í¨ÖªËùÓĞµÄclient
-		 * Ôò»áµ÷ÓÃhandelGet
+		 * è¿™é‡Œé¢ æ¯ä¸€æ¬¡changed ä»£è¡¨, è¦å»é€šçŸ¥æ‰€æœ‰çš„client
+		 * åˆ™ä¼šè°ƒç”¨handelGet
 		 * 
 		 * @author laipl
 		 *
@@ -119,7 +119,7 @@ public class Com_MyObserverResource_Con_Mwe  extends CoapResource {
 			//
 			System.out.println("MY ATTENTION!!! this client is deleting this resource instead of records");
 			//
-			// ¹Ø±Õ¼ÆÊ±Æ÷
+			// å…³é—­è®¡æ—¶å™¨
 			timer.cancel();
 			exchange.respond(ResponseCode.DELETED);
 		}
@@ -138,8 +138,8 @@ public class Com_MyObserverResource_Con_Mwe  extends CoapResource {
 		//
 		//--------------------------------------------------------------------------------
 		//----------------------------------  my method ----------------------------------
-		//°Ñtimer Í£Ö¹ÁË, Èç¹ûÖ»ÊÇserver.destory ÊÇ²»»á°ÑÕâ¸ö resourceµÄ Timer½áÊøµÄ
-		//ËùÒÔÎÒĞèÒª ×Ô¼ºÉèÖÃÒ»¸ö·½·¨À´Í£Ö¹Õâ¸ötimer
+		//æŠŠtimer åœæ­¢äº†, å¦‚æœåªæ˜¯server.destory æ˜¯ä¸ä¼šæŠŠè¿™ä¸ª resourceçš„ Timerç»“æŸçš„
+		//æ‰€ä»¥æˆ‘éœ€è¦ è‡ªå·±è®¾ç½®ä¸€ä¸ªæ–¹æ³•æ¥åœæ­¢è¿™ä¸ªtimer
 		public int stopMyResource(){
 			this.timer.cancel();
 			return 1;

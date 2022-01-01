@@ -61,15 +61,15 @@ public class MyObserverResource  extends CoapResource {
 			
 			// schedule a periodic update task, otherwise let events call changed()
 			Timer timer = new Timer();
-			// Ã¿10000ms ÔòÈ¥ Ö´ĞĞÒ»´Î ÀïÃæÄÇ¸örun µÄ changed ´Ó¶øÍ¨ÖªËùÓĞµÄclient, Í¨ÖªµÄÊ±ºòµ÷ÓÃhandleGet
+			// æ¯10000ms åˆ™å» æ‰§è¡Œä¸€æ¬¡ é‡Œé¢é‚£ä¸ªrun çš„ changed ä»è€Œé€šçŸ¥æ‰€æœ‰çš„client, é€šçŸ¥çš„æ—¶å€™è°ƒç”¨handleGet
 			timer.schedule(new UpdateTask(),0, 10000);
 		}
 		
 
 
 		/**
-		 * ÕâÀïÃæ Ã¿Ò»´Îchanged ´ú±í, ÒªÈ¥Í¨ÖªËùÓĞµÄclient
-		 * Ôò»áµ÷ÓÃhandelGet
+		 * è¿™é‡Œé¢ æ¯ä¸€æ¬¡changed ä»£è¡¨, è¦å»é€šçŸ¥æ‰€æœ‰çš„client
+		 * åˆ™ä¼šè°ƒç”¨handelGet
 		 * 
 		 * @author laipl
 		 *

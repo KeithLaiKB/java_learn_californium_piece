@@ -11,7 +11,7 @@ import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó														</br>
+ * &emsp;						MWE æ„æ€å°±æ˜¯  ç®€åŒ–çš„ä¾‹å­														</br>
  * &emsp;						for testing the observer												</br>
  * 	
  *
@@ -25,8 +25,8 @@ public class TestObserverMain_Mwe_trydelete  {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//
-		// Èç¹û²»Ìî²ÎÊı£¬ÔòÄ¬ÈÏ¶Ë¿ÚÊÇ5683
-		// ÕâÀïÎÒ³¢ÊÔ×Ô¼º¶¨ÒåÒ»¸ö¶Ë¿Ú5656
+		// å¦‚æœä¸å¡«å‚æ•°ï¼Œåˆ™é»˜è®¤ç«¯å£æ˜¯5683
+		// è¿™é‡Œæˆ‘å°è¯•è‡ªå·±å®šä¹‰ä¸€ä¸ªç«¯å£5656
 		//MyTestCoapServer server = new MyTestCoapServer(5683);
 		//MyTestCoapServer server = new MyTestCoapServer(5656);
 		CoapServer server = new CoapServer(5656);
@@ -34,8 +34,8 @@ public class TestObserverMain_Mwe_trydelete  {
 		//
 		//
 		//------------------------resource settings-------------------------------------
-		// ×¢Òâ ÕâÀïµÄ hello ´óĞ¡Ğ´ÊÇÃô¸ĞµÄ
-		// ÒòÎª clientÄÇ±ß ÊÇ¸ù¾İ coap://localhost:5656/hello À´·¢ËÍÇëÇóµÄ
+		// æ³¨æ„ è¿™é‡Œçš„ hello å¤§å°å†™æ˜¯æ•æ„Ÿçš„
+		// å› ä¸º clienté‚£è¾¹ æ˜¯æ ¹æ® coap://localhost:5656/hello æ¥å‘é€è¯·æ±‚çš„
 		/*
 		MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
 		myobResc1.setMyCoapServer(server);
@@ -72,19 +72,19 @@ public class TestObserverMain_Mwe_trydelete  {
 
 		System.out.println("destroying server!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		server.destroy(); // does all the magic
-		// ÎÊÌâ, ÎÒ·¢ÏÖµ¥´¿destroyÊÇ ²»»áÍ£Ö¹ resourceÀïµÄ¼ÆÊ±Æ÷µÄ
-		// ËùÒÔÎÒ½ÓÏÂÀ´¾ÍÊÇĞèÒª ÏëÏë ÊÇ²»ÊÇÓ¦¸Ãdestroy µÄÊ±ºò°Ñ¼ÆÊ±Æ÷Ò²¹Øµô
+		// é—®é¢˜, æˆ‘å‘ç°å•çº¯destroyæ˜¯ ä¸ä¼šåœæ­¢ resourceé‡Œçš„è®¡æ—¶å™¨çš„
+		// æ‰€ä»¥æˆ‘æ¥ä¸‹æ¥å°±æ˜¯éœ€è¦ æƒ³æƒ³ æ˜¯ä¸æ˜¯åº”è¯¥destroy çš„æ—¶å€™æŠŠè®¡æ—¶å™¨ä¹Ÿå…³æ‰
 		// californium/californium-tests/californium-integration-tests/src/test/java/org/eclipse/californium/integration/test/SecureObserveTest.java 
-		// ÏñÊÇ¹Ù·½ÎÄµµµÄ»°, ËûÊÇÔÚMain ÓÃ¸öforÑ­»· À´¸üĞÂÖµ, Ìí¼ÓÒ»¸öchanged(String)·½·¨  ,   È»ºóÊÖ¶¯ ÈÃ resouce È¥change
+		// åƒæ˜¯å®˜æ–¹æ–‡æ¡£çš„è¯, ä»–æ˜¯åœ¨Main ç”¨ä¸ªforå¾ªç¯ æ¥æ›´æ–°å€¼, æ·»åŠ ä¸€ä¸ªchanged(String)æ–¹æ³•  ,   ç„¶åæ‰‹åŠ¨ è®© resouce å»change
 		/*
 		for (int i = 0; i < REPEATS; ++i) {
 			resource.changed("client");
 			Thread.sleep(50);
 		}
 		
-		µ«Êµ¼ÊÇé¿ö²»ÄÜÕâÃ´×ö°É, ÄãÔÚmain º¯ÊıÈ¥¸üĞÂ, 
-		Ïàµ±ÓÚ°Ñ Õâ¸öresourceÀïµÄÒµÎñÂß¼­ 	
-				´Óresource ÉÏÒÆµ½ÁË server
+		ä½†å®é™…æƒ…å†µä¸èƒ½è¿™ä¹ˆåšå§, ä½ åœ¨main å‡½æ•°å»æ›´æ–°, 
+		ç›¸å½“äºæŠŠ è¿™ä¸ªresourceé‡Œçš„ä¸šåŠ¡é€»è¾‘ 	
+				ä»resource ä¸Šç§»åˆ°äº† server
 		 * 
 		 */
 		myobResc1.stopMyResource();

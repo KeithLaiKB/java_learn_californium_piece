@@ -16,7 +16,6 @@ import com.learn.californium.server.mydemo.IMyCoapServer;
  * 							description:																					</br>	
  * &emsp;						implements 	IMyCoapServer, so that the resource can access parts info of server				</br>
  * 	
-
  *
  * @author laipl
  *

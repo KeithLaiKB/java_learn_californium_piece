@@ -35,51 +35,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * ÎÒÏëÒª ÔÙÉèÖÃÒ»¸öÏàÍ¬µÄ±äÁ¿ »ñÈ¡ ÏÖÔÚÕıÔÚÁ¬Õâ¸öserverµÄËùÓĞ client
- * ÒòÎª ²»Ïë´ó·ù¶È¸ü¸ÄÔ­À´µÄ´úÂë
- * ¼ÙÉè ÎÒÏë»ñµÃ µ±Ç° ±äÁ¿ list_varA
- * ÄÇÎÒÏÖÔÚ×öÒ»¸ö mylist_varA
+ * æˆ‘æƒ³è¦ å†è®¾ç½®ä¸€ä¸ªç›¸åŒçš„å˜é‡ è·å– ç°åœ¨æ­£åœ¨è¿è¿™ä¸ªserverçš„æ‰€æœ‰ client
+ * å› ä¸º ä¸æƒ³å¤§å¹…åº¦æ›´æ”¹åŸæ¥çš„ä»£ç 
+ * å‡è®¾ æˆ‘æƒ³è·å¾— å½“å‰ å˜é‡ list_varA
+ * é‚£æˆ‘ç°åœ¨åšä¸€ä¸ª mylist_varA
  * 
- * µ±ÓĞÒ»¸ö¹Ù·½µÄ·½·¨ 
+ * å½“æœ‰ä¸€ä¸ªå®˜æ–¹çš„æ–¹æ³• 
  * add_varA_element(Object e){
  * 	list_varA.add(e) 
  * }
  * 
- * ÄÇÃ´ ÎÒ¾Í ÔÚ Õâ¸öÏàÍ¬µÄ·½·¨ÖĞ
+ * é‚£ä¹ˆ æˆ‘å°± åœ¨ è¿™ä¸ªç›¸åŒçš„æ–¹æ³•ä¸­
  * add_varA_element(Object e){
  * 	list_varA.add(e) 
- * 	mylist_varA.add(e) 	//Ìí¼Ó
+ * 	mylist_varA.add(e) 	//æ·»åŠ 
  * } 
  * 
- * ÕâÑùµÄ·½Ê½ ¶Ô mylist_varA µÄÔöÉ¾¸Ä²é»ù±¾¶¼Ò»Ñù
- * Ê¹µÃ list_varA ºÍ  mylist_varA ÄÚÈİÒ»ÖÂ
+ * è¿™æ ·çš„æ–¹å¼ å¯¹ mylist_varA çš„å¢åˆ æ”¹æŸ¥åŸºæœ¬éƒ½ä¸€æ ·
+ * ä½¿å¾— list_varA å’Œ  mylist_varA å†…å®¹ä¸€è‡´
  * 
- * ÓÉÓÚ¶Ô list_varA ÔöÉ¾¸Ä²é »ù±¾¶¼ÊÇºÜ¼òµ¥µÄ´úÂë, ËùÒÔÄã²»ÓÃ¹Ü ºÜ¶àÆäËûµÄÒµÎñÂß¼­
- * Ö»ĞèÒª¶ÔÆä »ù±¾µÄÔöÉ¾¸Ä²é ÖĞ ¶Ô mylist_varA ×öÏàÍ¬µÄ²½Öè¼´¿É
+ * ç”±äºå¯¹ list_varA å¢åˆ æ”¹æŸ¥ åŸºæœ¬éƒ½æ˜¯å¾ˆç®€å•çš„ä»£ç , æ‰€ä»¥ä½ ä¸ç”¨ç®¡ å¾ˆå¤šå…¶ä»–çš„ä¸šåŠ¡é€»è¾‘
+ * åªéœ€è¦å¯¹å…¶ åŸºæœ¬çš„å¢åˆ æ”¹æŸ¥ ä¸­ å¯¹ mylist_varA åšç›¸åŒçš„æ­¥éª¤å³å¯
  * 
- * ÕâÖÖ·½Ê½, ²»ĞèÒª¸Ä¶¯Ô­À´µÄ±äÁ¿, Ö»²»¹ıÔö¼ÓÁË¶îÍâÒ»¸ö ±äÁ¿ È¥Í¬²½°ÕÁË
+ * è¿™ç§æ–¹å¼, ä¸éœ€è¦æ”¹åŠ¨åŸæ¥çš„å˜é‡, åªä¸è¿‡å¢åŠ äº†é¢å¤–ä¸€ä¸ª å˜é‡ å»åŒæ­¥ç½¢äº†
  *  
  *  
- *  ÎÒ½¨Á¢Õâ¸öÀÛµÄ³õÖÔ ÔòÊÇÒòÎª
- *  ÏëÒª»ñµÃÁ¬½ÓÕâ¸öresourceµÄ ËùÓĞµÄclient µÄ ip
+ *  æˆ‘å»ºç«‹è¿™ä¸ªç´¯çš„åˆè¡· åˆ™æ˜¯å› ä¸º
+ *  æƒ³è¦è·å¾—è¿æ¥è¿™ä¸ªresourceçš„ æ‰€æœ‰çš„client çš„ ip
  *  
- *  ÔÚ observeRelations ÀàÖĞ 
- *  	ÓĞ observers  observeRelations
- *  ÓÉÓÚ ÕâÁ½¸ö¶«Î÷ µÄÀà »¹ÓĞÆäËûÊôĞÔ, ÕâĞ©ÊôĞÔÔÚ Ò»Ğ©·½·¨ÖĞ »á±»¸ü¸Ä, 
- *  	ËùÒÔºÜÄÑ×¨ÃÅÉèÖÃÁ½¸ö±äÁ¿  my_observers »òÕß my_observeRelations È¥Í¬²½³ıÁËIPÒÔÍâµÄÆäËûÊôĞÔ
+ *  åœ¨ observeRelations ç±»ä¸­ 
+ *  	æœ‰ observers  observeRelations
+ *  ç”±äº è¿™ä¸¤ä¸ªä¸œè¥¿ çš„ç±» è¿˜æœ‰å…¶ä»–å±æ€§, è¿™äº›å±æ€§åœ¨ ä¸€äº›æ–¹æ³•ä¸­ ä¼šè¢«æ›´æ”¹, 
+ *  	æ‰€ä»¥å¾ˆéš¾ä¸“é—¨è®¾ç½®ä¸¤ä¸ªå˜é‡  my_observers æˆ–è€… my_observeRelations å»åŒæ­¥é™¤äº†IPä»¥å¤–çš„å…¶ä»–å±æ€§
  *  
- *  ËùÒÔ¶ÔÓÚ¾ßÌåÀ´Ëµ, ÎÒ¾Í±£´æ IpÁĞ±í¾ÍºÃ, ÒòÎªclientµÄip²»ÈİÒ×±»¸ü¸Ä
- *  Ôò°ÑÉÏÊöÀı×Ó
+ *  æ‰€ä»¥å¯¹äºå…·ä½“æ¥è¯´, æˆ‘å°±ä¿å­˜ Ipåˆ—è¡¨å°±å¥½, å› ä¸ºclientçš„ipä¸å®¹æ˜“è¢«æ›´æ”¹
+ *  åˆ™æŠŠä¸Šè¿°ä¾‹å­
  *  
  * add_varA_element(Object e){
  * 	list_varA.add(e) 
- * 	mylist_varA.add(e) 	//Ìí¼Ó
+ * 	mylist_varA.add(e) 	//æ·»åŠ 
  * } 
  * 
- * È»ºó¸Ä³É
+ * ç„¶åæ”¹æˆ
  * add_varA_element(Object e){
  * 	list_varA.add(e) 
- * 	mylist_varA_ip.add(e.getIp()) 	//Ìí¼Ó, ÕâÀïÔòÎª¸Ä e.getIp()
+ * 	mylist_varA_ip.add(e.getIp()) 	//æ·»åŠ , è¿™é‡Œåˆ™ä¸ºæ”¹ e.getIp()
  * } 
  *  
  *  
@@ -106,13 +106,13 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	//
 	//-------------------------------
 	//
-	/* ×Ô¼ºµÄ The list of observers (not CoAP observer). */
+	/* è‡ªå·±çš„ The list of observers (not CoAP observer). */
 	private List<String> observers_ip;
 
-	/* ×Ô¼ºµÄ The the list of CoAP observe relations. */
+	/* è‡ªå·±çš„ The the list of CoAP observe relations. */
 	//private List<String> observeRelations_ip;
 	/** The set of observe relations */
-	// ²Î¿¼ÓÚ ObserveRelationContainer
+	// å‚è€ƒäº ObserveRelationContainer
 	private ConcurrentHashMap<String, InetSocketAddress> observeRelations_ip = new ConcurrentHashMap<String, InetSocketAddress>();
 	//
 	//
@@ -162,8 +162,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @see org.eclipse.californium.core.server.resources.Resource#add(org.eclipse.californium.core.server.resources.Resource)
 	 
 	 
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹
 	 */
 	/*
 	@Override
@@ -196,10 +196,10 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 *            (e.g., 4.04 after deletion)
 	 *            
 	 *            
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä, ÒòÎªËûÊÇÒªÉ¾³ıresourceÖĞ Õâ¸örelation,¶øÇÒÖĞÍ¾»¹»áµ÷ÓÃ removeObserveRelation
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹, å› ä¸ºä»–æ˜¯è¦åˆ é™¤resourceä¸­ è¿™ä¸ªrelation,è€Œä¸”ä¸­é€”è¿˜ä¼šè°ƒç”¨ removeObserveRelation
 	 * 
-	 * ËùÒÔÉ¾³ıIp¾ÍÔÚ removeObserveRelation Õâ¸ö·½·¨ÀïÃæ²Ù×÷¾ÍĞĞ
+	 * æ‰€ä»¥åˆ é™¤Ipå°±åœ¨ removeObserveRelation è¿™ä¸ªæ–¹æ³•é‡Œé¢æ“ä½œå°±è¡Œ
 	 */
 	/*
 	public void clearAndNotifyObserveRelations(ResponseCode code) {
@@ -223,10 +223,10 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * Cancel all observe relations to CoAP clients.
 	 * 
 	 * 
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä, ÒòÎªËûÊÇÒªÉ¾³ıresourceÖĞ Õâ¸örelation,¶øÇÒÖĞÍ¾»¹»áµ÷ÓÃ removeObserveRelation
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹, å› ä¸ºä»–æ˜¯è¦åˆ é™¤resourceä¸­ è¿™ä¸ªrelation,è€Œä¸”ä¸­é€”è¿˜ä¼šè°ƒç”¨ removeObserveRelation
 	 * 
-	 * ËùÒÔÉ¾³ıIp¾ÍÔÚ removeObserveRelation Õâ¸ö·½·¨ÀïÃæ²Ù×÷¾ÍĞĞ
+	 * æ‰€ä»¥åˆ é™¤Ipå°±åœ¨ removeObserveRelation è¿™ä¸ªæ–¹æ³•é‡Œé¢æ“ä½œå°±è¡Œ
 	 * 
 	 */
 	/*
@@ -246,7 +246,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @see org.eclipse.californium.core.server.resources.Resource#addObserver(org.eclipse.californium.core.server.resources.ResourceObserver)
 	 
 	 *
-	 * µÈ´ı¸ü¸Ä
+	 * ç­‰å¾…æ›´æ”¹
 	 */
 	@Override
 	public synchronized void addObserver(ResourceObserver observer) {
@@ -258,7 +258,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @see org.eclipse.californium.core.server.resources.Resource#removeObserver(org.eclipse.californium.core.server.resources.ResourceObserver)
 	 
 	 * 
-	 * µÈ´ı¸ü¸Ä
+	 * ç­‰å¾…æ›´æ”¹
 	 */
 	@Override
 	public synchronized void removeObserver(ResourceObserver observer) {
@@ -277,8 +277,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	/* (non-Javadoc)
 	 * @see org.eclipse.californium.core.server.resources.Resource#setPath(java.lang.String)
 	 *
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹
 	 */
 	/*@Override
 	public synchronized void setPath(String path) {
@@ -300,8 +300,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * @see org.eclipse.californium.core.server.resources.Resource#setName(java.lang.String)
 	 * 
 	 * 
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹
 	 */
 	/*
 	@Override
@@ -310,7 +310,6 @@ public class MyCoapResource extends CoapResource  implements Resource {
 			throw new NullPointerException("name must not be null!");
 		}
 		String old = this.name;
-
 		// adjust parent if in tree
 		final Resource parent = getParent();
 		if (parent!=null) {
@@ -323,7 +322,6 @@ public class MyCoapResource extends CoapResource  implements Resource {
 			this.name = name;
 		}
 		adjustChildrenPath();
-
 		for (ResourceObserver obs : observers) {
 			obs.changedName(old);
 		}
@@ -335,12 +333,12 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * has changed.
 	 * 
 	 * 
-	 * ¸ü¸Ä¹ı ÓÉÓÚ, µ«ÏÖÔÚÔİÊ±²»ÓÃ¸ü¸Ä
+	 * æ›´æ”¹è¿‡ ç”±äº, ä½†ç°åœ¨æš‚æ—¶ä¸ç”¨æ›´æ”¹
 	 */
 	//@Override
 	//private void adjustChildrenPath() {
 		//String childpath = path + name + /* since 23.7.2013 */ "/";
-		// ¸ü¸Ä
+		// æ›´æ”¹
 	//	String childpath = super.getPath() + super.getName() + /* since 23.7.2013 */ "/";
 		//for (Resource child : children.values()) {
 	//	for (Resource child : super.getChildren()) {
@@ -384,7 +382,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		//
 		//
 		//--------------------------------
-		//×Ô¼ºĞ´µÄ
+		//è‡ªå·±å†™çš„
 		System.out.println("heyheyhey:"+relation.getSource());
 		System.out.println("heyheyhey:"+relation.getKey());
 		//observeRelations_ip.add(relation.)
@@ -420,7 +418,7 @@ public class MyCoapResource extends CoapResource  implements Resource {
 		//
 		//
 		//--------------------------------
-		//×Ô¼ºĞ´µÄ
+		//è‡ªå·±å†™çš„
 		observeRelations_ip.remove(relation.getKey(), relation.getSource());
 		//--------------------------------
 		//
@@ -436,8 +434,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 * 
 	 * 
 	 
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹
 	 */
 	/*
 	@Override
@@ -457,8 +455,8 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	 *               <code>null</code>, if all clients should be notified.
 	 *               
 	 
-	 * Ã»ÓĞ¸ü¸Ä¹ı
-	 * ¸Ğ¾õ²»ĞèÒª¸ü¸Ä
+	 * æ²¡æœ‰æ›´æ”¹è¿‡
+	 * æ„Ÿè§‰ä¸éœ€è¦æ›´æ”¹
 	 */
 	/*
 	@Override
@@ -473,13 +471,13 @@ public class MyCoapResource extends CoapResource  implements Resource {
 	*/
 
 	
-	//--------------------------------×Ô¼ºÌí¼ÓµÄ·½·¨--------------------------------
+	//--------------------------------è‡ªå·±æ·»åŠ çš„æ–¹æ³•--------------------------------
 	
-	//×Ô¼ºÌí¼Ó
+	//è‡ªå·±æ·»åŠ 
 	public ConcurrentHashMap<String, InetSocketAddress> getObserveRelations_ip() {
 		return observeRelations_ip;
 	}
-	//×Ô¼ºÌí¼Ó
+	//è‡ªå·±æ·»åŠ 
 	public void setObserveRelations_ip(ConcurrentHashMap<String, InetSocketAddress> observeRelations_ip) {
 		this.observeRelations_ip = observeRelations_ip;
 	}

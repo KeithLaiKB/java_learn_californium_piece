@@ -10,7 +10,7 @@ import com.learn.californium.server.minimalexample.myresc.MyObserverResource_Con
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀı×Ó														</br>
+ * &emsp;						MWE æ„æ€å°±æ˜¯  ç®€åŒ–çš„ä¾‹å­														</br>
  * &emsp;						for testing the observer												</br>
  * 																										</br>
  * 
@@ -26,8 +26,8 @@ public class TestObserverMain_Mwe  {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//
-		// Èç¹û²»Ìî²ÎÊı£¬ÔòÄ¬ÈÏ¶Ë¿ÚÊÇ5683
-		// ÕâÀïÎÒ³¢ÊÔ×Ô¼º¶¨ÒåÒ»¸ö¶Ë¿Ú5656
+		// å¦‚æœä¸å¡«å‚æ•°ï¼Œåˆ™é»˜è®¤ç«¯å£æ˜¯5683
+		// è¿™é‡Œæˆ‘å°è¯•è‡ªå·±å®šä¹‰ä¸€ä¸ªç«¯å£5656
 		//MyTestCoapServer server = new MyTestCoapServer(5683);
 		//MyTestCoapServer server = new MyTestCoapServer(5656);
 		CoapServer server = new CoapServer(5656);
@@ -35,8 +35,8 @@ public class TestObserverMain_Mwe  {
 		//
 		//
 		//------------------------resource settings-------------------------------------
-		// ×¢Òâ ÕâÀïµÄ hello ´óĞ¡Ğ´ÊÇÃô¸ĞµÄ
-		// ÒòÎª clientÄÇ±ß ÊÇ¸ù¾İ coap://localhost:5656/hello À´·¢ËÍÇëÇóµÄ
+		// æ³¨æ„ è¿™é‡Œçš„ hello å¤§å°å†™æ˜¯æ•æ„Ÿçš„
+		// å› ä¸º clienté‚£è¾¹ æ˜¯æ ¹æ® coap://localhost:5656/hello æ¥å‘é€è¯·æ±‚çš„
 		/*
 		MyObserverResource myobResc1 = new MyObserverResource("hello_observer");
 		myobResc1.setMyCoapServer(server);
@@ -51,7 +51,7 @@ public class TestObserverMain_Mwe  {
 		server.start(); // does all the magic
 		//
 		//
-		// Í£ÁôÒ»¶ÎÊ±¼ä ÈÃserver¼ÌĞøÔËĞĞ
+		// åœç•™ä¸€æ®µæ—¶é—´ è®©serverç»§ç»­è¿è¡Œ
 		try {
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
@@ -65,16 +65,16 @@ public class TestObserverMain_Mwe  {
 		// because the resource use the timer
 		server.destroy();
 		//
-		// ÒòÎªÎÒÃÇµÄresourceÓÃÁË timer,
-		// ËùÒÔÎÒÃÇ destroy ÁËserverÒÔºó , resource»¹ÊÇÔÚÔËĞĞµÄ
+		// å› ä¸ºæˆ‘ä»¬çš„resourceç”¨äº† timer,
+		// æ‰€ä»¥æˆ‘ä»¬ destroy äº†serverä»¥å , resourceè¿˜æ˜¯åœ¨è¿è¡Œçš„
 		// in my opinion, we should apply a standard process
 		// so we need to stop the resource
 		myobResc1.stopMyResource();
 		//
 		//
-		// ÔÙÈÃMainº¯Êı ÔËĞĞÒ»¶ÎÊ±¼ä, ÎÒÃÇ¿ÉÒÔ·¢ÏÖresourceÃ»ÓĞÊä³öÁË, Ò²¾ÍÒâÎ¶×Å È·Êµ½áÊøÁË
-		// ÆäÊµ ÕâºóÃæµÄ¿ÉÒÔ²»ÓÃ, Ö»ÊÇÓÃÀ´ÅĞ¶ÏresourceÊÇ·ñ½áÊøÁË,
-		// Èç¹ûresource Ã»¹Øµô, ¾Í¿ÉÒÔ ÔÚÕâ¶ÎÊ±¼äÄÚ ·¢ÏÖÓĞresourceµÄÊä³ö
+		// å†è®©Mainå‡½æ•° è¿è¡Œä¸€æ®µæ—¶é—´, æˆ‘ä»¬å¯ä»¥å‘ç°resourceæ²¡æœ‰è¾“å‡ºäº†, ä¹Ÿå°±æ„å‘³ç€ ç¡®å®ç»“æŸäº†
+		// å…¶å® è¿™åé¢çš„å¯ä»¥ä¸ç”¨, åªæ˜¯ç”¨æ¥åˆ¤æ–­resourceæ˜¯å¦ç»“æŸäº†,
+		// å¦‚æœresource æ²¡å…³æ‰, å°±å¯ä»¥ åœ¨è¿™æ®µæ—¶é—´å†… å‘ç°æœ‰resourceçš„è¾“å‡º
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

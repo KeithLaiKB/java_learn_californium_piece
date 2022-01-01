@@ -8,11 +8,11 @@ public class TestMain_Modified {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// Èç¹û²»Ìî²ÎÊı£¬ÔòÄ¬ÈÏ¶Ë¿ÚÊÇ5683
-		// ÕâÀïÎÒ³¢ÊÔ×Ô¼º¶¨ÒåÒ»¸ö¶Ë¿Ú5656
+		// å¦‚æœä¸å¡«å‚æ•°ï¼Œåˆ™é»˜è®¤ç«¯å£æ˜¯5683
+		// è¿™é‡Œæˆ‘å°è¯•è‡ªå·±å®šä¹‰ä¸€ä¸ªç«¯å£5656
 		CoapServer server = new CoapServer(5656);
-		// ×¢Òâ ÕâÀïµÄ hello ´óĞ¡Ğ´ÊÇÃô¸ĞµÄ
-		// ÒòÎª clientÄÇ±ß ÊÇ¸ù¾İ coap://localhost:5656/hello À´·¢ËÍÇëÇóµÄ
+		// æ³¨æ„ è¿™é‡Œçš„ hello å¤§å°å†™æ˜¯æ•æ„Ÿçš„
+		// å› ä¸º clienté‚£è¾¹ æ˜¯æ ¹æ® coap://localhost:5656/hello æ¥å‘é€è¯·æ±‚çš„
 		server.add(new MyResource("hello"));
 		//
 		server.start(); // does all the magic
