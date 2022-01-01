@@ -89,21 +89,21 @@ public class Con_TestMain_RequestObserverOne {
             		System.out.println("deleteing record");
             		//System.out.println("deleting resources");
             		//
-            		// ÎÒÈÏÎª delete Í¦ÖØÒªµÄ ËùÒÔÎÒÕâÑ¡ÔñµÄÊÇÍ¬²½
-            		client.delete();				// ÓÃµÄÊÇ Í¬²½, ¶ÔÃæÃ»»ØÓ¦, ¾Í²»ÄÜ¼ÌĞøÍùÏÂ×ß
-            		//client.delete(myDeleteHandler); // ÓÃµÄÊÇ Òì²½
+            		// æˆ‘è®¤ä¸º delete æŒºé‡è¦çš„ æ‰€ä»¥æˆ‘è¿™é€‰æ‹©çš„æ˜¯åŒæ­¥
+            		client.delete();				// ç”¨çš„æ˜¯ åŒæ­¥, å¯¹é¢æ²¡å›åº”, å°±ä¸èƒ½ç»§ç»­å¾€ä¸‹èµ°
+            		//client.delete(myDeleteHandler); // ç”¨çš„æ˜¯ å¼‚æ­¥
             	}
             	else if(int_choice==2) {
-            		coapObRelation1.reactiveCancel();				//È¡Ïû¹Û²ì×´Ì¬
+            		coapObRelation1.reactiveCancel();				//å–æ¶ˆè§‚å¯ŸçŠ¶æ€
             		System.out.println("reactiveCancel");
             		
             	}
             	else if(int_choice==3) {
-            		coapObRelation1.proactiveCancel();				//È¡Ïû¹Û²ì×´Ì¬
+            		coapObRelation1.proactiveCancel();				//å–æ¶ˆè§‚å¯ŸçŠ¶æ€
             		System.out.println("proactiveCancel");
             	}
             	else if(int_choice==4) {
-            		coapObRelation1 = client.observe(myObserveHandler); //È¡Ïû¹Û²ì×´Ì¬ºó »¹ÊÇ¿ÉÒÔ¼ÌĞøobserveµÄ
+            		coapObRelation1 = client.observe(myObserveHandler); //å–æ¶ˆè§‚å¯ŸçŠ¶æ€å è¿˜æ˜¯å¯ä»¥ç»§ç»­observeçš„
             		System.out.println("observe again");
             	}
             }

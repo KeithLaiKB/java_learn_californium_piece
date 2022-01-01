@@ -29,8 +29,8 @@ public class TestMain_Simple {
         CoapResponse response;
 		//
         try {
-        	// Äã×ĞÏ¸²éµ×ÏÂ get()µÄÊµÏÖ
-        	// Äã·¢ÏÖËü ×Ô´øÁË Type.Con Õâ¸öÉèÖÃ
+        	// ä½ ä»”ç»†æŸ¥åº•ä¸‹ get()çš„å®ç°
+        	// ä½ å‘ç°å®ƒ è‡ªå¸¦äº† Type.Con è¿™ä¸ªè®¾ç½®
 			response = client.get();
 			//String xml = client.get(MediaTypeRegistry.APPLICATION_XML).getResponseText();
 			//

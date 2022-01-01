@@ -33,48 +33,48 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 public class TestMain_RequestObserverTwo {
     public static void main(String[] args) {
     	/**
-    	 * ¼ÙÉè ·şÎñÆ÷ÉèÖÃÁË
-    	 * ×ÊÔ´	hello_observer
-    	 * ²¢ÇÒ	hello_observer 			ÉèÖÃÁËÒ»¸ö×Ó×ÊÔ´ 	hello_observer_child1 
-    	 * ²¢ÇÒ	hello_observer_child1 	ÉèÖÃÁËÒ»¸ö×Ó×ÊÔ´ 	hello_observer_child2 
-    	 * ²¢ÇÒ	hello_observer_child2 	ÉèÖÃÁËÒ»¸ö×Ó×ÊÔ´ 	hello_observer_child3 
+    	 * å‡è®¾ æœåŠ¡å™¨è®¾ç½®äº†
+    	 * èµ„æº	hello_observer
+    	 * å¹¶ä¸”	hello_observer 			è®¾ç½®äº†ä¸€ä¸ªå­èµ„æº 	hello_observer_child1 
+    	 * å¹¶ä¸”	hello_observer_child1 	è®¾ç½®äº†ä¸€ä¸ªå­èµ„æº 	hello_observer_child2 
+    	 * å¹¶ä¸”	hello_observer_child2 	è®¾ç½®äº†ä¸€ä¸ªå­èµ„æº 	hello_observer_child3 
     	 * 
     	 */
     	String myuri1 	     = "coap://localhost:5656/hello_observer";
-    	String myuri1_wrong1 = "coap://localhost:5656/hello_observer_child1";				//¸ù¾İ ÉÏÃæµÄ¼ÙÉè, ÕâÑùÊÇ·ÃÎÊ²»µ½ hello_observer µÄ×Ó×ÊÔ´		hello_observer_child1 
-    	String myuri1_wrong2 = "coap://localhost:5656/hello_observer_child2";				//¸ù¾İ ÉÏÃæµÄ¼ÙÉè, ÕâÑùÊÇ·ÃÎÊ²»µ½ hello_observer µÄ×Ó×ÊÔ´		hello_observer_child1 	µÄ×Ó×ÊÔ´	 hello_observer_child2 
+    	String myuri1_wrong1 = "coap://localhost:5656/hello_observer_child1";				//æ ¹æ® ä¸Šé¢çš„å‡è®¾, è¿™æ ·æ˜¯è®¿é—®ä¸åˆ° hello_observer çš„å­èµ„æº		hello_observer_child1 
+    	String myuri1_wrong2 = "coap://localhost:5656/hello_observer_child2";				//æ ¹æ® ä¸Šé¢çš„å‡è®¾, è¿™æ ·æ˜¯è®¿é—®ä¸åˆ° hello_observer çš„å­èµ„æº		hello_observer_child1 	çš„å­èµ„æº	 hello_observer_child2 
     	String myuri1_c1 	 = "coap://localhost:5656/hello_observer/hello_observer_child1";
     	String myuri1_c2 	 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2";
     	String myuri1_c3	 = "coap://localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3";
     	
         //
     	//-----------------------------------------------------------------------
-    	// ¶Ô uri µÄ½âÊÍ
+    	// å¯¹ uri çš„è§£é‡Š
     	//
-    	// Çé¿öÒ»:
-    	// µ±ÔËĞĞ localhost:5656/hello_observer/hello_observer_child1
-    	// Ê¹ÓÃÁË delete
-    	// Í£Ö¹ºó
-    	// ÔËĞĞ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
-    	// ÊÇNOT_FOUNDµÄ
+    	// æƒ…å†µä¸€:
+    	// å½“è¿è¡Œ localhost:5656/hello_observer/hello_observer_child1
+    	// ä½¿ç”¨äº† delete
+    	// åœæ­¢å
+    	// è¿è¡Œ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
+    	// æ˜¯NOT_FOUNDçš„
     	// +++++++++++++++++++++
     	//
-    	// Çé¿ö¶ş:
-    	// µ±ÔËĞĞ localhost:5656/hello_observer/hello_observer_child1
-    	// Ê¹ÓÃÁË delete
-    	// Í£Ö¹ºó
-    	// ÔËĞĞ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3
-    	// ÊÇNOT_FOUNDµÄ
+    	// æƒ…å†µäºŒ:
+    	// å½“è¿è¡Œ localhost:5656/hello_observer/hello_observer_child1
+    	// ä½¿ç”¨äº† delete
+    	// åœæ­¢å
+    	// è¿è¡Œ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2/hello_observer_child3
+    	// æ˜¯NOT_FOUNDçš„
     	// +++++++++++++++++++++
     	//
-    	// Çé¿öÈı:
-    	// µ±ÔËĞĞ localhost:5656/hello_observer/hello_observer_child1
-    	// Ê¹ÓÃÁË delete
-    	// Í£Ö¹ºó
-    	// ÔËĞĞ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
-    	// ÊÇ¿ÉÒÔ·ÃÎÊµÄµ½µÄ
+    	// æƒ…å†µä¸‰:
+    	// å½“è¿è¡Œ localhost:5656/hello_observer/hello_observer_child1
+    	// ä½¿ç”¨äº† delete
+    	// åœæ­¢å
+    	// è¿è¡Œ     localhost:5656/hello_observer/hello_observer_child1/hello_observer_child2
+    	// æ˜¯å¯ä»¥è®¿é—®çš„åˆ°çš„
     	//
-    	// Ò²¾ÍÊÇËµ Èç¹û·şÎñÆ÷É¾³ıÒ»¸öresource, ËüµÄ×ÓresourceÒ²»á±»É¾³ı
+    	// ä¹Ÿå°±æ˜¯è¯´ å¦‚æœæœåŠ¡å™¨åˆ é™¤ä¸€ä¸ªresource, å®ƒçš„å­resourceä¹Ÿä¼šè¢«åˆ é™¤
     	//-----------------------------------------------------------------------
     	//
     	//
@@ -134,7 +134,7 @@ public class TestMain_RequestObserverTwo {
 	        //
 	        //
 	        //
-			// ¼ÙÉèserverÖĞµÄresource Éè¶¨µÄtypeÊÇNON ÄÇÃ´ Ğ§¹û¾ÍÏñÏÂÃæÕâÑù
+			// å‡è®¾serverä¸­çš„resource è®¾å®šçš„typeæ˜¯NON é‚£ä¹ˆ æ•ˆæœå°±åƒä¸‹é¢è¿™æ ·
 			// 53144	-> 	5656 	CON		GET ....
 			// 5656		->	53144	ACK		1st_num
 	        // 5656		->	53144	NON		2nd_num
@@ -144,16 +144,16 @@ public class TestMain_RequestObserverTwo {
 			//response = client.observeAndWait(handler);
 	        //response = client.observe(rq1,handler);
 	        //
-	        // Èç¹ûÓÃobserveµÄÊ±ºò
-	        // Çø±ğÔÚÓÚ,
-	        // ¼ÙÉèÏÈÆô¶¯client, Ã»Æô¶¯server, 
-	        // ÄÇÃ´´ËÊ±Ëû	»á	ÏÔÊ¾wow_hello,
+	        // å¦‚æœç”¨observeçš„æ—¶å€™
+	        // åŒºåˆ«åœ¨äº,
+	        // å‡è®¾å…ˆå¯åŠ¨client, æ²¡å¯åŠ¨server, 
+	        // é‚£ä¹ˆæ­¤æ—¶ä»–	ä¼š	æ˜¾ç¤ºwow_hello,
 	        //
-	        // Èç¹ûÓÃobserveAndWaitµÄÊ±ºò
-	        // ¼ÙÉèÏÈÆô¶¯client, Ã»Æô¶¯server, 
-	        // ÄÇÃ´´ËÊ±Ëû	²»»á	ÏÔÊ¾wow_hello,
+	        // å¦‚æœç”¨observeAndWaitçš„æ—¶å€™
+	        // å‡è®¾å…ˆå¯åŠ¨client, æ²¡å¯åŠ¨server, 
+	        // é‚£ä¹ˆæ­¤æ—¶ä»–	ä¸ä¼š	æ˜¾ç¤ºwow_hello,
 	        //
-	        // ËùÒÔ¾ÍÏñÊÇÒ»¸öÏß³Ì×èÈûÁËµÄ¸Ğ¾õ
+	        // æ‰€ä»¥å°±åƒæ˜¯ä¸€ä¸ªçº¿ç¨‹é˜»å¡äº†çš„æ„Ÿè§‰
 	        System.out.println("wow_hello");
 	        //
 	        if (coapObRelation1!=null) {
@@ -196,18 +196,18 @@ public class TestMain_RequestObserverTwo {
             		//System.out.println("deleting resources");
             		//
             		//
-            		// ÎÒÈÏÎª delete Í¦ÖØÒªµÄ ËùÒÔÎÒÕâÑ¡ÔñµÄÊÇÍ¬²½
-            		//client.delete();				// ÓÃµÄÊÇ Í¬²½, ¶ÔÃæÃ»»ØÓ¦, ¾Í²»ÄÜ¼ÌĞøÍùÏÂ×ß
-            		client.delete(myDeleteHandler); // ÓÃµÄÊÇ Òì²½
+            		// æˆ‘è®¤ä¸º delete æŒºé‡è¦çš„ æ‰€ä»¥æˆ‘è¿™é€‰æ‹©çš„æ˜¯åŒæ­¥
+            		//client.delete();				// ç”¨çš„æ˜¯ åŒæ­¥, å¯¹é¢æ²¡å›åº”, å°±ä¸èƒ½ç»§ç»­å¾€ä¸‹èµ°
+            		client.delete(myDeleteHandler); // ç”¨çš„æ˜¯ å¼‚æ­¥
             		//
-            		// ×¢Òâ Õâ¸ödelete 
-            		// ¿ÉÒÔÊÇÈÃ 	·şÎñÆ÷É¾³ı Õâ¸ö×ÊÔ´
-            		// Ò²¿ÉÒÔÊÇÈÃ	·şÎñÆ÷É¾³ı Ä³¸ö¼ÇÂ¼(±ÈÈçserverÄÇ±ß Á¬ÁË¸öÊı¾İ¿â)
-            		// ÕâÈ¡¾öÓÚ server ÄÇ±ßµÄ handleDelete ÀïµÄ²Ù×÷
+            		// æ³¨æ„ è¿™ä¸ªdelete 
+            		// å¯ä»¥æ˜¯è®© 	æœåŠ¡å™¨åˆ é™¤ è¿™ä¸ªèµ„æº
+            		// ä¹Ÿå¯ä»¥æ˜¯è®©	æœåŠ¡å™¨åˆ é™¤ æŸä¸ªè®°å½•(æ¯”å¦‚serveré‚£è¾¹ è¿äº†ä¸ªæ•°æ®åº“)
+            		// è¿™å–å†³äº server é‚£è¾¹çš„ handleDelete é‡Œçš„æ“ä½œ
             		//
-            		// Èç¹û ÊÇÈÃ·şÎñÆ÷É¾³ı Õâ¸ö×ÊÔ´
-            		// ÒÔºó client ²»»áÔÙÊÕµ½Õâ¸öresourceµÄÄÚÈİ, µ«ÊÇ server»¹ÊÇÔÚÔËĞĞ 
-            		// ËùÒÔserverÄÇ±ßĞèÒª °Ñtimer¹Øµô, ´ËÍâ»¹ÓĞ¿ÉÄÜÒª remove(Resource resource)
+            		// å¦‚æœ æ˜¯è®©æœåŠ¡å™¨åˆ é™¤ è¿™ä¸ªèµ„æº
+            		// ä»¥å client ä¸ä¼šå†æ”¶åˆ°è¿™ä¸ªresourceçš„å†…å®¹, ä½†æ˜¯ serverè¿˜æ˜¯åœ¨è¿è¡Œ 
+            		// æ‰€ä»¥serveré‚£è¾¹éœ€è¦ æŠŠtimerå…³æ‰, æ­¤å¤–è¿˜æœ‰å¯èƒ½è¦ remove(Resource resource)
             		//
             		//
             		//System.out.println("deleted resources");
@@ -223,9 +223,9 @@ public class TestMain_RequestObserverTwo {
             		// in order words it means
             		// send a RST when next notification arrives
             		// 
-            		// Ò²¾ÍÊÇ Ëµ µÈµ½ÏÂÒ»´Î server·¢ËÍ Notification¹ıÀ´µÄÊ±ºò 
-            		// Õâ¸ösubscriber ²Å·¢ËÍ RST¸øserver À´È¡Ïû¹Û²ìÕâ¸öÏûÏ¢
-            		coapObRelation1.reactiveCancel();				//È¡Ïû¹Û²ì×´Ì¬
+            		// ä¹Ÿå°±æ˜¯ è¯´ ç­‰åˆ°ä¸‹ä¸€æ¬¡ serverå‘é€ Notificationè¿‡æ¥çš„æ—¶å€™ 
+            		// è¿™ä¸ªsubscriber æ‰å‘é€ RSTç»™server æ¥å–æ¶ˆè§‚å¯Ÿè¿™ä¸ªæ¶ˆæ¯
+            		coapObRelation1.reactiveCancel();				//å–æ¶ˆè§‚å¯ŸçŠ¶æ€
             		System.out.println("reactiveCancel");
             		
             	}
@@ -242,13 +242,13 @@ public class TestMain_RequestObserverTwo {
             		// in order words it means
             		// send another cancellation request, with an Observe Option set to 1 (deregister)
             		// 
-            		// Ò²¾ÍÊÇ Ëµ  	²»±Ø 		µÈµ½ÏÂÒ»´Î server·¢ËÍ Notification¹ıÀ´µÄÊ±ºò,  Õâ¸ösubscriber ²Å·¢ËÍ RST¸øserver À´È¡Ïû¹Û²ìÕâ¸öÏûÏ¢
-            		// ¶øÊÇÖ±½Ó	·¢ËÍ Ò»¸ö getÇëÇó	¸øserver À´È¡Ïû¹Û²ìÕâ¸öÏûÏ¢ 
-            		coapObRelation1.proactiveCancel();				//È¡Ïû¹Û²ì×´Ì¬
+            		// ä¹Ÿå°±æ˜¯ è¯´  	ä¸å¿… 		ç­‰åˆ°ä¸‹ä¸€æ¬¡ serverå‘é€ Notificationè¿‡æ¥çš„æ—¶å€™,  è¿™ä¸ªsubscriber æ‰å‘é€ RSTç»™server æ¥å–æ¶ˆè§‚å¯Ÿè¿™ä¸ªæ¶ˆæ¯
+            		// è€Œæ˜¯ç›´æ¥	å‘é€ ä¸€ä¸ª getè¯·æ±‚	ç»™server æ¥å–æ¶ˆè§‚å¯Ÿè¿™ä¸ªæ¶ˆæ¯ 
+            		coapObRelation1.proactiveCancel();				//å–æ¶ˆè§‚å¯ŸçŠ¶æ€
             		System.out.println("proactiveCancel");
             	}
             	else if(int_choice==4) {
-            		coapObRelation1 = client.observe(myObserveHandler); //È¡Ïû¹Û²ì×´Ì¬ºó »¹ÊÇ¿ÉÒÔ¼ÌĞøobserveµÄ
+            		coapObRelation1 = client.observe(myObserveHandler); //å–æ¶ˆè§‚å¯ŸçŠ¶æ€å è¿˜æ˜¯å¯ä»¥ç»§ç»­observeçš„
             		System.out.println("observe again");
             	}
             }

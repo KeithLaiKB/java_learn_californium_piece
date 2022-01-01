@@ -19,8 +19,7 @@ import org.eclipse.californium.core.CoapResponse;
  * 							ref:																					</br>	
  * &emsp;						californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
  *  																												</br>
-
- * ×î³õ²Î¿¼µÄ³¢ÊÔ
+ * æœ€åˆå‚è€ƒçš„å°è¯•
  * </p>
  * @author laipl
  *
@@ -63,7 +62,7 @@ public class TestMain_RequestObserverOne_Simp {
         //
         //---------------------------------------------
         // wait for the notifications
-        long startObserveTime=System.nanoTime();   			//»ñÈ¡¿ªÊ¼Ê±¼ä  
+        long startObserveTime=System.nanoTime();   			//è·å–å¼€å§‹æ—¶é—´  
 		//
 		//
 		boolean judge_timeout = false;

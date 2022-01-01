@@ -63,7 +63,7 @@ public class TestMain_RequestObserverOne_Simp {
         //
         //---------------------------------------------
         // wait for the notifications
-        long startObserveTime=System.nanoTime();   			//获取开始时间  
+        long startObserveTime=System.nanoTime();   			//禄帽脠隆驴陋脢录脢卤录盲  
 		//
 		//
 		boolean judge_timeout = false;
