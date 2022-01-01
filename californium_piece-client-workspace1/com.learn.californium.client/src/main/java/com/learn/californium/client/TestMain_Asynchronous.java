@@ -66,7 +66,7 @@ public class TestMain_Asynchronous {
 		//
 		// -------------------------start-------------------------------------
 		// new client
-		CoapClient client1 = new CoapClient(port2);
+		CoapClient client1 = new CoapClient(port1);
 		//
 		//
 		// set handler
@@ -84,8 +84,8 @@ public class TestMain_Asynchronous {
 		//
 		//
 		// action
-		//
-		//client1.get(myCoapHandler1);
+		client1.get(myCoapHandler1);
+		/*
 		try {
 			CoapResponse resp1= client1.put(dtoFruit1AsString,  MediaTypeRegistry.APPLICATION_JSON);
 			System.out.println(resp1.getResponseText());
@@ -96,6 +96,7 @@ public class TestMain_Asynchronous {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		*/
 		//client1.post(myCoapHandler1,dtoFruit1AsString, MediaTypeRegistry.APPLICATION_JSON);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_OCTET_STREAM);
 		//resp = client1.post(dtoFruit1AsString, MediaTypeRegistry.APPLICATION_VND_OMA_LWM2M_JSON);

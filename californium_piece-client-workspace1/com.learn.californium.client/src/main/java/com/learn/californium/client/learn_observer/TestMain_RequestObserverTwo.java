@@ -27,6 +27,8 @@ import org.eclipse.californium.elements.exception.ConnectorException;
  * &emsp;						 californium/demo-apps/cf-plugtest-client/src/main/java/org/eclipse/californium/plugtests/PlugtestClient.java  	</br>	
  * 																													</br>
  *
+ * TestMain_RequestObserverTwo 是 模拟第二个client 地方使用相同的 程序 看看想过怎么样, 所以内容上是一致的
+ *
  * @author laipl
  *
  */
