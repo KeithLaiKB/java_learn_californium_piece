@@ -116,6 +116,9 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 		 * 这里面 每一次changed 代表, 要去通知所有的client
 		 * 则会调用handelGet
 		 * 
+		 * 这里的 int_mytask_used 类似于 设备 每次自己获取当前 温度, 
+		 * 无论是否有观察者, int_mytask_used 都会更新
+		 * 
 		 * @author laipl
 		 *
 		 */
@@ -139,6 +142,12 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 		//--------------------- handle get/ delete / put / post--------------------- 
 		//
 		//
+		/**
+		 * 这里的 int_connect_get_num 只有当观察这观察的时候, 才会经过handleGET() 方法
+		 * 从而能够访问这个方法
+		 * 进而 造成 int_connect_get_num = int_connect_get_num +1; 
+		 * 
+		 */
 		@Override
 		public void handleGET(CoapExchange exchange) {
 			System.out.println("handleGET: "+ super.getName());
