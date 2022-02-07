@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
@@ -191,7 +192,7 @@ public class MyObserverResource_Modified  extends MyCoapResource {
 				//exchange.respond(ResponseCode.CONTENT, "task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
 				exchange.respond("task used num:"+int_mytask_used+"//" +this.myCoapServer1.getMyEndPoints().size()+"//"+ this.getObserveRelations_ip()+ "//"+ exchange.getSourceSocketAddress());
 				//
-				
+				//exchange.respond(ResponseCode.CONTENT, "hi", MediaTypeRegistry.TEXT_PLAIN); // 如果不写ResponseCode也可以, 它默认 ResponseCode.CONTENT, 如果不写 MediaTypeRegistry 也可以, 它默认是 MediaTypeRegistry.TEXT_PLAIN 
 			}
 			
 			
