@@ -22,7 +22,10 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-
+/*
+ * 这里只是用了 LOCALHOST_EPHEMERAL4 的区别而已
+ * 
+ * */
 public class TestOb2_RederivationEnable2_1 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();

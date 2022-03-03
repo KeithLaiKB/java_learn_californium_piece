@@ -22,7 +22,11 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-
+/**
+ * 感觉这个 可以被删掉
+ * @author laipl
+ *
+ */
 public class TestOb2_RederivationEnable_9 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();

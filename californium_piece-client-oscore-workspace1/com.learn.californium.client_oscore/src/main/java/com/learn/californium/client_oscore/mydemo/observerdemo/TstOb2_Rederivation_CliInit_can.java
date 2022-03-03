@@ -2,6 +2,7 @@ package com.learn.californium.client_oscore.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +22,7 @@ import org.eclipse.californium.core.coap.CoAP.Code;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.eclipse.californium.core.coap.OptionNumberRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
@@ -99,17 +101,17 @@ public class TstOb2_Rederivation_CliInit_can {
 		OSCoreCoapStackFactory.useAsDefault(db);
 		//
 		try {
-			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
+			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//
 			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
 			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true);
-			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, myContextId1);
+			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
 			//db.addContext("coap://" + "127.0.0.1", ctx);
 			//db.addContext("coap://" + uri_addr2, ctx);
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
-			db.addContext(uriLocal2, ctx);
+			db.addContext(uriLocal3, ctx);
 			//
 			ctx.setContextRederivationEnabled(true);
 			// Explicitly initiate the context re-derivation procedure
@@ -123,7 +125,7 @@ public class TstOb2_Rederivation_CliInit_can {
 			//newCtx.setIncludeContextId(ctx,encodeToCborBstrBytes(myContextId));
 			//ctx.setContextRederivationPhase(PHASE.CLIENT_INITIATE);
 			//ctx.setContextRederivationPhase(PHASE.CLIENT_PHASE_1);
-			//ctx.setContextRederivationPhase(PHASE.CLIENT_PHASE_2);
+			//ctx.setContextRederivationPhase(PHASE.CLIENT_PHASE_3);
 
 		}
 		catch(OSException e) {
@@ -171,10 +173,16 @@ public class TstOb2_Rederivation_CliInit_can {
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr2+":5656"+"/hello_observer");
+		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
+		//r1.getOptions().setOscore(Bytes.EMPTY);
+		
+		//byte[] bys_temps=ByteBuffer.allocate(4).putInt(OptionNumberRegistry.NO_RESPONSE).array();
+		//System.out.println(bys_temps);
+		//System.out.println(bys_temps[0]);
+		//r1.getOptions().setOscore(ByteBuffer.allocate(4).putInt(OptionNumberRegistry.OSCORE).array());
 		r1.getOptions().setOscore(Bytes.EMPTY);
 		//
 		//
@@ -196,7 +204,7 @@ public class TstOb2_Rederivation_CliInit_can {
 		boolean judge_timeout = false;
 		while (judge_timeout==false) {
 			long nowTime_tmp=System.nanoTime();
-			long timelimit_tmp=10*1000000000L;
+			long timelimit_tmp=15*1000000000L;
 			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
 				judge_timeout=true;
 			}
