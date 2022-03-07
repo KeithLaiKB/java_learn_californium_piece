@@ -155,8 +155,11 @@ public class TstOb1Md1_can {
 		//Request r = createClientRequest(Code.GET, resourceUri);
 		byte[] token_rand1 = Bytes.createBytes(new Random(), 8);
 
+		// token 可以 粗略的 类似于 mqtt中的 clientId
+		// 但californium 的 setToken表明 token的大小为  0--8 bytes
 		//TokenGenerator tokenGenerator = new RandomTokenGenerator(Configuration.createStandardWithoutFile());
 		TokenGenerator tokenGenerator = new RandomTokenGenerator(NetworkConfig.getStandard());
+		// 在 TokenGenerator 的 createToken 的注释中有表明, longterm 是用来observe的, shortterm是用来Multicast的
 		Token tokengen1 = tokenGenerator.createToken(TokenGenerator.Scope.LONG_TERM);
 		//RandomTokenGenerator a = new RandomTokenGenerator(null);
 		r1.setToken(tokengen1);
