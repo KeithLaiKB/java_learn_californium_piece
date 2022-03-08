@@ -1,7 +1,4 @@
-you can put some certs in this folder or sub folder(if you create) 
-
-
-server中 
+client中 
 
 keystore 生成后 cer
 然后用cer 生成 truststore
