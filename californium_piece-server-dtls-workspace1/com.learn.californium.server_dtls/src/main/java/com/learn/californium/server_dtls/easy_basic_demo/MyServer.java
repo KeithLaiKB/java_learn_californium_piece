@@ -51,8 +51,11 @@ public class MyServer {
 			builder.setRecommendedCipherSuitesOnly(false);
 			builder.setAddress(new InetSocketAddress(DEFAULT_PORT));
 			builder.setAdvancedPskStore(pskStore);
-			builder.setIdentity(serverCredentials.getPrivateKey(), serverCredentials.getCertificateChain(),
-					CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
+			
+			//builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
+			//因为我自己生成的证书 我是 RAW_PUBLIC_KEY 所以 我可以不加上 CertificateType.X_509, 我觉得 它多加一个 CertificateType.X_509 应该是为了 以防 例如我们证书不是  RAW_PUBLIC_KEY 他就考虑你认为可能的的证书类型 
+			builder.setIdentity(serverCredentials.getPrivateKey(), serverCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY);
+			
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder()
 					.setTrustedCertificates(trustedCertificates).setTrustAllRPKs().build());
 			dtlsConnector = new DTLSConnector(builder.build());
