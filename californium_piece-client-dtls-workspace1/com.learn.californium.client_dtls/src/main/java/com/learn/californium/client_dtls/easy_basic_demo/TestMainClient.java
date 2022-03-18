@@ -67,27 +67,27 @@ public class TestMainClient {
 	public static void main(String[] args) throws InterruptedException {
 		int clients = 1;
 		int messages = 100;
-		// ÎÒÏëÒªÈÃÃ»ÌõĞÅÏ¢µÄ »ù´¡ÄÚÈİ µÄ³¤¶È ÓĞÒ»¶¨µÄÏŞÖÆ
+		// æˆ‘æƒ³è¦è®©æ²¡æ¡ä¿¡æ¯çš„ åŸºç¡€å†…å®¹ çš„é•¿åº¦ æœ‰ä¸€å®šçš„é™åˆ¶
 		int length = 64;
 		//
 		//
-		//===========================´¦Àí mainº¯Êı Ğ¯´øÓĞ²ÎÊıµÄÇé¿ö(Èç¹û)===========================
+		//===========================å¤„ç† mainå‡½æ•° æºå¸¦æœ‰å‚æ•°çš„æƒ…å†µ(å¦‚æœ)===========================
 		//
-		//Èç¹ûmainº¯ÊıµÄargs Ğ¯´øÓĞ²ÎÊı
+		//å¦‚æœmainå‡½æ•°çš„args æºå¸¦æœ‰å‚æ•°
 		if (0 < args.length) {
-			//a[0] ´ú±í  client µÄ¸öÊı
+			//a[0] ä»£è¡¨  client çš„ä¸ªæ•°
 			clients = Integer.parseInt(args[0]);
 			if (1 < args.length) {
-				//a[1] ´ú±í  message µÄ¸öÊı
+				//a[1] ä»£è¡¨  message çš„ä¸ªæ•°
 				messages = Integer.parseInt(args[1]);
 				if (2 < args.length) {
-					//a[2] ´ú±í  length
+					//a[2] ä»£è¡¨  length
 					length = Integer.parseInt(args[2]);
 				}
 			}
 		}
 		//
-		//maxMessages µÄ¸öÊıÓÉ messages * clients ¾ö¶¨,(Èç¹û mainº¯Êı Ğ¯´øÓĞ²ÎÊı, Ôò°´ÕÕ²ÎÊıµÄÀ´ÉèÖÃ messages ºÍ clients )
+		//maxMessages çš„ä¸ªæ•°ç”± messages * clients å†³å®š,(å¦‚æœ mainå‡½æ•° æºå¸¦æœ‰å‚æ•°, åˆ™æŒ‰ç…§å‚æ•°çš„æ¥è®¾ç½® messages å’Œ clients )
 		int maxMessages = (messages * clients);
 		//
 		messageCounter = new CountDownLatch(maxMessages);
@@ -106,45 +106,45 @@ public class TestMainClient {
 		*/
 		
 		//
-		//===========================´´½¨client, ÎªÃ¿¸öclient´´½¨Ò»¸öÏß³Ì, ²¢ÇÒÔËĞĞÏß³Ì£¬ÆäÖĞ´ò¿ªÃ¿¸öclientµÄconnector===========================
+		//===========================åˆ›å»ºclient, ä¸ºæ¯ä¸ªclientåˆ›å»ºä¸€ä¸ªçº¿ç¨‹, å¹¶ä¸”è¿è¡Œçº¿ç¨‹ï¼Œå…¶ä¸­æ‰“å¼€æ¯ä¸ªclientçš„connector===========================
 		List<MyClient> clientList = new ArrayList<>(clients);
 		//
-		//============= ´´½¨Ò»¸ö ÏŞ¶¨ÁËÏß³Ì¸öÊı µÄÏß³Ì³Ø, Ïß³Ì¹¤³§ÀàĞÍÊÇ DaemonThreadFactory
+		//============= åˆ›å»ºä¸€ä¸ª é™å®šäº†çº¿ç¨‹ä¸ªæ•° çš„çº¿ç¨‹æ± , çº¿ç¨‹å·¥å‚ç±»å‹æ˜¯ DaemonThreadFactory
 		// JVM terminates itself when all user threads (non-daemon threads) finish their 
 		// execution, JVM    does not    care whether Daemon thread is running or not, 
 		// if JVM finds running daemon thread (upon completion of user threads), 
 		// it terminates the thread and after that shutdown itself.
 		//
-		// Ò²¾ÍÊÇËµ DaemonThreadFactory ÊÇÉú³É DaemonThread µÄ
+		// ä¹Ÿå°±æ˜¯è¯´ DaemonThreadFactory æ˜¯ç”Ÿæˆ DaemonThread çš„
 		//
-		// ¹ØÓÚ user threads(non-daemon threads), 
-		// 			JVM 	ĞèÒª		µÈ´ı	ËùÓĞµÄ  user threads 	ÔËĞĞÍê±ÏµÄÊ±ºò				²Å	ÄÜ terminate itself 
-		// È»¶ø DaemonThread, 
-		// 			JVM 	²»ĞèÒª 	µÈ´ı	ËùÓĞ DaemonThread 		ÔËĞĞÍê±ÏµÄÊ±ºò  				 À´½áÊøJVM×Ô¼º
-		//				JVM Èç¹ûÒª ¹Ø±Õ, ÎŞÂÛÊÇ·ñ »¹´æÔÚÓĞ DaemonThread ÕıÔÚÔËĞĞ
-		// 					JVM ¶¼½«»áÏÈ°Ñ DaemonThread¹Ø ±Õ, È»ºó							ÔÙ	shutdown itself
+		// å…³äº user threads(non-daemon threads), 
+		// 			JVM 	éœ€è¦		ç­‰å¾…	æ‰€æœ‰çš„  user threads 	è¿è¡Œå®Œæ¯•çš„æ—¶å€™				æ‰	èƒ½ terminate itself 
+		// ç„¶è€Œ DaemonThread, 
+		// 			JVM 	ä¸éœ€è¦ 	ç­‰å¾…	æ‰€æœ‰ DaemonThread 		è¿è¡Œå®Œæ¯•çš„æ—¶å€™  				 æ¥ç»“æŸJVMè‡ªå·±
+		//				JVM å¦‚æœè¦ å…³é—­, æ— è®ºæ˜¯å¦ è¿˜å­˜åœ¨æœ‰ DaemonThread æ­£åœ¨è¿è¡Œ
+		// 					JVM éƒ½å°†ä¼šå…ˆæŠŠ DaemonThreadå…³ é—­, ç„¶å							å†	shutdown itself
 		ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(),
 				new DaemonThreadFactory("Aux#"));
 		//
 		System.out.println("Create " + clients + " DTLS example clients, expect to send " + maxMessages +" messages overall.");
 		//
 		//
-		//============= ´´½¨clients
-		// ×÷ÓÃÊÇÃ¿Éú³ÉÒ»¸öclient, ¾ÍÈÃËü-1£¬
-		// ÓÃÕâ¸öµÄÔ­ÒòÊÇ, µ×ÏÂÒª´´½¨Ã¿¸öclientÏß³Ì, È»ºóÈ¥startConnector Ò²ĞèÒªÊ±¼ä(ÒòÎªÀïÃæÒ²»á´´½¨Ò»¸öÏß³Ì?)
-		// Èç¹û²»ÓÃCountDownLatch µÄ»°, Ëû»á·¢ÉúÎÊÌâ:  connector must be started before sending messages is possible
-		// Ò²¾ÍÊÇËµ, connector »¹Ã»startÍê, Ëû¾ÍÈ¥ ·¢ËÍÊı¾İÁË
+		//============= åˆ›å»ºclients
+		// ä½œç”¨æ˜¯æ¯ç”Ÿæˆä¸€ä¸ªclient, å°±è®©å®ƒ-1ï¼Œ
+		// ç”¨è¿™ä¸ªçš„åŸå› æ˜¯, åº•ä¸‹è¦åˆ›å»ºæ¯ä¸ªclientçº¿ç¨‹, ç„¶åå»startConnector ä¹Ÿéœ€è¦æ—¶é—´(å› ä¸ºé‡Œé¢ä¹Ÿä¼šåˆ›å»ºä¸€ä¸ªçº¿ç¨‹?)
+		// å¦‚æœä¸ç”¨CountDownLatch çš„è¯, ä»–ä¼šå‘ç”Ÿé—®é¢˜:  connector must be started before sending messages is possible
+		// ä¹Ÿå°±æ˜¯è¯´, connector è¿˜æ²¡startå®Œ, ä»–å°±å» å‘é€æ•°æ®äº†
 		//
-		// ËùÒÔÓÃÕâ¸ö¾ÍÊÇ Ëµ ÄãÕâĞ©client µÄ connector ĞèÒªÏÈ   start Íê£¬ ²ÅÄÜ½øĞĞÏÂÒ»²½
+		// æ‰€ä»¥ç”¨è¿™ä¸ªå°±æ˜¯ è¯´ ä½ è¿™äº›client çš„ connector éœ€è¦å…ˆ   start å®Œï¼Œ æ‰èƒ½è¿›è¡Œä¸‹ä¸€æ­¥
 		//
-		// ¸ù¾İÕâÖÖÔ­Àí, ÎÒ³¢ÊÔÓÃ Thread.sleep, ¿ÉÒÔ½â¾öÎÊÌâ
+		// æ ¹æ®è¿™ç§åŸç†, æˆ‘å°è¯•ç”¨ Thread.sleep, å¯ä»¥è§£å†³é—®é¢˜
 		// 
-		// ÓÚÊÇ³¢ÊÔË¼¿¼, execute ÀïÃæµÄÄÇ¸örunnable È¥runµÄÊ±ºò ÊÇÒ»¸öÏß³Ì£¬
-		// ¶øÎÒÏÖÔÚÕâ¸ömainÓÖÊÇÒ»¸öÏß³Ì
-		// ËäÈ»Ëµ mainÀïÒÑ¾­executeÁË, µ«²¢²»±£Ö¤ runnableÀïµÄÄÇ¸örun ÒÑ¾­Ö´ĞĞÍêÁË startConnector 
+		// äºæ˜¯å°è¯•æ€è€ƒ, execute é‡Œé¢çš„é‚£ä¸ªrunnable å»runçš„æ—¶å€™ æ˜¯ä¸€ä¸ªçº¿ç¨‹ï¼Œ
+		// è€Œæˆ‘ç°åœ¨è¿™ä¸ªmainåˆæ˜¯ä¸€ä¸ªçº¿ç¨‹
+		// è™½ç„¶è¯´ mainé‡Œå·²ç»executeäº†, ä½†å¹¶ä¸ä¿è¯ runnableé‡Œçš„é‚£ä¸ªrun å·²ç»æ‰§è¡Œå®Œäº† startConnector 
 		//
-		// ËùÒÔ client.startConnector Ğ´ÔÚ num_clients_tmp.countDown µÄÇ°Ãæ
-		// ÓÃ¸öawait À¹×Å³ÌĞò²»ÍùÏÂ×ß, µ±ÔËĞĞÁË runÀïµÄstartConnector, È»ºó¼õ1, ×îºóÎª0Ê±, ²ÅÄÜ·ÅĞĞ
+		// æ‰€ä»¥ client.startConnector å†™åœ¨ num_clients_tmp.countDown çš„å‰é¢
+		// ç”¨ä¸ªawait æ‹¦ç€ç¨‹åºä¸å¾€ä¸‹èµ°, å½“è¿è¡Œäº† runé‡Œçš„startConnector, ç„¶åå‡1, æœ€åä¸º0æ—¶, æ‰èƒ½æ”¾è¡Œ
 		// 
 		final CountDownLatch num_clients_tmp = new CountDownLatch(clients);		
 		//
@@ -159,15 +159,15 @@ public class TestMainClient {
 			client.my_configureToPrepare();
 			//
 			clientList.add(client);
-			// ÎÒ×Ô¼º×·×Ù¹ıÁË, excute »á ÈÃÕâ¸ö runnable È¥start, 
-			// Ò²¾ÍÊÇËµ£¬ run()ÔÚexecuteºó »áÔËĞĞ
+			// æˆ‘è‡ªå·±è¿½è¸ªè¿‡äº†, excute ä¼š è®©è¿™ä¸ª runnable å»start, 
+			// ä¹Ÿå°±æ˜¯è¯´ï¼Œ run()åœ¨executeå ä¼šè¿è¡Œ
 			executor.execute(new Runnable() {
 
 				@Override
 				public void run() {
-					// Ã¿µ± Ã¿¸ö client start
+					// æ¯å½“ æ¯ä¸ª client start
 					client.startConnector();
-					// ¾ÍÈÃ CountDownLatch ¾ÍÈ¥¼õÒ»
+					// å°±è®© CountDownLatch å°±å»å‡ä¸€
 					num_clients_tmp.countDown();
 				}
 			});
@@ -176,9 +176,9 @@ public class TestMainClient {
 		//
 		//Thread.sleep(1000);
 		//
-		// Èç¹û ÉÏÃæµÄ CountDownLatchÀà µÄ±äÁ¿ start Ã»ÓĞ ¼õµ½Îª0, Ôò²»»á½øĞĞ Ö´ĞĞ await ºóÃæµÄ´úÂë¡£
-		// Ïàµ±ÓÚ×èÈû×Ô¼º£¬Ö±µ½Ã¿¸öÏß³ÌÖĞµÄÄÇ¸öclientµÄstartConnector Ö´ĞĞÍê£¬
-		// ²¢ÇÒ num_clients_tmp.countDown¸÷×Ô¼õÒ»  Ê¹ÆäÎª0
+		// å¦‚æœ ä¸Šé¢çš„ CountDownLatchç±» çš„å˜é‡ start æ²¡æœ‰ å‡åˆ°ä¸º0, åˆ™ä¸ä¼šè¿›è¡Œ æ‰§è¡Œ await åé¢çš„ä»£ç ã€‚
+		// ç›¸å½“äºé˜»å¡è‡ªå·±ï¼Œç›´åˆ°æ¯ä¸ªçº¿ç¨‹ä¸­çš„é‚£ä¸ªclientçš„startConnector æ‰§è¡Œå®Œï¼Œ
+		// å¹¶ä¸” num_clients_tmp.countDownå„è‡ªå‡ä¸€  ä½¿å…¶ä¸º0
 		num_clients_tmp.await();
 		System.out.println(clients + " DTLS example clients started.");
 		//
@@ -189,11 +189,11 @@ public class TestMainClient {
 		//
 		//---------------------------------------------
 		/*
-		// ÒòÎª Òì²½£¬ÊÇÒªµÈ´ı»Ø´«µÄ£¬µÈ´ıÊÇĞèÒªÊ±¼äµÄ£¬
-		// ËùÒÔ ÎÒ²»ÄÜÈÃ³ÌĞòÄÇÃ´¿ì½áÊø
-		// ËùÒÔ ÎÒÈÃÄãÊäÈë»Ø³µÔÙ½áÊø£¬Ò²¾ÍÊÇËµ Äã²»ÊäÈë»Ø³µ£¬ÄÇÃ´Õâ¸ö×Ümainº¯ÊıÃ»×ßÍê
-		// ´Ó¶ø ÓĞÊ±¼ä ÈÃclientµÈµ½ ´«»ØÀ´µÄ Êı¾İ
-		// ²»È»µÄ»° ÔÚµÈ´ıµÄ¹ı³ÌÖĞ£¬×Üº¯ÊıÒÑ¾­ÔËĞĞÍêÁË, ËùÒÔÀïÃæµÄÕâĞ©±äÁ¿°¡ Ïß³Ì°¡ Ò²ÓĞ¿ÉÄÜÃ»ÓĞÁË£¿
+		// å› ä¸º å¼‚æ­¥ï¼Œæ˜¯è¦ç­‰å¾…å›ä¼ çš„ï¼Œç­‰å¾…æ˜¯éœ€è¦æ—¶é—´çš„ï¼Œ
+		// æ‰€ä»¥ æˆ‘ä¸èƒ½è®©ç¨‹åºé‚£ä¹ˆå¿«ç»“æŸ
+		// æ‰€ä»¥ æˆ‘è®©ä½ è¾“å…¥å›è½¦å†ç»“æŸï¼Œä¹Ÿå°±æ˜¯è¯´ ä½ ä¸è¾“å…¥å›è½¦ï¼Œé‚£ä¹ˆè¿™ä¸ªæ€»mainå‡½æ•°æ²¡èµ°å®Œ
+		// ä»è€Œ æœ‰æ—¶é—´ è®©clientç­‰åˆ° ä¼ å›æ¥çš„ æ•°æ®
+		// ä¸ç„¶çš„è¯ åœ¨ç­‰å¾…çš„è¿‡ç¨‹ä¸­ï¼Œæ€»å‡½æ•°å·²ç»è¿è¡Œå®Œäº†, æ‰€ä»¥é‡Œé¢çš„è¿™äº›å˜é‡å•Š çº¿ç¨‹å•Š ä¹Ÿæœ‰å¯èƒ½æ²¡æœ‰äº†ï¼Ÿ
         System.out.println("enter to exit!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
@@ -207,16 +207,16 @@ public class TestMainClient {
 		
 		
 		//
-		//===========================´´½¨Íêclient, ×¼±¸ºÃÄ¿±ê¶Ë¿Ú===========================
+		//===========================åˆ›å»ºå®Œclient, å‡†å¤‡å¥½ç›®æ ‡ç«¯å£===========================
 		// Get peer address
-		//============= ×¼±¸ºÃ ÓòÃû ºÍ¶Ë¿Ú
+		//============= å‡†å¤‡å¥½ åŸŸå å’Œç«¯å£
 		InetSocketAddress peer;
 		if (args.length == 5) {
-			// Èç¹ûmainº¯ÊıµÄargs Ğ¯´øÓĞ5¸ö²ÎÊı
-			// Ôò a[3]´ú±íÓòÃû, Ôò a[4]´ú±í ¶Ë¿ÚºÅ
+			// å¦‚æœmainå‡½æ•°çš„args æºå¸¦æœ‰5ä¸ªå‚æ•°
+			// åˆ™ a[3]ä»£è¡¨åŸŸå, åˆ™ a[4]ä»£è¡¨ ç«¯å£å·
 			peer = new InetSocketAddress(args[3], Integer.parseInt(args[4]));
 		} else {
-			// loopback address Ö¸µÄÊÇ 127.0.0.1
+			// loopback address æŒ‡çš„æ˜¯ 127.0.0.1
 			peer = new InetSocketAddress(InetAddress.getLoopbackAddress(), DEFAULT_PORT);
 		}
 		//
@@ -226,7 +226,7 @@ public class TestMainClient {
 		//
 		//
 		//
-		//============= ·¢ËÍ
+		//============= å‘é€
 		long nanos = System.nanoTime();
 		long lastMessageCountDown = messageCounter.getCount();
 
@@ -241,11 +241,11 @@ public class TestMainClient {
 		//
 		//
 		// Wait with timeout or all messages send.
-		// µ±ËùÓĞµÄ message·¢ÍêÁË ²ÅÄÜ ½áÊøÕâ¸öÑ­»·
+		// å½“æ‰€æœ‰çš„ messageå‘å®Œäº† æ‰èƒ½ ç»“æŸè¿™ä¸ªå¾ªç¯
 		while (messageCounter.await(DEFAULT_TIMEOUT_NANOS, TimeUnit.NANOSECONDS)==false) {
 			long current = messageCounter.getCount();
-			// µ± ¾­¹ıÁË DEFAULT_TIMEOUT_NANOS ÕâÃ´¶àµÄÊ±¼ä 
-			// Èç¹ûµ±Ç° µÄmessage ÈÔÈ»»¹Ã»·¢³öÈ¥, ÔòĞŞ¸Ä ¿ªÊ¼µÄÊ±¼ä
+			// å½“ ç»è¿‡äº† DEFAULT_TIMEOUT_NANOS è¿™ä¹ˆå¤šçš„æ—¶é—´ 
+			// å¦‚æœå½“å‰ çš„message ä»ç„¶è¿˜æ²¡å‘å‡ºå», åˆ™ä¿®æ”¹ å¼€å§‹çš„æ—¶é—´
 			if (lastMessageCountDown == current && current < maxMessages) {
 				// no new messages, clients are stale
 				// adjust start time with timeout
@@ -266,8 +266,8 @@ public class TestMainClient {
 		//
 		//
 		//
-		//===========================¹Ø±Õ clientµÄ connector===========================
-		// °ÑclientÍ£ÏÂÀ´
+		//===========================å…³é—­ clientçš„ connector===========================
+		// æŠŠclientåœä¸‹æ¥
 		int statistic[] = new int[clients];
 		for (int index = 0; index < clients; ++index) {
 			MyClient client = clientList.get(index);
@@ -282,14 +282,14 @@ public class TestMainClient {
 		System.out.println((count * 1000) / TimeUnit.NANOSECONDS.toMillis(nanos) + " messages per s");
 		//
 		//
-		// ÒòÎª long count = maxMessages - messageCounter.getCount();
+		// å› ä¸º long count = maxMessages - messageCounter.getCount();
 		//
-		// Èç¹û count == maxMessages Ö¤Ã÷  messageCounter.getCount() ÒÑ¾­µİ¼õµ½0ÁË
-		// Èç¹û count < maxMessages  Ö¤Ã÷  messageCounter.getCount() Ã»ÓĞµİ¼õµ½0
+		// å¦‚æœ count == maxMessages è¯æ˜  messageCounter.getCount() å·²ç»é€’å‡åˆ°0äº†
+		// å¦‚æœ count < maxMessages  è¯æ˜  messageCounter.getCount() æ²¡æœ‰é€’å‡åˆ°0
 		//
-		// ÀıÈç maxMessages =100
+		// ä¾‹å¦‚ maxMessages =100
 		// messageCounter.getCount() = 1 
-		// Ôò count = 100 - 1 = 99 < maxMessages, Ò²¾ÍÊÇËµ ÓĞĞÅÏ¢²¢Ã»ÓĞ±»·¢³öÈ¥ 
+		// åˆ™ count = 100 - 1 = 99 < maxMessages, ä¹Ÿå°±æ˜¯è¯´ æœ‰ä¿¡æ¯å¹¶æ²¡æœ‰è¢«å‘å‡ºå» 
 		if (count < maxMessages) {
 			System.out.println("Stale at " + lastMessageCountDown + " messages");
 		}
@@ -298,9 +298,9 @@ public class TestMainClient {
 		//
 		//
 		//
-		// Èç¹û client ÊıÁ¿>1
+		// å¦‚æœ client æ•°é‡>1
 		if (1 < clients) {
-			// °ÑÃ¿¸öclient µÄÏûÏ¢ÊıÁ¿½øĞĞÅÅĞò
+			// æŠŠæ¯ä¸ªclient çš„æ¶ˆæ¯æ•°é‡è¿›è¡Œæ’åº
 			Arrays.sort(statistic);
 			//
 			int grouped = 10;

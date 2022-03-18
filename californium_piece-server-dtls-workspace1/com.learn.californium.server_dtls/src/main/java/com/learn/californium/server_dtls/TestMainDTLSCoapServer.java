@@ -19,7 +19,7 @@ import com.learn.californium.server_dtls.CredentialsUtil.Mode;
 
 public class TestMainDTLSCoapServer {
 
-	// ÎÒÃÇÕâ¸öserver ¶Ô  client µÄĞèÇó
+	// æˆ‘ä»¬è¿™ä¸ªserver å¯¹  client çš„éœ€æ±‚
 	public static final List<Mode> SUPPORTED_MODES = Arrays.asList(Mode.PSK, Mode.ECDHE_PSK, Mode.RPK, Mode.X509,
 			Mode.WANT_AUTH, Mode.NO_AUTH);
 
@@ -41,8 +41,8 @@ public class TestMainDTLSCoapServer {
 		DtlsConnectorConfig.Builder builder = new DtlsConnectorConfig.Builder();
 		//
 		//
-		// ÕâÀïÊÇ¶Ô  ÃüÁîĞĞ´«Èë Mainº¯ÊıµÄ²ÎÊı	¶Ô 	builder½øĞĞ	 ¶îÍâµÄÏà¹ØÉèÖÃ
-		// Èç¹ûÃ»ÓĞ´«Èë²ÎÊı, Õâ¸ö·½·¨²»»áÓĞÊ²Ã´×÷ÓÃ
+		// è¿™é‡Œæ˜¯å¯¹  å‘½ä»¤è¡Œä¼ å…¥ Mainå‡½æ•°çš„å‚æ•°	å¯¹ 	builderè¿›è¡Œ	 é¢å¤–çš„ç›¸å…³è®¾ç½®
+		// å¦‚æœæ²¡æœ‰ä¼ å…¥å‚æ•°, è¿™ä¸ªæ–¹æ³•ä¸ä¼šæœ‰ä»€ä¹ˆä½œç”¨
 		CredentialsUtil.setupCid(args, builder);
 		//
 		//
@@ -52,12 +52,12 @@ public class TestMainDTLSCoapServer {
 		//
 		//
 		//
-		// °Ñ mainº¯ÊıµÄÊäÈëµÄmode²ÎÊı 		ºÍ		serverµÄmode ²ÎÊı		ºÍ		Õâ¸ö¶ÔclientÒªÇóĞèÒªµÄmode µÄ²ÎÊı½áºÏÆğÀ´
+		// æŠŠ mainå‡½æ•°çš„è¾“å…¥çš„modeå‚æ•° 		å’Œ		serverçš„mode å‚æ•°		å’Œ		è¿™ä¸ªå¯¹clientè¦æ±‚éœ€è¦çš„mode çš„å‚æ•°ç»“åˆèµ·æ¥
 		List<Mode> modes = CredentialsUtil.parse(args, CredentialsUtil.DEFAULT_SERVER_MODES, SUPPORTED_MODES);
-		// È»ºóÍ³Ò»	¶Ô builder ½øĞĞsetup
+		// ç„¶åç»Ÿä¸€	å¯¹ builder è¿›è¡Œsetup
 		CredentialsUtil.setupCredentials(builder, CredentialsUtil.SERVER_NAME, modes);
 		//
-		// ÀûÓÃ builderµÄÒ»Ğ©ÄÚÈİ×÷Îª²ÎÊı À´  ´´½¨DTLSConnector
+		// åˆ©ç”¨ builderçš„ä¸€äº›å†…å®¹ä½œä¸ºå‚æ•° æ¥  åˆ›å»ºDTLSConnector
 		DTLSConnector connector = new DTLSConnector(builder.build());
 		CoapEndpoint.Builder coapBuilder = new CoapEndpoint.Builder();
 		coapBuilder.setConnector(connector);
@@ -70,9 +70,9 @@ public class TestMainDTLSCoapServer {
 		// endpoint set connector
 		// endpoint
 		//
-		// ´´½¨ server
+		// åˆ›å»º server
 		CoapServer server = new CoapServer();
-		// Ìí¼Óresource
+		// æ·»åŠ resource
 		server.add(new CoapResource("secure") {
 
 			@Override
@@ -96,7 +96,7 @@ public class TestMainDTLSCoapServer {
 		//
 		//
 		//
-		// ¸ø CoapServer ¼ÓÈë DTLSConnector
+		// ç»™ CoapServer åŠ å…¥ DTLSConnector
 		server.addEndpoint(coapBuilder.build());
 		server.start();
 

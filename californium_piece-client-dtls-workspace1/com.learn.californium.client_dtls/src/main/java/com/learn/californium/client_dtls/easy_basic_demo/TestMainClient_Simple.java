@@ -68,9 +68,9 @@ public class TestMainClient_Simple {
 			 */
 			
 			String myusr_path = System.getProperty("user.dir");
-			//×¢Òâ ËäÈ»ÎÒ´´½¨µÄÊ±ºòÊÇÓĞ ´óĞ¡Ğ´ mykeystoreAlias
-			//µ« Ã²ËÆ Ê¹ÓÃµÄÊ±ºò ÔÚÕâÀïĞèÒªÈ«²¿Ğ¡Ğ´£¬ ²ÅÄÜ¶ÔÓ¦µÄµ½
-			//serverCredentials ¸Ä³ÉÁË clientCredentials 
+			//æ³¨æ„ è™½ç„¶æˆ‘åˆ›å»ºçš„æ—¶å€™æ˜¯æœ‰ å¤§å°å†™ mykeystoreAlias
+			//ä½† è²Œä¼¼ ä½¿ç”¨çš„æ—¶å€™ åœ¨è¿™é‡Œéœ€è¦å…¨éƒ¨å°å†™ï¼Œ æ‰èƒ½å¯¹åº”çš„åˆ°
+			//serverCredentials æ”¹æˆäº† clientCredentials 
 			/*
 			SslContextUtil.Credentials clientCredentials = SslContextUtil.loadCredentials(
 					myusr_path + "\\" + KEY_STORE_LOCATION, "mykeystorealias", KEY_STORE_PASSWORD,

@@ -39,8 +39,8 @@ public class MyServer {
 		try {
 			// load the key store
 			String myusr_path = System.getProperty("user.dir");
-			//×¢Òâ ËäÈ»ÎÒ´´½¨µÄÊ±ºòÊÇÓĞ ´óĞ¡Ğ´ mykeystoreAlias
-			//µ« Ã²ËÆ Ê¹ÓÃµÄÊ±ºò ÔÚÕâÀïĞèÒªÈ«²¿Ğ¡Ğ´£¬ ²ÅÄÜ¶ÔÓ¦µÄµ½
+			//æ³¨æ„ è™½ç„¶æˆ‘åˆ›å»ºçš„æ—¶å€™æ˜¯æœ‰ å¤§å°å†™ mykeystoreAlias
+			//ä½† è²Œä¼¼ ä½¿ç”¨çš„æ—¶å€™ åœ¨è¿™é‡Œéœ€è¦å…¨éƒ¨å°å†™ï¼Œ æ‰èƒ½å¯¹åº”çš„åˆ°
 			SslContextUtil.Credentials serverCredentials = SslContextUtil.loadCredentials(
 					myusr_path + "\\" + KEY_STORE_LOCATION, "mykeystorealias", KEY_STORE_PASSWORD,
 					KEY_STORE_PASSWORD);
@@ -53,7 +53,7 @@ public class MyServer {
 			builder.setAdvancedPskStore(pskStore);
 			
 			//builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
-			//ÒòÎªÎÒ×Ô¼ºÉú³ÉµÄÖ¤Êé ÎÒÊÇ RAW_PUBLIC_KEY ËùÒÔ ÎÒ¿ÉÒÔ²»¼ÓÉÏ CertificateType.X_509, ÎÒ¾õµÃ Ëü¶à¼ÓÒ»¸ö CertificateType.X_509 Ó¦¸ÃÊÇÎªÁË ÒÔ·À ÀıÈçÎÒÃÇÖ¤Êé²»ÊÇ  RAW_PUBLIC_KEY Ëû¾Í¿¼ÂÇÄãÈÏÎª¿ÉÄÜµÄµÄÖ¤ÊéÀàĞÍ 
+			//å› ä¸ºæˆ‘è‡ªå·±ç”Ÿæˆçš„è¯ä¹¦ æˆ‘æ˜¯ RAW_PUBLIC_KEY æ‰€ä»¥ æˆ‘å¯ä»¥ä¸åŠ ä¸Š CertificateType.X_509, æˆ‘è§‰å¾— å®ƒå¤šåŠ ä¸€ä¸ª CertificateType.X_509 åº”è¯¥æ˜¯ä¸ºäº† ä»¥é˜² ä¾‹å¦‚æˆ‘ä»¬è¯ä¹¦ä¸æ˜¯  RAW_PUBLIC_KEY ä»–å°±è€ƒè™‘ä½ è®¤ä¸ºå¯èƒ½çš„çš„è¯ä¹¦ç±»å‹ 
 			builder.setIdentity(serverCredentials.getPrivateKey(), serverCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY);
 			
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder()

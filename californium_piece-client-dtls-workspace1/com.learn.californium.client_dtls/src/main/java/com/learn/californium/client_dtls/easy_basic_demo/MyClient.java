@@ -55,9 +55,9 @@ public class MyClient {
 			 */
 			
 			String myusr_path = System.getProperty("user.dir");
-			//×¢Òâ ËäÈ»ÎÒ´´½¨µÄÊ±ºòÊÇÓĞ ´óĞ¡Ğ´ mykeystoreAlias
-			//µ« Ã²ËÆ Ê¹ÓÃµÄÊ±ºò ÔÚÕâÀïĞèÒªÈ«²¿Ğ¡Ğ´£¬ ²ÅÄÜ¶ÔÓ¦µÄµ½
-			//serverCredentials ¸Ä³ÉÁË clientCredentials 
+			//æ³¨æ„ è™½ç„¶æˆ‘åˆ›å»ºçš„æ—¶å€™æ˜¯æœ‰ å¤§å°å†™ mykeystoreAlias
+			//ä½† è²Œä¼¼ ä½¿ç”¨çš„æ—¶å€™ åœ¨è¿™é‡Œéœ€è¦å…¨éƒ¨å°å†™ï¼Œ æ‰èƒ½å¯¹åº”çš„åˆ°
+			//serverCredentials æ”¹æˆäº† clientCredentials 
 			/*
 			SslContextUtil.Credentials clientCredentials = SslContextUtil.loadCredentials(
 					myusr_path + "\\" + KEY_STORE_LOCATION, "mykeystorealias", KEY_STORE_PASSWORD,
@@ -75,7 +75,7 @@ public class MyClient {
 			builder.setAdvancedPskStore(new AdvancedSinglePskStore("Client_identity", "secretPSK".getBytes()));
 			
 			//builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
-			//ÒòÎªÎÒ×Ô¼ºÉú³ÉµÄÖ¤Êé ÎÒÊÇ RAW_PUBLIC_KEY ËùÒÔ ÎÒ¿ÉÒÔ²»¼ÓÉÏ CertificateType.X_509, ÎÒ¾õµÃ Ëü¶à¼ÓÒ»¸ö CertificateType.X_509 Ó¦¸ÃÊÇÎªÁË ÒÔ·À ÀıÈçÎÒÃÇÖ¤Êé²»ÊÇ  RAW_PUBLIC_KEY Ëû¾Í¿¼ÂÇÄãÈÏÎª¿ÉÄÜµÄµÄÖ¤ÊéÀàĞÍ 
+			//å› ä¸ºæˆ‘è‡ªå·±ç”Ÿæˆçš„è¯ä¹¦ æˆ‘æ˜¯ RAW_PUBLIC_KEY æ‰€ä»¥ æˆ‘å¯ä»¥ä¸åŠ ä¸Š CertificateType.X_509, æˆ‘è§‰å¾— å®ƒå¤šåŠ ä¸€ä¸ª CertificateType.X_509 åº”è¯¥æ˜¯ä¸ºäº† ä»¥é˜² ä¾‹å¦‚æˆ‘ä»¬è¯ä¹¦ä¸æ˜¯  RAW_PUBLIC_KEY ä»–å°±è€ƒè™‘ä½ è®¤ä¸ºå¯èƒ½çš„çš„è¯ä¹¦ç±»å‹ 
 			builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY);
 			
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder()
@@ -121,7 +121,7 @@ public class MyClient {
 	//
 	//
 	//
-	// ÏÈ½«connector´ò¿ª, ²»ÊÇÖ¸ ¿ªÊ¼ ·¢ËÍÊı¾İ
+	// å…ˆå°†connectoræ‰“å¼€, ä¸æ˜¯æŒ‡ å¼€å§‹ å‘é€æ•°æ®
 	public void startConnector() {
 		try {
 			this.dtlsConnector.start();
@@ -129,7 +129,7 @@ public class MyClient {
 			LOG.error("Cannot start connector", e);
 		}
 	}
-	// ¹Ø±Õ connector
+	// å…³é—­ connector
 	public int stopConnector() {
 		if (dtlsConnector.isRunning()) {
 			dtlsConnector.destroy();
@@ -162,7 +162,7 @@ public class MyClient {
 			//LOG.info("Received response: {} {}", new Object[] { new String(raw.getBytes()), c });
 			LOG.info("Received response: {}", new Object[] { new String(raw.getBytes())});
 		}
-		// Èç¹û message »¹Ã»·¢Íê, Ôò¼ÌĞø·¢ÏûÏ¢ 
+		// å¦‚æœ message è¿˜æ²¡å‘å®Œ, åˆ™ç»§ç»­å‘æ¶ˆæ¯ 
 		if (0 < c) {
 			//clientMessageCounter.incrementAndGet();
 			int int_msg_nxt = clientMessageCounter.incrementAndGet();
@@ -172,7 +172,7 @@ public class MyClient {
 				//RawData data = RawData.outbound((TestMainClient.payload + this.getName() + c + ".").getBytes(), raw.getEndpointContext(), null, false);
 				RawData data = RawData.outbound((TestMainClient.payload + this.getName() + int_msg_now + ".").getBytes(), raw.getEndpointContext(), null, false);
 				
-				// ·¢ÏÂÒ»¸öÏûÏ¢
+				// å‘ä¸‹ä¸€ä¸ªæ¶ˆæ¯
 				dtlsConnector.send(data);
 			} catch (IllegalStateException e) {
 				LOG.debug("send failed after {} messages", (c - 1), e);

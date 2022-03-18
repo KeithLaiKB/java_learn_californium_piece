@@ -95,7 +95,7 @@ public class CredentialsUtil {
 	// from ETSI Plugtest test spec
 	//public static final String PSK_IDENTITY = "password";
 	//public static final byte[] PSK_SECRET = "sesame".getBytes();
-	// ¸Ğ¾õÃ»Ê²Ã´±ØÒª£¬ ÒòÎªÎÒ²»ÓÃ  ETSI Plugtest 
+	// æ„Ÿè§‰æ²¡ä»€ä¹ˆå¿…è¦ï¼Œ å› ä¸ºæˆ‘ä¸ç”¨  ETSI Plugtest 
 	public static final String PSK_IDENTITY = "pwd";
 	public static final byte[] PSK_SECRET = "ses".getBytes();
 
@@ -107,15 +107,15 @@ public class CredentialsUtil {
 	public static final int  DEFAULT_CID_LENGTH = 6;
 
 	// from demo-certs
-	// client Ë½Ô¿µÄ alias ÔÚÕâ¸öclientÖĞÊÇ²»ĞèÒªµÄ£¬Ö»ÊÇ¹Ù·½ serverºÍclient¹²ÓÃÍ¬Ò»¸öÎÄ¼ş, ¶øÇÒÎÒ×Ô¼ºÒ²·Ö±ğ¸ÄÁËËûÃÇµÄ ÃÜÂë
-	public static final String CLIENT_NAME = "myclientakeystorealias";	//client ²Å»áÓÃµ½
+	// client ç§é’¥çš„ alias åœ¨è¿™ä¸ªclientä¸­æ˜¯ä¸éœ€è¦çš„ï¼Œåªæ˜¯å®˜æ–¹ serverå’Œclientå…±ç”¨åŒä¸€ä¸ªæ–‡ä»¶, è€Œä¸”æˆ‘è‡ªå·±ä¹Ÿåˆ†åˆ«æ”¹äº†ä»–ä»¬çš„ å¯†ç 
+	public static final String CLIENT_NAME = "myclientakeystorealias";	//client æ‰ä¼šç”¨åˆ°
 	//
 	//
-	// ·şÎñÆ÷µÄ¹«Ô¿µÄ aliasºÍÃÜÂë
+	// æœåŠ¡å™¨çš„å…¬é’¥çš„ aliaså’Œå¯†ç 
 	private static final String TRUST_NAME = "mytruststorealias";
 	private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
-	// ·şÎñÆ÷µÄË½Ô¿µÄ aliasºÍÃÜÂë
-	public static final String SERVER_NAME = "mykeystorealias";			//server ²Å»áÓÃµ½
+	// æœåŠ¡å™¨çš„ç§é’¥çš„ aliaså’Œå¯†ç 
+	public static final String SERVER_NAME = "mykeystorealias";			//server æ‰ä¼šç”¨åˆ°
 	private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
 	//
 	//
@@ -211,7 +211,7 @@ public class CredentialsUtil {
 		}
 		//
 		if (defaults != null) {
-			// Èç¹ûdefaultµÄmodeÄÚÈİÁĞ±íÊ±¿ÕµÄ, Ôò°ÑËùÓĞµÄ¶¼¼Ó½øÈ¥
+			// å¦‚æœdefaultçš„modeå†…å®¹åˆ—è¡¨æ—¶ç©ºçš„, åˆ™æŠŠæ‰€æœ‰çš„éƒ½åŠ è¿›å»
 			if (modes.isEmpty()
 					|| (modes.size() == 1 && (modes.contains(Mode.NO_AUTH) || modes.contains(Mode.WANT_AUTH)))) {
 				// adjust defaults, also for only "NO_AUTH"

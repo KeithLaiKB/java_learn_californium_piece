@@ -50,8 +50,8 @@ public class TestMain_Simple {
 			 */
 			//System.out.println(SslContextUtil.CLASSPATH_SCHEME);
 			String myusr_path = System.getProperty("user.dir");
-			//×¢Òâ ËäÈ»ÎÒ´´½¨µÄÊ±ºòÊÇÓĞ ´óĞ¡Ğ´ mykeystoreAlias
-			//µ« Ã²ËÆ Ê¹ÓÃµÄÊ±ºò ÔÚÕâÀïĞèÒªÈ«²¿Ğ¡Ğ´£¬ ²ÅÄÜ¶ÔÓ¦µÄµ½
+			//æ³¨æ„ è™½ç„¶æˆ‘åˆ›å»ºçš„æ—¶å€™æ˜¯æœ‰ å¤§å°å†™ mykeystoreAlias
+			//ä½† è²Œä¼¼ ä½¿ç”¨çš„æ—¶å€™ åœ¨è¿™é‡Œéœ€è¦å…¨éƒ¨å°å†™ï¼Œ æ‰èƒ½å¯¹åº”çš„åˆ°
 			SslContextUtil.Credentials serverCredentials = SslContextUtil.loadCredentials(
 					myusr_path + "\\" + KEY_STORE_LOCATION, "mykeystorealias", KEY_STORE_PASSWORD,
 					KEY_STORE_PASSWORD);

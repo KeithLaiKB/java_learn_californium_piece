@@ -44,13 +44,11 @@ public class TestMainDTLSCoapServer_Try {
 			try {
 				clientEndpoint.destroy();
 			} catch (Exception ex) {
-
 			}
 		}
 		try {
 			server.destroy();
 		} catch (Exception ex) {
-
 		}
 		if (!pending.isEmpty() || !errors.isEmpty()) {
 			StringBuilder message = new StringBuilder("loop: ");

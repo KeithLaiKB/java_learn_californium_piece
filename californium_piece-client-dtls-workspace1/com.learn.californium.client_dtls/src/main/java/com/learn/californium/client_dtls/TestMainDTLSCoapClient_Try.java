@@ -26,10 +26,10 @@ public class TestMainDTLSCoapClient_Try {
 	/*
 	
 	String port1 = "coap://localhost:5656/hello";
-	String port2 = "coap://160.32.219.56:5656/hello";		//ÓĞÏßÁ¬½ÓÊ÷İ®ÅÉ, Â·ÓÉ¸øµÄµØÖ·ÊÇ192.168.50.178
-															// ÎÒ°ÑËüµÄ192.168.50.178:5656 Ó³Éä³É160.32.219.56:5656
-	String port3 = "coap://160.32.219.56:5657/hello";		//ÎŞÏßÁ¬½ÓÊ÷İ®ÅÉ, Â·ÓÉ¸øµÄµØÖ·ÊÇ192.168.50.179
-															// ÎÒ°ÑËüµÄ192.168.50.179:5656 Ó³Éä³É160.32.219.56:5657
+	String port2 = "coap://160.32.219.56:5656/hello";		//æœ‰çº¿è¿æ¥æ ‘è“æ´¾, è·¯ç”±ç»™çš„åœ°å€æ˜¯192.168.50.178
+															// æˆ‘æŠŠå®ƒçš„192.168.50.178:5656 æ˜ å°„æˆ160.32.219.56:5656
+	String port3 = "coap://160.32.219.56:5657/hello";		//æ— çº¿è¿æ¥æ ‘è“æ´¾, è·¯ç”±ç»™çš„åœ°å€æ˜¯192.168.50.179
+															// æˆ‘æŠŠå®ƒçš„192.168.50.179:5656 æ˜ å°„æˆ160.32.219.56:5657
 	
 	
 	
@@ -54,7 +54,6 @@ public class TestMainDTLSCoapClient_Try {
 				.setMaxRetransmissions(NB_RETRANSMISSION)
 				.setRetransmissionTimeout(RETRANSMISSION_TIMEOUT);
 		DtlsConnectorConfig dtlsConfig = builder.build();
-
 		// setup CoAP config
 		
 		
@@ -75,7 +74,7 @@ public class TestMainDTLSCoapClient_Try {
 		//myCoapEndpoint = new CoapEndpoint(clientConnector, config, new StrictDtlsEndpointContextMatcher());
 		//this(clientConnector, false, config, new InMemoryObservationStore(config),new InMemoryMessageExchangeStore(config), new StrictDtlsEndpointContextMatcher());
 		// myCoapEndpoint = (clientConnector, false, config, new RandomTokenGenerator(config), new InMemoryObservationStore(config),new InMemoryMessageExchangeStore(config), new StrictDtlsEndpointContextMatcher(), null, null, null, COAP_STACK_TEST_FACTORY, null);
-		// µ±coapStackFactory²ÎÊıµÄÖµ COAP_STACK_TEST_FACTORY Åª³Énull, Ëü×Ô¼º»áÄ¬ÈÏ»á µ÷ÓÃ getDefaultCoapStackFactory()
+		// å½“coapStackFactoryå‚æ•°çš„å€¼ COAP_STACK_TEST_FACTORY å¼„æˆnull, å®ƒè‡ªå·±ä¼šé»˜è®¤ä¼š è°ƒç”¨ getDefaultCoapStackFactory()
 		//myCoapEndpoint = new CoapEndpoint(clientConnector, false, config, new RandomTokenGenerator(config), new InMemoryObservationStore(config),new InMemoryMessageExchangeStore(config), new StrictDtlsEndpointContextMatcher(), null, null, null, null, null);
 		
 		CoapClient myclinet = new CoapClient(port1);
@@ -94,14 +93,12 @@ public class TestMainDTLSCoapClient_Try {
 	public static void main(String[] args) {
 		try (DatagramSocket datagramSocket = new DatagramSocket(0)) {
 			int freePort = datagramSocket.getLocalPort();
-
 			// Create an endpoint
 			createTestEndpoint();
-
 			// Send a request to an absent peer
 			//CoapClient client = new CoapClient("coaps", TestTools.LOCALHOST_EPHEMERAL.getHostString(), freePort);
 			//
-			//coapµÄurlºÍHTTPµÄÓĞºÜÏàËÆµÄµØ·½£¬¿ªÍ·ÊÇ¡°coap¡±¶ÔÓ¦¡°http¡±»òÕß¡°coaps¡±¶ÔÓ¦¡°https¡±¡£
+			//coapçš„urlå’ŒHTTPçš„æœ‰å¾ˆç›¸ä¼¼çš„åœ°æ–¹ï¼Œå¼€å¤´æ˜¯â€œcoapâ€å¯¹åº”â€œhttpâ€æˆ–è€…â€œcoapsâ€å¯¹åº”â€œhttpsâ€ã€‚
 			//  CoAP with DTLS support is termed as secure CoAP (CoAPs)
 			//  https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1060.8187&rep=rep1&type=pdf
 			CoapClient client = new CoapClient("coaps", "localhost", 5656, "hello");
@@ -109,7 +106,6 @@ public class TestMainDTLSCoapClient_Try {
 			//
 			//CountingCoapHandler handler = new CountingCoapHandler();
 			CoapHandler handler = new CoapHandler() {
-
 	            @Override
 	            public void onLoad(CoapResponse response) {
 	                //log.info("Command Response Ack: {}, {}", response.getCode(), response.getResponseText());
@@ -117,25 +113,21 @@ public class TestMainDTLSCoapClient_Try {
 	            	System.out.println("get code: " + response.getCode().name());
 	            	
 	            }
-
 	            @Override
 	            public void onError() {
 	            }
 	        };
 			
-			//ÓÃget·½·¨, ²»Í£µØ»ñµÃĞÅÏ¢
+			//ç”¨getæ–¹æ³•, ä¸åœåœ°è·å¾—ä¿¡æ¯
 			client.get(handler);
-
 			
 			
 			
 			// Wait for error
 			handler.waitOnErrorCalls(1, 5000, TimeUnit.MILLISECONDS);
-
 			// We should get a handshake timeout error and so exchange store is
 			// empty
 			assertEquals("An error is expected", 1, handler.errorCalls.get());
-
 			// Ensure there is no leak : all exchanges are completed
 			assertAllExchangesAreCompleted(coapTestEndpoint, time);
 			client.shutdown();
