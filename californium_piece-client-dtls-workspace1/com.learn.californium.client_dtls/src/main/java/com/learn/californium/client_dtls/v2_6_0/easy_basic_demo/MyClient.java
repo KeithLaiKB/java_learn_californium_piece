@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.easy_basic_demo;
+package com.learn.californium.client_dtls.v2_6_0.easy_basic_demo;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

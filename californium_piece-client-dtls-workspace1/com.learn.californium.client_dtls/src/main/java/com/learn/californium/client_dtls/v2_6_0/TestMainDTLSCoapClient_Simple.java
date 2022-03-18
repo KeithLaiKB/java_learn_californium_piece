@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls;
+package com.learn.californium.client_dtls.v2_6_0;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +19,7 @@ import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 import org.eclipse.californium.scandium.dtls.cipher.CipherSuite;
 import org.eclipse.californium.scandium.dtls.pskstore.AdvancedSinglePskStore;
 
-import com.learn.californium.client_dtls.CredentialsUtil.Mode;
+import com.learn.californium.client_dtls.v2_6_0.CredentialsUtil.Mode;
 
 public class TestMainDTLSCoapClient_Simple {
 	public static final List<Mode> SUPPORTED_MODES = Arrays.asList(Mode.PSK, Mode.ECDHE_PSK, Mode.RPK, Mode.X509,

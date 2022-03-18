@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls;
+package com.learn.californium.client_dtls.v2_6_0;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;

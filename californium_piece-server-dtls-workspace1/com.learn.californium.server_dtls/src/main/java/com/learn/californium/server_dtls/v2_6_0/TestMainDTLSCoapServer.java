@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls;
+package com.learn.californium.server_dtls.v2_6_0;
 
 import java.net.InetSocketAddress;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.scandium.DTLSConnector;
 import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 
-import com.learn.californium.server_dtls.CredentialsUtil.Mode;
+import com.learn.californium.server_dtls.v2_6_0.CredentialsUtil.Mode;
 
 public class TestMainDTLSCoapServer {
 

@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls;
+package com.learn.californium.server_dtls.v2_6_0;
 
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;

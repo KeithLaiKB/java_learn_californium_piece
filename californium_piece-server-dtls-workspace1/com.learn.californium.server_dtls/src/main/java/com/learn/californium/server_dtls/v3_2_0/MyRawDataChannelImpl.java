@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls.easy_basic_demo;
+package com.learn.californium.server_dtls.v3_2_0;
 
 import org.eclipse.californium.elements.Connector;
 import org.eclipse.californium.elements.RawData;

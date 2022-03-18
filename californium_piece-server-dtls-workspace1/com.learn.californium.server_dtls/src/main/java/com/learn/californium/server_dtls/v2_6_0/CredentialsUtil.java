@@ -14,7 +14,7 @@
  *    Bosch Software Innovations GmbH - initial implementation
  ******************************************************************************/
 
-package com.learn.californium.server_dtls;
+package com.learn.californium.server_dtls.v2_6_0;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
