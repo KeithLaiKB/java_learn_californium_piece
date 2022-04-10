@@ -26,7 +26,10 @@ hs_err_pid*
 /**/mycerts/**/*.jks
 /**/mycerts/**/*.cer
 /**/.metadata/
-
+/**/mycerts/**/*.pem
+/**/mycerts/**/*.p12
+/**/mycerts/**/*.req
+/**/mycerts/**/*.key
 
 
 # 因为 我test的project 有时候需要 这里的jar, 所以 maven install 后这里都会有东西, 而且比较多
