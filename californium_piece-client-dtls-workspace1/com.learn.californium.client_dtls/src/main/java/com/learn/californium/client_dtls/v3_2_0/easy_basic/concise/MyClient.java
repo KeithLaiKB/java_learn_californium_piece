@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v3_2_0;
+package com.learn.californium.client_dtls.v3_2_0.easy_basic.concise;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,7 +20,12 @@ import org.eclipse.californium.scandium.dtls.x509.SingleCertificateProvider;
 import org.eclipse.californium.scandium.dtls.x509.StaticNewAdvancedCertificateVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * ref: californium/demo-apps/sc-dtls-example-client/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSClient.java
+ * 
+ * @author laipl
+ *
+ */
 public class MyClient {
 	
 	private DTLSConnector dtlsConnector;
@@ -35,9 +40,15 @@ public class MyClient {
 	
 	
 	private static final String KEY_STORE_LOCATION = "mycerts/my_own/myclientakeystore.jks";
-	private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
-	private static final String TRUST_STORE_LOCATION = "mycerts/other_own/mykeystore_truststore.jks";
-	private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
+	private static final char[] KEY_STORE_PASSWORD = "CksOneAdmin".toCharArray();
+	//private static final String TRUST_STORE_LOCATION = "mycerts/other_own/mykeystore_truststore.jks";
+	//private static final String TRUST_STORE_LOCATION = "mycerts/other_own/myclientakeystore_truststore.jks";
+	private static final String TRUST_STORE_LOCATION = "mycerts/my_own/myclientakeystore_truststore.jks";
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	private static final char[] TRUST_STORE_PASSWORD = "CtsOneAdmin".toCharArray();
 	
 	private String name;
 	
@@ -62,30 +73,15 @@ public class MyClient {
 		
 		try {
 			// load key store
-			/*
-			SslContextUtil.Credentials clientCredentials = SslContextUtil.loadCredentials(
-					SslContextUtil.CLASSPATH_SCHEME + KEY_STORE_LOCATION, "client", KEY_STORE_PASSWORD,
-					KEY_STORE_PASSWORD);
-			Certificate[] trustedCertificates = SslContextUtil.loadTrustedCertificates(
-					SslContextUtil.CLASSPATH_SCHEME + TRUST_STORE_LOCATION, "root", TRUST_STORE_PASSWORD);
-			 */
-			
 			String myusr_path = System.getProperty("user.dir");
 			//注意 虽然我创建的时候是有 大小写 mykeystoreAlias
 			//但 貌似 使用的时候 在这里需要全部小写， 才能对应的到
 			//serverCredentials 改成了 clientCredentials 
-			/*
-			SslContextUtil.Credentials clientCredentials = SslContextUtil.loadCredentials(
-					myusr_path + "\\" + KEY_STORE_LOCATION, "mykeystorealias", KEY_STORE_PASSWORD,
-					KEY_STORE_PASSWORD);
-			Certificate[] trustedCertificates = SslContextUtil.loadTrustedCertificates(
-					myusr_path + "\\" + TRUST_STORE_LOCATION, "mytruststorealias", TRUST_STORE_PASSWORD);
-			*/
 			SslContextUtil.Credentials clientCredentials = SslContextUtil.loadCredentials(
 					myusr_path + "\\" + KEY_STORE_LOCATION, "myclientakeystorealias", KEY_STORE_PASSWORD,
 					KEY_STORE_PASSWORD);
 			Certificate[] trustedCertificates = SslContextUtil.loadTrustedCertificates(
-					myusr_path + "\\" + TRUST_STORE_LOCATION, "mytruststorealias", TRUST_STORE_PASSWORD);
+					myusr_path + "\\" + TRUST_STORE_LOCATION, "myclientatruststorealias", TRUST_STORE_PASSWORD);
 			
 			Configuration configuration = Configuration.createWithFile(Configuration.DEFAULT_FILE, "DTLS example client", DEFAULTS);
 			DtlsConnectorConfig.Builder builder = DtlsConnectorConfig.builder(configuration);
@@ -161,6 +157,9 @@ public class MyClient {
 	
 	
 	public void startTest(InetSocketAddress peer) {
+		// 发信息给server, 然后获取server回来的信息
+		// 接收到server发过来的 信息后, 再发信息给server
+		// 从而 一共发 指定数量的message
 		RawData data = RawData.outbound(TestMainClient.payload.getBytes(), new AddressEndpointContext(peer), null, false);
 		dtlsConnector.send(data);
 	}
@@ -173,12 +172,15 @@ public class MyClient {
 	
 	
 	public void receive(RawData raw) {
-
+		// 当前对message的数量 处理的减一
+		// 为0时则不再处理
 		TestMainClient.messageCounter.countDown();
+		//
 		long c = TestMainClient.messageCounter.getCount();
 		if (LOG.isInfoEnabled()) {
 			//LOG.info("Received response: {} {}", new Object[] { new String(raw.getBytes()), c });
 			LOG.info("Received response: {}", new Object[] { new String(raw.getBytes())});
+			System.out.println("Received my message:"+ new String(raw.getBytes()));
 		}
 		// 如果 message 还没发完, 则继续发消息 
 		if (0 < c) {

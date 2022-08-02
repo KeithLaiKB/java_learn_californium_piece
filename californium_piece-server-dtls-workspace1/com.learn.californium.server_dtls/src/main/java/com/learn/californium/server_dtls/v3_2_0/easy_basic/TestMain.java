@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls.v3_2_0;
+package com.learn.californium.server_dtls.v3_2_0.easy_basic;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -41,9 +41,11 @@ public class TestMain {
 		}
 	}
 	
-	
-	
-
+	//ref:  newHandshaker from californium/scandium-core/src/test/java/org/eclipse/californium/scandium/dtls/ServerHandshakerTest.java
+	// ServerHandshaker s;
+	// ref: givenAClientHandshaker rom californium/scandium-core/src/test/java/org/eclipse/californium/scandium/dtls/ClientHandshakerTest.java
+	//ClientHandshaker a;
+	//SimpleRecordLayer recordLayer = new SimpleRecordLayer();
 
 
 }

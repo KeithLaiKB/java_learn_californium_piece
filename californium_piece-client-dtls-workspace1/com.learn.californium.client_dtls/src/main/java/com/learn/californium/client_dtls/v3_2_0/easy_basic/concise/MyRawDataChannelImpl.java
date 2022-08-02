@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v3_2_0;
+package com.learn.californium.client_dtls.v3_2_0.easy_basic.concise;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls.v3_2_0;
+package com.learn.californium.server_dtls.v3_2_0.tryssl;
 
 import org.eclipse.californium.elements.Connector;
 import org.eclipse.californium.elements.RawData;
@@ -19,8 +19,8 @@ public class MyRawDataChannelImpl implements RawDataChannel {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("Received request: {}", new String(raw.getBytes()));
 		}
-		RawData response = RawData.outbound("ACK".getBytes(),
-				raw.getEndpointContext(), null, false);
+		//RawData response = RawData.outbound("ACK".getBytes(),raw.getEndpointContext(), null, false);
+		RawData response = RawData.outbound("hellllo".getBytes(),raw.getEndpointContext(), null, false);
 		connector.send(response);
 	}
 }

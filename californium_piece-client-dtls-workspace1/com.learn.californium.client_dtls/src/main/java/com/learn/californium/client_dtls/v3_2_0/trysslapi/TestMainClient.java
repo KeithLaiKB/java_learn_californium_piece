@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v3_2_0;
+package com.learn.californium.client_dtls.v3_2_0.trysslapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class TestMainClient {
 
 	public static void main(String[] args) throws InterruptedException {
 		int clients = 1;
-		int messages = 100;
+		int messages = 10;
 		// 我想要让没条信息的 基础内容 的长度 有一定的限制
 		int length = 64;
 		//
@@ -217,7 +217,11 @@ public class TestMainClient {
 			peer = new InetSocketAddress(args[3], Integer.parseInt(args[4]));
 		} else {
 			// loopback address 指的是 127.0.0.1
-			peer = new InetSocketAddress(InetAddress.getLoopbackAddress(), DEFAULT_PORT);
+			String addr = "192.168.239.137";
+			int coapsPort = 5684;
+			InetSocketAddress bindToAddress = new InetSocketAddress(addr, coapsPort);
+			//peer = new InetSocketAddress(InetAddress.getLoopbackAddress(), DEFAULT_PORT);
+			peer = bindToAddress;
 		}
 		//
 		//

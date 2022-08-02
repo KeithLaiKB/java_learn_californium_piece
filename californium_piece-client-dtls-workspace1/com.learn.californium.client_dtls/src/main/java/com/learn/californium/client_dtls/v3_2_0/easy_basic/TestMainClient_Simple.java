@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v3_2_0;
+package com.learn.californium.client_dtls.v3_2_0.easy_basic;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -30,7 +30,11 @@ import org.eclipse.californium.scandium.dtls.x509.SingleCertificateProvider;
 import org.eclipse.californium.scandium.dtls.x509.StaticNewAdvancedCertificateVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * ref:californium/demo-apps/sc-dtls-example-client/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSClient.java 
+ * @author laipl
+ *
+ */
 public class TestMainClient_Simple {
 
 	private static final int DEFAULT_PORT = 5684;
