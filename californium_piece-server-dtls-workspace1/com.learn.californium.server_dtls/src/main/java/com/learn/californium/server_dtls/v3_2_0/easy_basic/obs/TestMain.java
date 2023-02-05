@@ -1,4 +1,4 @@
-package com.learn.californium.server_dtls.v3_2_0.trysslapi;
+package com.learn.californium.server_dtls.v3_2_0.easy_basic.obs;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -28,8 +28,7 @@ public class TestMain {
 
 	public static void main(String[] args) {
 
-		//MyServer server = new MyServer();
-		MyServer_try server = new MyServer_try();
+		MyServer server = new MyServer();
 		server.my_configureToPrepare();
 		server.start();
 		//

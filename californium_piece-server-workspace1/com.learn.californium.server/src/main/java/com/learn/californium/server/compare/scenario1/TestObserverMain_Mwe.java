@@ -28,7 +28,7 @@ public class TestObserverMain_Mwe  {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		CoapServer server = new CoapServer(5656);
+		CoapServer server = new CoapServer(5683);
 		//
 		Com_MyObserverResource_Con_Mwe myobResc1 = new Com_MyObserverResource_Con_Mwe("hello_observer");
 		//------------------------operate server-------------------------------------

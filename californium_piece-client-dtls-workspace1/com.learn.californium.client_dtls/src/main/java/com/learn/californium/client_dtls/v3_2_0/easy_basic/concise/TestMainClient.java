@@ -66,7 +66,7 @@ public class TestMainClient {
 
 	public static void main(String[] args) throws InterruptedException {
 		int clients = 1;
-		int messages = 1;
+		int messages = 10;
 		// 我想要让没条信息的 基础内容 的长度 有一定的限制
 		int length = 64;
 		//

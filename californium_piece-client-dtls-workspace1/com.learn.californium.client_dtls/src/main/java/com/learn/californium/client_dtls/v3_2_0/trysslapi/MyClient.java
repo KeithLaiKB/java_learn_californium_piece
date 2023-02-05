@@ -245,11 +245,15 @@ public class MyClient {
 		
 		//ref: ref: https://github.com/eclipse/californium/issues/2006
 		dtlsConfigBuilder.set(DtlsConfig.DTLS_ROLE, DtlsRole.CLIENT_ONLY);
+		/*
 		CertificateAuthenticationMode cliConfig_clientAuth=CertificateAuthenticationMode.NONE;
 		if (cliConfig_clientAuth != null) {
 			dtlsConfigBuilder.set(DtlsConfig.DTLS_CLIENT_AUTHENTICATION_MODE, cliConfig_clientAuth);
 		}
-		dtlsConfigBuilder.setAsList(DtlsConfig.DTLS_CIPHER_SUITES, CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256);
+		*/
+		
+		
+		//dtlsConfigBuilder.setAsList(DtlsConfig.DTLS_CIPHER_SUITES, CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256);
 
 		// 应该类似于 pahomqtt 的 keyStore.load(null, null);?
 		Certificate[] cas= {ca};

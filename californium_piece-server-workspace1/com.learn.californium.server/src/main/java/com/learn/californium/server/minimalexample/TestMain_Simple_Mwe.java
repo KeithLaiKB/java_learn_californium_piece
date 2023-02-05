@@ -14,7 +14,7 @@ import com.learn.californium.server.minimalexample.myresc.MyResource_Mwe;
  * <p>
  * 							description:																</br>	
  * &emsp;						MWE means minimal working example										</br>
- * &emsp;						MWE ÒâË¼¾ÍÊÇ  ¼ò»¯µÄÀý×Ó														</br>
+ * &emsp;						MWE ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½  ï¿½ò»¯µï¿½ï¿½ï¿½ï¿½ï¿½														</br>
  * 																										</br>
  * 
  * </p>
@@ -29,7 +29,7 @@ public class TestMain_Simple_Mwe {
 		// TODO Auto-generated method stub
 		//
 		// define port to be 5656 
-		CoapServer server = new CoapServer(5656);
+		CoapServer server = new CoapServer(5683);
 		//
 		//
 		//------------------------resource settings-------------------------------------

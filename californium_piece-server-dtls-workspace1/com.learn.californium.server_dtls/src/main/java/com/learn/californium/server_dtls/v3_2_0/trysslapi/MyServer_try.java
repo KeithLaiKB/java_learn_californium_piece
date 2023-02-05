@@ -56,11 +56,11 @@ import org.slf4j.LoggerFactory;
 
 import com.learn.californium.server_dtls.v3_2_0.easy_basic.MyRawDataChannelImpl;
 
-public class MyServer {
+public class MyServer_try {
 	
 	private static final int DEFAULT_PORT = 5656;
 	private static final Logger LOG = LoggerFactory
-			.getLogger(MyServer.class.getName());
+			.getLogger(MyServer_try.class.getName());
 	
 	private static final String KEY_STORE_LOCATION = "mycerts/my_own/mykeystore.jks";
 	//private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
@@ -72,9 +72,13 @@ public class MyServer {
 	
 	private DTLSConnector dtlsConnector;
 	
-	public MyServer() {
+	public MyServer_try() {
 		
 	}
+	
+	public String serverCaKey_file					="s_cacert.crt";
+	public String serverCaKey_file_dir				="/mycerts/oneway_jks/myca";
+	private static String serverCaKey_file_loc = null;
 	
 	public String serverCaCrt_file					="s_cacert.crt";
 	public String serverCaCrt_file_dir				="/mycerts/oneway_jks/myca";
@@ -96,6 +100,7 @@ public class MyServer {
 
 		serverCrt_file_loc								= 	myusr_path	+ serverCrt_file_dir		+"/" + 	serverCrt_file;
 
+		serverCaKey_file_loc							= 	myusr_path	+ serverCaKey_file_dir		+"/" + 	serverCaKey_file;
         //////////////////// file->FileInputStream->BufferedInputStream->X509Certificate //////////////////////////////////////
         // ref: https://gist.github.com/erickok/7692592
 
@@ -299,11 +304,49 @@ public class MyServer {
 		//dtlsConfigBuilder.setAsList(DtlsConfig.DTLS_CIPHER_SUITES, CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256);
 
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// 应该类似于 pahomqtt 的 keyStore.load(null, null);?
 		Certificate[] cas= {ca};
 		//dtlsConfigBuilder.setCertificateIdentityProvider(new SingleCertificateProvider(prvKey, pblKey));
-		dtlsConfigBuilder.setCertificateIdentityProvider(new SingleCertificateProvider(prvKey, cas));
+		dtlsConfigBuilder.setCertificateIdentityProvider(new SingleCertificateProvider(prvKey, cas, CertificateType.X_509));
 		
+		
+		
+		
+		/*
+		//尝试添加add
+		KeyManager[] serverCredentials = null;
+		try {
+			serverCredentials = SslContextUtil.loadKeyManager(serverKey_file_loc,
+					"mySksAlias", "SksOneAdmin".toCharArray(), "SksOneAdmin".toCharArray());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		X509KeyManager keyManager = SslContextUtil.getX509KeyManager(serverCredentials);
+		AsyncKeyManagerCertificateProvider certificateProvider = new AsyncKeyManagerCertificateProvider(
+				keyManager, CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
+		certificateProvider.setDelay(handshakeResultDelayMillis);
+		dtlsConfigBuilder.setCertificateIdentityProvider(certificateProvider);
+		*/
+		
+		
+		
+		
+		/*
 		// ref: https://github.com/eclipse/californium/issues/2006  
 		// and ExampleDTLSServer() from californium/demo-apps/sc-dtls-example-server/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSServer.java 
 		// 先加载 x509
@@ -311,8 +354,8 @@ public class MyServer {
 		// 拆分成下面		
 				
 			
-		/*
-		boolean useTrustAll = true;
+		
+		boolean useTrustAll = false;
 		StaticNewAdvancedCertificateVerifier.Builder verifierBuilder= StaticNewAdvancedCertificateVerifier.builder();
 		//AsyncNewAdvancedCertificateVerifier.Builder verifierBuilder = AsyncNewAdvancedCertificateVerifier.builder();
 		
@@ -333,6 +376,12 @@ public class MyServer {
 		//verifier.setDelay(handshakeResultDelayMillis);
 		dtlsConfigBuilder.setAdvancedCertificateVerifier(verifier);
 		*/
+		
+		
+		
+		
+		
+		
 		
 		AsyncResumptionVerifier resumptionVerifier = new AsyncResumptionVerifier();
 		resumptionVerifier.setDelay(handshakeResultDelayMillis);
