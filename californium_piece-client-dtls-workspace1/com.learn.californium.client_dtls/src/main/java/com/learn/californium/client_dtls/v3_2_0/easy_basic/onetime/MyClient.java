@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v2_6_0.easy_basic_demo;
+package com.learn.californium.client_dtls.v3_2_0.easy_basic.onetime;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -8,15 +8,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.californium.elements.AddressEndpointContext;
 import org.eclipse.californium.elements.RawData;
+import org.eclipse.californium.elements.config.Configuration;
+import org.eclipse.californium.elements.config.Configuration.DefinitionsProvider;
 import org.eclipse.californium.elements.util.SslContextUtil;
 import org.eclipse.californium.scandium.DTLSConnector;
+import org.eclipse.californium.scandium.config.DtlsConfig;
 import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 import org.eclipse.californium.scandium.dtls.CertificateType;
 import org.eclipse.californium.scandium.dtls.pskstore.AdvancedSinglePskStore;
+import org.eclipse.californium.scandium.dtls.x509.SingleCertificateProvider;
 import org.eclipse.californium.scandium.dtls.x509.StaticNewAdvancedCertificateVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * ref: californium/demo-apps/sc-dtls-example-client/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSClient.java
+ * 
+ * @author laipl
+ *
+ */
 public class MyClient {
 	
 	private DTLSConnector dtlsConnector;
@@ -31,9 +40,15 @@ public class MyClient {
 	
 	
 	private static final String KEY_STORE_LOCATION = "mycerts/my_own/myclientakeystore.jks";
-	private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
-	private static final String TRUST_STORE_LOCATION = "mycerts/v2_6_0/other_own/mykeystore_truststore.jks";
-	private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
+	private static final char[] KEY_STORE_PASSWORD = "CksOneAdmin".toCharArray();
+	//private static final String TRUST_STORE_LOCATION = "mycerts/other_own/mykeystore_truststore.jks";
+	//private static final String TRUST_STORE_LOCATION = "mycerts/other_own/myclientakeystore_truststore.jks";
+	private static final String TRUST_STORE_LOCATION = "mycerts/my_own/myclientakeystore_truststore.jks";
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	//private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
+	private static final char[] TRUST_STORE_PASSWORD = "CtsOneAdmin".toCharArray();
 	
 	private String name;
 	
@@ -44,6 +59,18 @@ public class MyClient {
 
 	
 	public void my_configureToPrepare() {
+		DefinitionsProvider DEFAULTS = new DefinitionsProvider() {
+
+			@Override
+			public void applyDefinitions(Configuration config) {
+				config.set(DtlsConfig.DTLS_CONNECTION_ID_LENGTH, 6);
+				config.set(DtlsConfig.DTLS_RECOMMENDED_CIPHER_SUITES_ONLY, false);
+			}
+
+		};
+		
+		
+		
 		try {
 			// load key store
 			/*
@@ -69,18 +96,20 @@ public class MyClient {
 					myusr_path + "\\" + KEY_STORE_LOCATION, "myclientakeystorealias", KEY_STORE_PASSWORD,
 					KEY_STORE_PASSWORD);
 			Certificate[] trustedCertificates = SslContextUtil.loadTrustedCertificates(
-					myusr_path + "\\" + TRUST_STORE_LOCATION, "mytruststorealias", TRUST_STORE_PASSWORD);
+					myusr_path + "\\" + TRUST_STORE_LOCATION, "myclientatruststorealias", TRUST_STORE_PASSWORD);
 			
-			DtlsConnectorConfig.Builder builder = new DtlsConnectorConfig.Builder();
+			Configuration configuration = Configuration.createWithFile(Configuration.DEFAULT_FILE, "DTLS example client", DEFAULTS);
+			DtlsConnectorConfig.Builder builder = DtlsConnectorConfig.builder(configuration);
+			
 			builder.setAdvancedPskStore(new AdvancedSinglePskStore("Client_identity", "secretPSK".getBytes()));
 			
-			//builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
+			//builder.setCertificateIdentityProvider(new SingleCertificateProvider(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(), CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509));
 			//因为我自己生成的证书 我是 RAW_PUBLIC_KEY 所以 我可以不加上 CertificateType.X_509, 我觉得 它多加一个 CertificateType.X_509 应该是为了 以防 例如我们证书不是  RAW_PUBLIC_KEY 他就考虑你认为可能的的证书类型 
-			builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),CertificateType.RAW_PUBLIC_KEY);
+			builder.setCertificateIdentityProvider(new SingleCertificateProvider(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(), CertificateType.RAW_PUBLIC_KEY));
 			
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder()
 					.setTrustedCertificates(trustedCertificates).setTrustAllRPKs().build());
-			builder.setConnectionThreadCount(1);
+			//builder.setConnectionThreadCount(1);
 			dtlsConnector = new DTLSConnector(builder.build());
 			//
 			//
@@ -143,6 +172,9 @@ public class MyClient {
 	
 	
 	public void startTest(InetSocketAddress peer) {
+		// 发信息给server, 然后获取server回来的信息
+		// 接收到server发过来的 信息后, 再发信息给server
+		// 从而 一共发 指定数量的message
 		RawData data = RawData.outbound(TestMainClient.payload.getBytes(), new AddressEndpointContext(peer), null, false);
 		dtlsConnector.send(data);
 	}
@@ -155,12 +187,15 @@ public class MyClient {
 	
 	
 	public void receive(RawData raw) {
-
+		// 当前对message的数量 处理的减一
+		// 为0时则不再处理
 		TestMainClient.messageCounter.countDown();
+		//
 		long c = TestMainClient.messageCounter.getCount();
 		if (LOG.isInfoEnabled()) {
 			//LOG.info("Received response: {} {}", new Object[] { new String(raw.getBytes()), c });
 			LOG.info("Received response: {}", new Object[] { new String(raw.getBytes())});
+			System.out.println("Received my message:"+ new String(raw.getBytes()));
 		}
 		// 如果 message 还没发完, 则继续发消息 
 		if (0 < c) {

@@ -1,4 +1,4 @@
-package com.learn.californium.client_dtls.v2_6_0.easy_basic_demo;
+package com.learn.californium.client_dtls.v3_2_0.easy_basic.onetime;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -17,16 +17,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.eclipse.californium.elements.AddressEndpointContext;
 import org.eclipse.californium.elements.RawData;
 import org.eclipse.californium.elements.RawDataChannel;
+import org.eclipse.californium.elements.config.Configuration;
+import org.eclipse.californium.elements.config.Configuration.DefinitionsProvider;
 import org.eclipse.californium.elements.util.DaemonThreadFactory;
 import org.eclipse.californium.elements.util.SslContextUtil;
 import org.eclipse.californium.scandium.DTLSConnector;
+import org.eclipse.californium.scandium.config.DtlsConfig;
 import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 import org.eclipse.californium.scandium.dtls.CertificateType;
 import org.eclipse.californium.scandium.dtls.pskstore.AdvancedSinglePskStore;
+import org.eclipse.californium.scandium.dtls.x509.SingleCertificateProvider;
 import org.eclipse.californium.scandium.dtls.x509.StaticNewAdvancedCertificateVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * ref:californium/demo-apps/sc-dtls-example-client/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSClient.java 
+ * @author laipl
+ *
+ */
 public class TestMainClient_Simple {
 
 	private static final int DEFAULT_PORT = 5684;
@@ -46,7 +54,7 @@ public class TestMainClient_Simple {
 	*/
 	private static final String KEY_STORE_LOCATION = "mycerts/my_own/myclientakeystore.jks";
 	private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
-	private static final String TRUST_STORE_LOCATION = "mycerts/v2_6_0/other_own/mykeystore_truststore.jks";
+	private static final String TRUST_STORE_LOCATION = "mycerts/other_own/mykeystore_truststore.jks";
 	private static final char[] TRUST_STORE_PASSWORD = "myTrustStoreAdministrator".toCharArray();
 	
 	private static CountDownLatch messageCounter;
@@ -57,6 +65,18 @@ public class TestMainClient_Simple {
 	private AtomicInteger clientMessageCounter = new AtomicInteger();
 	
 	public TestMainClient_Simple() {
+		DefinitionsProvider DEFAULTS = new DefinitionsProvider() {
+
+			@Override
+			public void applyDefinitions(Configuration config) {
+				config.set(DtlsConfig.DTLS_CONNECTION_ID_LENGTH, 6);
+				config.set(DtlsConfig.DTLS_RECOMMENDED_CIPHER_SUITES_ONLY, false);
+			}
+
+		};
+		
+		
+		
 		try {
 			// load key store
 			/*
@@ -84,13 +104,14 @@ public class TestMainClient_Simple {
 			Certificate[] trustedCertificates = SslContextUtil.loadTrustedCertificates(
 					myusr_path + "\\" + TRUST_STORE_LOCATION, "mytruststorealias", TRUST_STORE_PASSWORD);
 			
-			DtlsConnectorConfig.Builder builder = new DtlsConnectorConfig.Builder();
+			Configuration configuration = Configuration.createWithFile(Configuration.DEFAULT_FILE, "DTLS example client", DEFAULTS);
+			DtlsConnectorConfig.Builder builder = DtlsConnectorConfig.builder(configuration);
+			
 			builder.setAdvancedPskStore(new AdvancedSinglePskStore("Client_identity", "secretPSK".getBytes()));
-			builder.setIdentity(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(),
-					CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509);
+			builder.setCertificateIdentityProvider(new SingleCertificateProvider(clientCredentials.getPrivateKey(), clientCredentials.getCertificateChain(), CertificateType.RAW_PUBLIC_KEY, CertificateType.X_509));
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder()
 					.setTrustedCertificates(trustedCertificates).setTrustAllRPKs().build());
-			builder.setConnectionThreadCount(1);
+			
 			dtlsConnector = new DTLSConnector(builder.build());
 			dtlsConnector.setRawDataReceiver(new RawDataChannel() {
 

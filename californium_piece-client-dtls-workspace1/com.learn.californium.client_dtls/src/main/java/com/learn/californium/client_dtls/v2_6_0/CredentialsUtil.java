@@ -113,7 +113,7 @@ public class CredentialsUtil {
 	private static final char[] KEY_STORE_PASSWORD = "myKeyStoreAdministrator".toCharArray();
 	//
 	private static final String KEY_STORE_LOCATION = "mycerts/my_own/myclientakeystore.jks";
-	private static final String TRUST_STORE_LOCATION = "mycerts/other_own/mykeystore_truststore.jks";
+	private static final String TRUST_STORE_LOCATION = "mycerts/v2_6_0/other_own/mykeystore_truststore.jks";
 
 	private static final String[] OPT_CID_LIST = {OPT_CID};
 
