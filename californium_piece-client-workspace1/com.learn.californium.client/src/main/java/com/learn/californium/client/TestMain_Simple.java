@@ -24,7 +24,8 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 public class TestMain_Simple {
     public static void main(String[] args) {
 
-        CoapClient client = new CoapClient("coap://localhost:5656/hello");
+        //CoapClient client = new CoapClient("coap://localhost:5683/hello");
+    	CoapClient client = new CoapClient("coap://192.168.239.137:5683/hello");
         //
         CoapResponse response;
 		//

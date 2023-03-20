@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.mydemo.observerdemo;
+package com.learn.californium.server_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -16,26 +16,22 @@ import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
-import org.eclipse.californium.oscore.ContextRederivation.PHASE;
 import org.eclipse.californium.oscore.HashMapCtxDB;
 import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-/*
- * è¿™é‡Œåªæ˜¯ç”¨äº† LOCALHOST_EPHEMERAL4 çš„åŒºåˆ«è€Œå·²
- * 
- * */
-public class TestOb2_RederivationEnable2_1 {
+
+public class TestObserverMain {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";			//å¦‚æœä½ çš„æ ‘è“æ´¾ ä¸Šæ–¹æ²¡æœ‰è·¯ç”±å™¨, è€Œæ˜¯å…¬å…±IP, åˆ™ä½ ç”¨è¿™ä¸ª
+	private static String uri_addr2 = "135.0.237.84";			//Èç¹ûÄãµÄÊ÷İ®ÅÉ ÉÏ·½Ã»ÓĞÂ·ÓÉÆ÷, ¶øÊÇ¹«¹²IP, ÔòÄãÓÃÕâ¸ö
 	private static String uri_addr3 = "192.168.239.137";		
-	private static String uri_addr4 = "192.168.50.178";			//å› ä¸ºä½ æ”¾åœ¨æ ‘è“æ´¾è¿™ä¸ªæœåŠ¡å™¨ä¸Š, å¹¶ä¸”ä½ çš„æ ‘è“æ´¾ä¸Šæœ‰è·¯ç”±å™¨, è¿™ä¸ªæ˜¯æ ‘è“æ´¾åœ¨é‚£ä¸ªè·¯ç”±å™¨ä¸‹çš„åœ°å€
+	private static String uri_addr4 = "192.168.50.178";			//ÒòÎªÄã·ÅÔÚÊ÷İ®ÅÉÕâ¸ö·şÎñÆ÷ÉÏ, ²¢ÇÒÄãµÄÊ÷İ®ÅÉÉÏÓĞÂ·ÓÉÆ÷, Õâ¸öÊÇÊ÷İ®ÅÉÔÚÄÇ¸öÂ·ÓÉÆ÷ÏÂµÄµØÖ·
 	//
 	//private final static String uriLocal 			= "coap://localhost";
 	private final static String uriLocal1 			= "coap://"+uri_addr1;
@@ -112,33 +108,15 @@ public class TestOb2_RederivationEnable2_1 {
 		
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);
-		//
-		//
+		
+		
 		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
 		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
 		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
-		//
 		try {
-			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
-			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
-			//
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
-			//
-			//
 			//db.addContext(uriLocal, ctx_B);
-			// server è¿™é‡Œçš„uri è²Œä¼¼éšä¾¿å¡«éƒ½å¯ä»¥
-			db.addContext(uriLocal4, ctx_B);
-			
-			
-			// Enable context re-derivation functionality in general
-			ctx_B.setContextRederivationEnabled(true);
-
-			// If the server is to initiate the context re-derivation procedure, set
-			// accordingly in the context
-			//ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
-			//ctx_B.setContextRederivationPhase(PHASE.SERVER_PHASE_1);
-			
-			
+			db.addContext(uriLocal3, ctx_B);
 		}
 		catch (OSException e) {
 			System.err.println("Failed to set server OSCORE Context information!");
@@ -149,19 +127,68 @@ public class TestOb2_RederivationEnable2_1 {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		// ä½†æ˜¯ server è¿™é‡Œçš„uri å¿…é¡»è¦å¡«å†™ å½“å‰æœºå­ çš„ip(å±€åŸŸç½‘192.xxx.xxx.xxx æˆ–è€… å®ƒçš„æ˜ å°„åˆ°å…¬ç½‘çš„ip), æœ€å¥½ä¸è¦å¡«å†™æˆ127.0.0.1
-		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
+		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL3);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
 		server.addEndpoint(serverEndpoint);
 
+		/** --- Resources for Observe tests follow --- **/
 		
-		MyObserverResource_Con_Mwe myobResc1 = new MyObserverResource_Con_Mwe("hello_observer");
+		//Base resource for OSCORE Observe test resources
+		OSCoreResource oscore = new OSCoreResource("oscore", true);
+		
+		//Second level base resource for OSCORE Observe test resources
+		OSCoreResource oscore_hello = new OSCoreResource("hello", true);
+
+		/**
+		 * The resource for testing Observe support 
+		 * 
+		 * Responds with "one" for the first request and "two" for later updates.
+		 *
+		 */
+		class ObserveResource extends CoapResource {
+			
+			public String value = "one";
+			private boolean firstRequestReceived = false;
+
+			public ObserveResource(String name, boolean visible) {
+				super(name, visible);
+				
+				this.setObservable(true); 
+				this.setObserveType(Type.NON);
+				this.getAttributes().setObservable();
+				
+				timer.schedule(new UpdateTask(), 0, 750);
+			}
+
+			@Override
+			public void handleGET(CoapExchange exchange) {
+				firstRequestReceived  = true;
+
+				exchange.respond(value);
+			}
+			
+			//Update the resource value when timer triggers (if 1st request is received)
+			class UpdateTask extends TimerTask {
+				@Override
+				public void run() {
+					if(firstRequestReceived) {
+						value = "two";
+						changed(); // notify all observers
+					}
+				}
+			}
+		}
 		//
-		//
-		//------------------------operate server-------------------------------------
-		//
-		server.add(myobResc1);
+		timer = new Timer();
+		//observe2 resource for OSCORE Observe tests
+		ObserveResource oscore_observe2 = new ObserveResource("observe2", true);
+
+		//Creating resource hierarchy	
+		oscore.add(oscore_hello);
+		oscore.add(oscore_observe2);
+
+		server.add(oscore);
 
 		/** --- End of resources for Observe tests **/
 

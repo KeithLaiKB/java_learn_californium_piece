@@ -1,4 +1,4 @@
-package com.learn.californium.client_oscore.mydemo;
+package com.learn.californium.client_oscore.v3_0_0.mydemo;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.mydemo.observerdemo;
+package com.learn.californium.server_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

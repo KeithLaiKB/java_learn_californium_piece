@@ -110,7 +110,7 @@ public class TestMain_RequestObserverOne_Simp {
 			//ref: californium/demo-apps/sc-dtls-example-server/src/main/java/org/eclipse/californium/scandium/examples/ExampleDTLSServer.java
 			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().setTrustedCertificates(trustedCertificates).setTrustAllRPKs().build());
 			//builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().setTrustedCertificates().setTrustAllRPKs().build());
-			builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().setTrustAllRPKs().build());
+			//builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().setTrustAllRPKs().build());
 			//builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().build());
 			//builder.setAdvancedCertificateVerifier(StaticNewAdvancedCertificateVerifier.builder().setTrustedCertificates(trustedCertificates).build());
 			
@@ -141,19 +141,9 @@ public class TestMain_RequestObserverOne_Simp {
 			*/
 
 			// ref: californium/demo-apps/cf-secure/src/main/java/org/eclipse/californium/examples/SecureClient.java /
-			//------------------------------------for observe---------------------------
-			URI uri = null;
-			try {
-				uri = new URI(myuri1);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
+			//------------------------------------for observe---------------------------	
 	    	// new client
 	    	CoapClient client = new CoapClient(myuri1);
-			client = new CoapClient(uri);
 			CoapEndpoint.Builder coapEndPointBuilder = new CoapEndpoint.Builder()
 					.setConfiguration(configuration)
 					.setConnector(dtlsConnector);

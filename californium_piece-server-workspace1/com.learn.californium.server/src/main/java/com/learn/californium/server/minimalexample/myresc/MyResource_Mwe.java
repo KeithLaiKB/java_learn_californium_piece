@@ -41,6 +41,8 @@ public class MyResource_Mwe extends CoapResource {
 		//
 		// https://datatracker.ietf.org/meeting/interim-2016-t2trg-03/materials/slides-interim-2016-t2trg-03-sessa-californium-coap-00
 		exchange.respond("hello world"); // reply with 2.05 payload (text/plain)
+		//System.out.println("hello world");
+		//exchange.respond(""); // reply with 2.05 payload (text/plain)
 		//exchange.respond(ResponseCode.CREATED);
 	}
 	

@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.mydemo.observerdemo;
+package com.learn.californium.server_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -16,20 +16,24 @@ import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
+import org.eclipse.californium.oscore.ContextRederivation.PHASE;
 import org.eclipse.californium.oscore.HashMapCtxDB;
 import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-
-public class TestObserverModified1 {
+/*
+ * 这里只是用了 LOCALHOST_EPHEMERAL4 的区别�?�已
+ * 
+ * */
+public class TestOb2_RederivationEnable2_1 {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
 	//
 	private static String uri_addr1 = "127.0.0.1";
-	private static String uri_addr2 = "135.0.237.84";			//如果你的树莓派 上方没有路由器, 而是公共IP, 则你用这个
+	private static String uri_addr2 = "135.0.237.84";			//如果你的树莓�? 上方没有路由�?, 而是公共IP, 则你用这�?
 	private static String uri_addr3 = "192.168.239.137";		
 	private static String uri_addr4 = "192.168.50.178";			//因为你放在树莓派这个服务器上, 并且你的树莓派上有路由器, 这个是树莓派在那个路由器下的地址
 	//
@@ -108,16 +112,33 @@ public class TestObserverModified1 {
 		
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);
-		
-		
+		//
+		//
 		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
 		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
 		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
+		//
 		try {
+			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
+			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
+			//
 			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
+			//
+			//
 			//db.addContext(uriLocal, ctx_B);
-			// server 锟斤拷锟斤拷锟絬ri 貌锟斤拷锟斤拷锟斤拷疃硷拷锟斤拷锟�
+			// server 这里的uri 貌似随便填都可以
 			db.addContext(uriLocal4, ctx_B);
+			
+			
+			// Enable context re-derivation functionality in general
+			ctx_B.setContextRederivationEnabled(true);
+
+			// If the server is to initiate the context re-derivation procedure, set
+			// accordingly in the context
+			//ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
+			//ctx_B.setContextRederivationPhase(PHASE.SERVER_PHASE_1);
+			
+			
 		}
 		catch (OSException e) {
 			System.err.println("Failed to set server OSCORE Context information!");
@@ -128,7 +149,7 @@ public class TestObserverModified1 {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		// 但是 server 这里的uri 必须要填写 当前机子 的ip(局域网192.xxx.xxx.xxx 或者 它的映射到公网的ip), 最好不要填写成127.0.0.1
+		// 但是 server 这里的uri 必须要填�? 当前机子 的ip(�?域网192.xxx.xxx.xxx 或�?? 它的映射到公网的ip), �?好不要填写成127.0.0.1
 		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL4);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();

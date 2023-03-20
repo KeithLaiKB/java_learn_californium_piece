@@ -1,8 +1,7 @@
-package com.learn.californium.client_oscore.mydemo.observerdemo;
+package com.learn.californium.client_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,39 +21,20 @@ import org.eclipse.californium.core.coap.CoAP.Code;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
-import org.eclipse.californium.core.coap.OptionNumberRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
-import org.eclipse.californium.oscore.ContextRederivation.PHASE;
 import org.eclipse.californium.oscore.HashMapCtxDB;
 import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-/**
- * 
- * 
- * <p>
- * 							description:																			</br>	
- * &emsp;						client to observe																	</br>
- * &emsp;						enable rederivation and set param to be PHASE.CLIENT_INITIATE						</br>
- * 
- * 							ref:																					</br>	
- * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/ContextRederivationTest.java  	</br>	
- *  																												</br>
- *  
- *
- * @author laipl
- *
- */
-public class TstOb2_Rederivation_CliInit_can {
+
+public class TestObMdf1_2_nocancel {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
 	//
-	
-	
 	//
 	private static String uri_addr1 = "127.0.0.1";
 	private static String uri_addr2 = "135.0.237.84";			//因为你的树莓派已经端口映射到它的公共IP上了, 用这个就可以了
@@ -86,8 +66,6 @@ public class TstOb2_Rederivation_CliInit_can {
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
 
 
-
-
 		byte[] sid = new byte[0];
 		byte[] rid = new byte[] { 0x01 };
 		//
@@ -101,31 +79,14 @@ public class TstOb2_Rederivation_CliInit_can {
 		OSCoreCoapStackFactory.useAsDefault(db);
 		//
 		try {
-			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
-			//
-			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
-			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true);
 			OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 32, master_salt, null);
+			//OSCoreCtx ctx = new OSCoreCtx(master_secret, true, alg, sid, rid, kdf, 0, master_salt, null);
 			//db.addContext("coap://" + "127.0.0.1", ctx);
 			//db.addContext("coap://" + uri_addr2, ctx);
 			//db.addContext(uriLocal, ctx);
 			//db.addContext(uriLocal9, ctx);
 			//db.addContext(inner_server_uri, ctx);
 			db.addContext(uriLocal3, ctx);
-			//
-			ctx.setContextRederivationEnabled(true);
-			// Explicitly initiate the context re-derivation procedure
-			ctx.setContextRederivationPhase(PHASE.CLIENT_INITIATE);
-			//
-			//
-			//
-			//
-			//
-			//OSCoreCtx newCtx = rederiveWithContextID(ctx, myContextId);
-			//newCtx.setIncludeContextId(ctx,encodeToCborBstrBytes(myContextId));
-			//ctx.setContextRederivationPhase(PHASE.CLIENT_INITIATE);
-			//ctx.setContextRederivationPhase(PHASE.CLIENT_PHASE_1);
-			//ctx.setContextRederivationPhase(PHASE.CLIENT_PHASE_3);
 
 		}
 		catch(OSException e) {
@@ -177,12 +138,6 @@ public class TstOb2_Rederivation_CliInit_can {
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
-		//r1.getOptions().setOscore(Bytes.EMPTY);
-		
-		//byte[] bys_temps=ByteBuffer.allocate(4).putInt(OptionNumberRegistry.NO_RESPONSE).array();
-		//System.out.println(bys_temps);
-		//System.out.println(bys_temps[0]);
-		//r1.getOptions().setOscore(ByteBuffer.allocate(4).putInt(OptionNumberRegistry.OSCORE).array());
 		r1.getOptions().setOscore(Bytes.EMPTY);
 		//
 		//
@@ -204,7 +159,7 @@ public class TstOb2_Rederivation_CliInit_can {
 		boolean judge_timeout = false;
 		while (judge_timeout==false) {
 			long nowTime_tmp=System.nanoTime();
-			long timelimit_tmp=15*1000000000L;
+			long timelimit_tmp=10*1000000000L;
 			if(nowTime_tmp-startObserveTime>timelimit_tmp) {
 				judge_timeout=true;
 			}
@@ -252,7 +207,7 @@ public class TstOb2_Rederivation_CliInit_can {
 		
 		
 		
-		relation.proactiveCancel();
+		//relation.proactiveCancel();
 		
 		
         //---------------------------------------------

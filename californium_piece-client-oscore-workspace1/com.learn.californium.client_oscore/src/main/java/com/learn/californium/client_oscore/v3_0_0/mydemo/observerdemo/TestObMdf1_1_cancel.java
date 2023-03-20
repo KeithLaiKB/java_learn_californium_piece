@@ -1,4 +1,4 @@
-package com.learn.californium.client_oscore.mydemo.observerdemo;
+package com.learn.californium.client_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -30,7 +30,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestObMdf1_3_difftoken {
+public class TestObMdf1_1_cancel {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -64,8 +64,6 @@ public class TestObMdf1_3_difftoken {
 
 		//californium/cf-oscore/src/main/java/org/eclipse/californium/oscore/ResponseDecryptor.java
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
-
-
 
 
 		byte[] sid = new byte[0];
@@ -132,7 +130,7 @@ public class TestObMdf1_3_difftoken {
 		//byte[] token = Bytes.createBytes(new Random(), 8);
 		byte[] token1 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
 		byte[] token2 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
-		System.out.println(token2);
+		System.out.println(token1);
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
@@ -144,7 +142,7 @@ public class TestObMdf1_3_difftoken {
 		//
 		//
 		//Request r = createClientRequest(Code.GET, resourceUri);
-		r1.setToken(token2);
+		r1.setToken(token1);
 		r1.setObserve();
 		CoapObserveRelation relation = client.observe(r1,myObserveHandler);
 
@@ -209,7 +207,7 @@ public class TestObMdf1_3_difftoken {
 		
 		
 		
-		//relation.proactiveCancel();
+		relation.proactiveCancel();
 		
 		
         //---------------------------------------------

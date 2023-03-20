@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.mydemo.observerdemo;
+package com.learn.californium.server_oscore.v3_7_0.mydemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -16,14 +16,13 @@ import org.eclipse.californium.core.coap.CoAP.Type;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.cose.AlgorithmID;
 import org.eclipse.californium.elements.util.Bytes;
-import org.eclipse.californium.oscore.ContextRederivation.PHASE;
 import org.eclipse.californium.oscore.HashMapCtxDB;
 import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestOb2_RederivationEnable {
+public class TestObserverMain {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -109,33 +108,19 @@ public class TestOb2_RederivationEnable {
 		
 		EndpointManager.clear();
 		OSCoreCoapStackFactory.useAsDefault(db);
-		//
-		//
+		
+		
 		byte[] myContextId1 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x74 };
 		byte[] myContextId2 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x75 };
 		byte[] myContextId3 = { 0x74, 0x65, 0x73, 0x74, 0x74, 0x65, 0x73, 0x76 };
-		//
 		try {
 			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, null);
+			int MAX_UNFRAGMENTED_SIZE = 4096;
 			//OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false);
-			//
-			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, myContextId1);
-			//
-			//
+			byte[] context_id = { 0x74, 0x65, 0x73, 0x74 };
+			OSCoreCtx ctx_B = new OSCoreCtx(master_secret, false, alg, sid, rid, kdf, 32, master_salt, context_id,MAX_UNFRAGMENTED_SIZE);
 			//db.addContext(uriLocal, ctx_B);
-			// server 这里的uri 貌似随便填都可以
-			db.addContext(uriLocal4, ctx_B);
-			
-			
-			// Enable context re-derivation functionality in general
-			ctx_B.setContextRederivationEnabled(true);
-
-			// If the server is to initiate the context re-derivation procedure, set
-			// accordingly in the context
-			//ctx_B.setContextRederivationPhase(PHASE.SERVER_INITIATE);
-			//ctx_B.setContextRederivationPhase(PHASE.SERVER_PHASE_1);
-			
-			
+			db.addContext(uriLocal3, ctx_B);
 		}
 		catch (OSException e) {
 			System.err.println("Failed to set server OSCORE Context information!");
@@ -146,19 +131,68 @@ public class TestOb2_RederivationEnable {
 		//Create server
 		CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
 		builder.setCustomCoapStackArgument(db);
-		// 但是 server 这里的uri 必须要填写 当前机子 的ip(局域网192.xxx.xxx.xxx 或者 它的映射到公网的ip), 最好不要填写成127.0.0.1
 		builder.setInetSocketAddress(LOCALHOST_EPHEMERAL3);
 		serverEndpoint = builder.build();
 		CoapServer server = new CoapServer();
 		server.addEndpoint(serverEndpoint);
 
+		/** --- Resources for Observe tests follow --- **/
 		
-		MyObserverResource_Con_Mwe myobResc1 = new MyObserverResource_Con_Mwe("hello_observer");
+		//Base resource for OSCORE Observe test resources
+		OSCoreResource oscore = new OSCoreResource("oscore", true);
+		
+		//Second level base resource for OSCORE Observe test resources
+		OSCoreResource oscore_hello = new OSCoreResource("hello", true);
+
+		/**
+		 * The resource for testing Observe support 
+		 * 
+		 * Responds with "one" for the first request and "two" for later updates.
+		 *
+		 */
+		class ObserveResource extends CoapResource {
+			
+			public String value = "one";
+			private boolean firstRequestReceived = false;
+
+			public ObserveResource(String name, boolean visible) {
+				super(name, visible);
+				
+				this.setObservable(true); 
+				this.setObserveType(Type.NON);
+				this.getAttributes().setObservable();
+				
+				timer.schedule(new UpdateTask(), 0, 750);
+			}
+
+			@Override
+			public void handleGET(CoapExchange exchange) {
+				firstRequestReceived  = true;
+
+				exchange.respond(value);
+			}
+			
+			//Update the resource value when timer triggers (if 1st request is received)
+			class UpdateTask extends TimerTask {
+				@Override
+				public void run() {
+					if(firstRequestReceived) {
+						value = "two";
+						changed(); // notify all observers
+					}
+				}
+			}
+		}
 		//
-		//
-		//------------------------operate server-------------------------------------
-		//
-		server.add(myobResc1);
+		timer = new Timer();
+		//observe2 resource for OSCORE Observe tests
+		ObserveResource oscore_observe2 = new ObserveResource("observe2", true);
+
+		//Creating resource hierarchy	
+		oscore.add(oscore_hello);
+		oscore.add(oscore_observe2);
+
+		server.add(oscore);
 
 		/** --- End of resources for Observe tests **/
 

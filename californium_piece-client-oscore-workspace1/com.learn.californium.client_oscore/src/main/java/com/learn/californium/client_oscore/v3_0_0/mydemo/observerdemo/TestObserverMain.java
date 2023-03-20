@@ -1,4 +1,4 @@
-package com.learn.californium.client_oscore.mydemo.observerdemo;
+package com.learn.californium.client_oscore.v3_0_0.mydemo.observerdemo;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -30,7 +30,7 @@ import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
 
-public class TestObMdf1_1_cancel {
+public class TestObserverMain {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	//
@@ -64,6 +64,8 @@ public class TestObMdf1_1_cancel {
 
 		//californium/cf-oscore/src/main/java/org/eclipse/californium/oscore/ResponseDecryptor.java
 		//INFO org.eclipse.californium.oscore.OptionJuggle - Removing inner only E options from the outer options
+
+
 
 
 		byte[] sid = new byte[0];
@@ -128,13 +130,12 @@ public class TestObMdf1_1_cancel {
 
 		//Create request and initiate Observe relationship
 		//byte[] token = Bytes.createBytes(new Random(), 8);
-		byte[] token1 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
-		byte[] token2 = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x71};
-		System.out.println(token1);
+		byte[] token = {0x0F, 0x1F, 0x2F, 0x3F, 0x4F, 0x5F, 0x6F, 0x7F};
+		System.out.println(token);
 
 		Request r1 = new Request(Code.GET);
 		r1.setConfirmable(true);
-		r1.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
+		r1.setURI("coap://"+uri_addr3+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r1.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
@@ -142,7 +143,7 @@ public class TestObMdf1_1_cancel {
 		//
 		//
 		//Request r = createClientRequest(Code.GET, resourceUri);
-		r1.setToken(token1);
+		r1.setToken(token);
 		r1.setObserve();
 		CoapObserveRelation relation = client.observe(r1,myObserveHandler);
 
@@ -169,12 +170,12 @@ public class TestObMdf1_1_cancel {
 
 
 
-		/*
+		
 
 		//Now cancel the Observe and wait for the final response
 		Request r2 = new Request(Code.GET);
 		r2.setConfirmable(true);
-		r2.setURI("coap://"+uri_addr3+":5656"+"/hello_observer");
+		r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r2.setURI("coap://"+uri_addr2+":5656"+"/oscore/observe2");
 		//r2.setURI("coap://127.0.0.1:5656/oscore/observe2");
 		//r1.setURI("coap://135.0.237.84:5656/oscore/observe2");
@@ -201,13 +202,9 @@ public class TestObMdf1_1_cancel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
 		
 		
-		
-		
-		
-		relation.proactiveCancel();
+		//relation.proactiveCancel();
 		
 		
         //---------------------------------------------

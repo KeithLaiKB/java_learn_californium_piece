@@ -1,4 +1,4 @@
-package com.learn.californium.server_oscore.mydemo;
+package com.learn.californium.server_oscore.v3_0_0.mydemo;
 
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
@@ -10,23 +10,31 @@ import org.eclipse.californium.oscore.OSCoreCoapStackFactory;
 import org.eclipse.californium.oscore.OSCoreCtx;
 import org.eclipse.californium.oscore.OSCoreResource;
 import org.eclipse.californium.oscore.OSException;
-
-public class TestMain_modified {
+/**
+ * 
+ * 
+ * <p>
+ * 							description:																			</br>	
+ * 
+ * 							ref:																					</br>	
+ * &emsp;						californium/cf-oscore/src/test/java/org/eclipse/californium/oscore/HelloWorldServer.java  	</br>	
+ *
+ *
+ * @author laipl
+ *
+ */
+public class TestMain_Simple {
 
 	private final static HashMapCtxDB db = new HashMapCtxDB();
 	private final static String uriLocal = "coap://localhost";
 	private final static AlgorithmID alg = AlgorithmID.AES_CCM_16_64_128;
 	private final static AlgorithmID kdf = AlgorithmID.HKDF_HMAC_SHA_256;
-	
-	final static int myport1=5656;
 
 	// test vector OSCORE draft Appendix C.1.2
 	private final static byte[] master_secret = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B,
 			0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
 	private final static byte[] master_salt = { (byte) 0x9e, (byte) 0x7c, (byte) 0xa9, (byte) 0x22, (byte) 0x23,
 			(byte) 0x78, (byte) 0x63, (byte) 0x40 };
-	
-	// 写上 server 自己的id 作为  Sender ID, client 需要知道这个
 	private final static byte[] sid = new byte[] { 0x01 };
 	private final static byte[] rid = new byte[0];
 
@@ -35,7 +43,7 @@ public class TestMain_modified {
 		db.addContext(uriLocal, ctx);
 		OSCoreCoapStackFactory.useAsDefault(db);
 
-		final CoapServer server = new CoapServer(myport1);
+		final CoapServer server = new CoapServer(5683);
 
 		OSCoreResource hello = new OSCoreResource("hello", true) {
 
